@@ -1,9 +1,9 @@
 const CustomFooter = (props) => {
-  return (
-      <footer>
+    return (
+        <footer>
 
-      </footer>
-  )
+        </footer>
+    )
 }
 
 export default CustomFooter
