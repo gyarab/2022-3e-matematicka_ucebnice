@@ -29,20 +29,12 @@ const CustomHead = ({title, themeColorLight, themeColorDark}) => {
             />
             <meta
                 name={"theme-color"}
-                media={"(prefers-color-scheme: light)"}
                 content={`${themeColorLight}`}
-            />
-            <meta
-                name={"theme-color"}
-                media={"(prefers-color-scheme: dark)"}
-                content={`${themeColorDark}`}
             />
             <meta
                 name={"msapplication-TileColor"}
                 content={"#ffffff"}
             />
-
-
             <link
                 rel={"apple-touch-icon"}
                 sizes={"180x180"}
