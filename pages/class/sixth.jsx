@@ -3,7 +3,7 @@ import CustomHead from "../../components/utils/CustomHead";
 import {colorThemeDark, colorThemeLight} from "../../lib/env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
 
-const SixthClass = (props) => {
+const SixthClass = () => {
     return (
         <>
             <CustomHead
@@ -12,7 +12,7 @@ const SixthClass = (props) => {
                 themeColorDark={colorThemeDark}
             />
 
-            <main>
+            <main className={'container-fluid'}>
                 <NavBar />
                 <h1>šestá třída</h1>
             </main>

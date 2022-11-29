@@ -2,7 +2,21 @@ import CustomHead from "../components/utils/CustomHead";
 import {colorThemeLight, colorThemeDark} from "../lib/env-variables";
 import CustomFooter from "../components/utils/CustomFooter";
 
+/**
+ * INDEX PAGE
+ *
+ * - component shows basic public information about this application
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Home = () => {
+    /*
+    TODO -> authentication panel
+    TODO -> basic info about the app
+    TODO -> page design
+     */
+
     return (
         <>
             <CustomHead
@@ -11,7 +25,7 @@ const Home = () => {
                 themeColorDark={colorThemeDark}
             />
 
-            <main>
+            <main className={'container-fluid'}>
 
             </main>
 

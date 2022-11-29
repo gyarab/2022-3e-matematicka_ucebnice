@@ -4,6 +4,10 @@ import {colorThemeDark, colorThemeLight} from "../../lib/env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
 
 const Register = (props) => {
+    /*
+    TODO -> user registration (backend environment)
+     */
+
     return (
         <>
             <CustomHead
@@ -12,7 +16,7 @@ const Register = (props) => {
                 themeColorDark={colorThemeDark}
             />
 
-            <main>
+            <main className={'container-fluid'}>
                 <NavBar />
             </main>
 

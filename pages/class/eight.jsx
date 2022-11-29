@@ -4,6 +4,12 @@ import {colorThemeDark, colorThemeLight} from "../../lib/env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
 
 const EightClass = (props) => {
+    /*
+    TODO -> how to render class game list?
+    TODO -> getting game props from database?
+    TODO -> !!! game lazy load implementation !!!
+     */
+
     return (
         <>
             <CustomHead
@@ -11,12 +17,10 @@ const EightClass = (props) => {
                 themeColorLight={colorThemeLight}
                 themeColorDark={colorThemeDark}
             />
-
-            <main>
+            <main className={'container-fluid'}>
                 <NavBar />
                 <h1>osmá třída</h1>
             </main>
-
             <CustomFooter/>
         </>
     )

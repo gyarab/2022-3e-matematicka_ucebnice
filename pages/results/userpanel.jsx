@@ -3,7 +3,15 @@ import {colorThemeDark, colorThemeLight} from "../../lib/env-variables";
 import NavBar from "../../components/nav-bar/NavBar";
 import CustomFooter from "../../components/utils/CustomFooter";
 
-const ResultPanel = (props) => {
+/**
+ * USER PANEL
+ *
+ * - component shows user's score, stats, etc.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const UserPanel = () => {
     return (
         <>
             <CustomHead
@@ -11,14 +19,12 @@ const ResultPanel = (props) => {
                 themeColorLight={colorThemeLight}
                 themeColorDark={colorThemeDark}
             />
-
-            <main>
+            <main className={'container-fluid'}>
                 <NavBar />
             </main>
-
             <CustomFooter/>
         </>
     )
 }
 
-export default ResultPanel
+export default UserPanel

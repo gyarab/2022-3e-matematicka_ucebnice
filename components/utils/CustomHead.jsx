@@ -1,7 +1,8 @@
 import Head from 'next/head'
 
 /**
- * Custom head element
+ * CUSTOM HEAD ELEMENT
+ *
  * - component creates head of an application
  * - should be used on every route of the project except API routes
  *
