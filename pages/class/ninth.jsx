@@ -14,6 +14,7 @@ const NinthClass = (props) => {
 
             <main>
                 <NavBar />
+                <h1>devátá třída</h1>
             </main>
 
             <CustomFooter/>

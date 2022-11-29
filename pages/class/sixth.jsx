@@ -14,6 +14,7 @@ const SixthClass = (props) => {
 
             <main>
                 <NavBar />
+                <h1>šestá třída</h1>
             </main>
 
             <CustomFooter/>

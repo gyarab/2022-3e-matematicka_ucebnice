@@ -14,6 +14,7 @@ const EightClass = (props) => {
 
             <main>
                 <NavBar />
+                <h1>osmá třída</h1>
             </main>
 
             <CustomFooter/>
