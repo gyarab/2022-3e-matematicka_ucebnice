@@ -16,7 +16,6 @@ const Home = () => {
     TODO -> basic info about the app
     TODO -> page design
      */
-
     return (
         <>
             <CustomHead
