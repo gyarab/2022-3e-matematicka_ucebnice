@@ -19,7 +19,7 @@ const NavBar = ({currentRoute}) => {
      */
 
     return (
-        <Navbar bg={"--bs-blue"} expand={"lg"}>
+        <Navbar bg={"secondary"} expand={"lg"}>
             <Container>
                 <Navbar.Brand href={"/homepage"}>Matematická učebnice</Navbar.Brand>
                 <Navbar.Toggle aria-controls={"basic-navbar-nav"}/>
