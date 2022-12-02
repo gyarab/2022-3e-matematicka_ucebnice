@@ -11,9 +11,11 @@ const SeventhClass = (props) => {
                 themeColorLight={colorThemeLight}
                 themeColorDark={colorThemeDark}
             />
-            <main className={'container-fluid'}>
+            <main>
                 <NavBar />
-                <h1>sedmá třída</h1>
+                <div className={'container-fluid'}>
+                    <h1>Sedmá třída</h1>
+                </div>
             </main>
             <CustomFooter/>
         </>

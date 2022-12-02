@@ -9,8 +9,8 @@ const SixthClassGameList = () => {
         <div className={'container-fluid'}>
             <ul>
                 <li>
-                    <Link href={}>
-
+                    <Link href={'/'}>
+                        sth
                     </Link>
                 </li>
             </ul>
