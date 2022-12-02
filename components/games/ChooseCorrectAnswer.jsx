@@ -18,6 +18,8 @@
  * @returns {JSX.Element}
  * @constructor
  */
+import {Button, OverlayTrigger, Popover, Tooltip} from "react-bootstrap";
+
 const ChooseCorrectAnswer = ({question, answers, correctAnswer, helperText, equation}) => {
     /*
     TODO -> component design
@@ -26,22 +28,25 @@ const ChooseCorrectAnswer = ({question, answers, correctAnswer, helperText, equa
     TODO -> score saving
      */
 
+    const popover = (
+        <Popover id="popover-basic">
+            <Popover.Header as="h3">Nápověda</Popover.Header>
+            <Popover.Body>
+                {helperText}
+            </Popover.Body>
+        </Popover>
+    )
+
     return (
         <div>
-            <div>{question}</div>
-            {
-                helperText !== null &&
-                <div>{helperText}</div>
-            }
-            {
-                equation !== null &&
-                <div>{question}</div>
-            }
-            <ul>
+            <OverlayTrigger trigger={['hover', 'focus']} placement={"right"} overlay={popover}>
+                <Button variant={"info"}>{question}</Button>
+            </OverlayTrigger>
+            <div>
                 {answers.map(answer => {
-                    return <li key={answer}>{answer}</li>
+                    return <Button variant={"outline-secondary m-2"} key={answer}>{answer}</Button>
                 })}
-            </ul>
+            </div>
         </div>
     )
 }
