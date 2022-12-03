@@ -40,7 +40,7 @@ const ChooseCorrectAnswer = ({question, answers, correctAnswer, helperText, equa
     return (
         <div>
             <OverlayTrigger trigger={['hover', 'focus']} placement={"right"} overlay={popover}>
-                <Button variant={"info"}>{question}</Button>
+                <Button style={{color: 'white'}} variant={"info"}>{question}</Button>
             </OverlayTrigger>
             <div>
                 {answers.map(answer => {
