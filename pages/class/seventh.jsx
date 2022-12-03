@@ -12,7 +12,10 @@ const SeventhClass = (props) => {
                 themeColorDark={colorThemeDark}
             />
             <main>
-                <NavBar />
+                <NavBar
+                    activeRoute={'/class/seventh'}
+                    imgPath={'/android-chrome-512x512.png'}
+                />
                 <div className={'container-fluid'}>
                     <h1>Sedmá třída</h1>
                 </div>

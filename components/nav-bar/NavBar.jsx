@@ -1,6 +1,8 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import img from '../../public/android-chrome-512x512.png'
+import {useEffect, useState} from "react";
 
 /**
  * NAVIGATOR
@@ -12,23 +14,48 @@ import Navbar from 'react-bootstrap/Navbar';
  * @returns {JSX.Element}
  * @constructor
  */
-const NavBar = ({currentRoute}) => {
+const NavBar = ({activeRoute, imgPath}) => {
     /*
     TODO -> implement marking current route
     TODO -> redesign colors of this navbar (rewrite bootstrap variables)
      */
 
+    const [showImg, setShowImg] = useState(false)
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.innerWidth > 330) {
+            setShowImg(true)
+        }
+    }, [])
+
     return (
         <Navbar bg={"secondary"} expand={"lg"}>
             <Container>
-                <Navbar.Brand href={"/homepage"}>Matematická učebnice</Navbar.Brand>
-                <Navbar.Toggle aria-controls={"basic-navbar-nav"}/>
+                <Navbar.Brand href={"/homepage"}>
+                    {
+                        showImg &&
+                        <>
+                            <img
+                                alt={"app logo"}
+                                src={imgPath}
+                                width={"30"}
+                                height={"30"}
+                                className={"d-inline-block align-top rounded"}
+                            />{' '}
+                        </>
+                    }
+                    Matematická učebnice
+                </Navbar.Brand>
+                <Navbar.Toggle
+                    aria-controls={"basic-navbar-nav"}
+                />
                 <Navbar.Collapse id={"basic-navbar-nav"}>
-                    <Nav className={"me-auto"}>
-                        <Nav.Link href={"/class/sixth"}>Šestá třída</Nav.Link>
-                        <Nav.Link href={"/class/seventh"}>Sedmá třída</Nav.Link>
-                        <Nav.Link href={"/class/eight"}>Osmá třída</Nav.Link>
-                        <Nav.Link href={"/class/ninth"}>Devátá třída</Nav.Link>
+                    <Nav className={"me-auto"} activeKey={activeRoute}>
+                        <Nav.Link href={"/class/sixth"} eventKey={'/class/sixth'}>Šestá třída</Nav.Link>
+                        <Nav.Link href={"/class/seventh"} eventKey={'/class/seventh'}>Sedmá třída</Nav.Link>
+                        <Nav.Link href={"/class/eight"} eventKey={'/class/eight'}>Osmá třída</Nav.Link>
+                        <Nav.Link href={"/class/ninth"} eventKey={'/class/ninth'}>Devátá třída</Nav.Link>
+                        <Nav.Link href={"/user/account"} eventKey={'/class/ninth'}>Můj účet</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

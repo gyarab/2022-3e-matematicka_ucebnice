@@ -13,7 +13,10 @@ const SixthClass = () => {
             />
 
             <main>
-                <NavBar />
+                <NavBar
+                    activeRoute={'/class/sixth'}
+                    imgPath={'/android-chrome-512x512.png'}
+                />
                 <div className={'container-fluid'}>
                     <h1>Šestá třída</h1>
                 </div>

@@ -12,7 +12,10 @@ const NinthClass = (props) => {
                 themeColorDark={colorThemeDark}
             />
             <main>
-                <NavBar />
+                <NavBar
+                    activeRoute={'/class/ninth'}
+                    imgPath={'/android-chrome-512x512.png'}
+                />
                 <div className={'container-fluid'}>
                     <h1>devátá třída</h1>
                 </div>
