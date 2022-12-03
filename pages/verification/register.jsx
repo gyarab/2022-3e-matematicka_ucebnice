@@ -78,46 +78,47 @@ const Register = (props) => {
                             className={"mb-3"}
                             controlId={"formBasicEmail"}
                         >
-                            <Form.Label>E-mail</Form.Label>
+                            <Form.Label className={verificationStyles.description}>E-mail</Form.Label>
                             <Form.Control
                                 required
                                 ref={emailRef}
                                 type={"email"}
                                 placeholder={"Zadejte e-mail..."}
                             />
-                            <Form.Control.Feedback type={'invalid'}>E-mail není zadán nebo má špatný formát</Form.Control.Feedback>
+                            <Form.Control.Feedback type={'invalid'} className={verificationStyles.feedback}>E-mail není zadán nebo má špatný formát</Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group
                             className={"mb-3"}
                             controlId={"formBasicPassword"}
                         >
-                            <Form.Label>Heslo</Form.Label>
+                            <Form.Label className={verificationStyles.description}>Heslo</Form.Label>
                             <Form.Control
                                 required
                                 ref={passwordRef}
                                 type={"password"}
                                 placeholder={"Zadejte heslo..."}
                             />
-                            <Form.Control.Feedback type={'invalid'}>Heslo není zadáno.</Form.Control.Feedback>
+                            <Form.Control.Feedback type={'invalid'} className={verificationStyles.feedback}>Heslo není zadáno.</Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group
                             className={"mb-3"}
                             controlId={"formBasicPassword"}
                         >
-                            <Form.Label>Ověření hesla</Form.Label>
+                            <Form.Label className={verificationStyles.description}>Ověření hesla</Form.Label>
                             <Form.Control
                                 required
                                 ref={passwordAgainRef}
                                 type={"password"}
                                 placeholder={"Ověřte svoje heslo..."}
                             />
-                            <Form.Control.Feedback type={'invalid'}>Zadejte prosím heslo znovu.</Form.Control.Feedback>
+                            <Form.Control.Feedback type={'invalid'} className={verificationStyles.feedback}>Zadejte prosím heslo znovu.</Form.Control.Feedback>
                         </Form.Group>
 
                         <Button
                             variant={"primary"}
+                            className={verificationStyles.submitButton}
                             type={'submit'}
                             onClick={handleLogin}
                         >

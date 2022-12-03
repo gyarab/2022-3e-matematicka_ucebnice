@@ -93,32 +93,33 @@ const Login = () => {
                             className={"mb-3"}
                             controlId={"formBasicEmail"}
                         >
-                            <Form.Label>E-mail</Form.Label>
+                            <Form.Label className={verificationStyles.description}>E-mail</Form.Label>
                             <Form.Control
                                 required
                                 ref={emailRef}
                                 type={"email"}
                                 placeholder={"Zadejte e-mail..."}
                             />
-                            <Form.Control.Feedback type={'invalid'}>E-mail není zadán nebo má špatný formát</Form.Control.Feedback>
+                            <Form.Control.Feedback type={'invalid'} className={verificationStyles.feedback}>E-mail není zadán nebo má špatný formát</Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group
                             className={"mb-3"}
                             controlId={"formBasicPassword"}
                         >
-                            <Form.Label>Heslo</Form.Label>
+                            <Form.Label className={verificationStyles.description}>Heslo</Form.Label>
                             <Form.Control
                                 required
                                 ref={passwordRef}
                                 type={"password"}
                                 placeholder={"Zadejte heslo..."}
                             />
-                            <Form.Control.Feedback type={'invalid'}>Heslo není zadáno</Form.Control.Feedback>
+                            <Form.Control.Feedback type={'invalid'} className={verificationStyles.feedback}>Heslo není zadáno</Form.Control.Feedback>
                         </Form.Group>
                         <Button
                             variant={"primary"}
                             type={'submit'}
+                            className={verificationStyles.submitButton}
                             onClick={handleLogin}
                         >
                             Přihlásit
