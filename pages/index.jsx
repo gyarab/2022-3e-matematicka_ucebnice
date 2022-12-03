@@ -2,6 +2,27 @@ import CustomHead from "../components/utils/CustomHead";
 import {colorThemeLight, colorThemeDark} from "../lib/env-variables";
 import CustomFooter from "../components/utils/CustomFooter";
 
+/*
+async function getServerSideProps(context) {
+    try {
+        const token = cookie.parse(context.req.headers.cookie).accesToken
+        const authSession = await validateToken({token: token})
+        if (!authSession) {
+            return {
+                redirect: {
+                    destination: "/login",
+                    permanent: false
+                }
+            }
+        }
+
+        return {props: {}}
+    } catch (e) {
+        return {props: {}}
+    }
+}
+ */
+
 /**
  * INDEX PAGE
  *
