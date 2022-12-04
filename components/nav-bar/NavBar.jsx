@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import img from '../../public/android-chrome-512x512.png'
 import {useEffect, useState} from "react";
+import Image from "next/image";
 
 /**
  * NAVIGATOR
@@ -31,20 +32,22 @@ const NavBar = ({activeRoute, imgPath}) => {
     return (
         <Navbar bg={"secondary"} expand={"lg"}>
             <Container>
-                <Navbar.Brand href={"/homepage"}>
+                <Navbar.Brand href={"/homepage"} style={{display: 'flex'}} className={'align-items-center'}>
                     {
                         showImg &&
                         <>
-                            <img
+                            <Image
                                 alt={"app logo"}
                                 src={imgPath}
-                                width={"30"}
-                                height={"30"}
-                                className={"d-inline-block align-top rounded"}
-                            />{' '}
+                                width={30}
+                                height={30}
+                                className={"rounded"}
+                            />
                         </>
                     }
-                    Matematická učebnice
+                    <div className={'ms-1'}>
+                        Matematická učebnice
+                    </div>
                 </Navbar.Brand>
                 <Navbar.Toggle
                     aria-controls={"basic-navbar-nav"}

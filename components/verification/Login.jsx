@@ -3,6 +3,7 @@ import verificationStyles from "../../styles/Verification.module.css";
 import ErrorAnnouncement from "../utils/ErrorAnnouncement";
 import {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
+import Image from "next/image";
 
 const LoginForm = () => {
     const router = useRouter()
@@ -113,7 +114,7 @@ const LoginForm = () => {
                         className={`${verificationStyles.submitButton} m-1`}
                         onClick={() => router.push('https://www.google.com')}
                     >
-                        <img src={"https://www.google.com/favicon.ico"} width={25} height={25} alt={"Google favicon"}/>
+                        <Image priority={false} src={"https://www.google.com/favicon.ico"} width={25} height={25} alt={"Google favicon"}/>
                     </Button>
                 </div>
 
