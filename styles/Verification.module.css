@@ -20,6 +20,10 @@
     display: flex;
 }
 
+.submitButton {
+    display: flex;
+}
+
 .submitButton:hover {
     box-shadow: 2px 2px 10px darkgrey;
     -moz-box-shadow: 2px 2px 10px darkgrey;
