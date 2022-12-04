@@ -50,7 +50,10 @@ const HomePage = (props) => {
                                         Description
                                     </Card.Text>
                                     <Button variant={'secondary'}
-                                            onClick={() => router.push('/class/sixth')}>Vstoupit do třídy</Button>
+                                            onClick={() => router.push('/class/sixth')}
+                                    >
+                                        Vstoupit do třídy
+                                    </Button>
                                 </Card.Body>
                             </Card>
                             <Card
@@ -65,7 +68,10 @@ const HomePage = (props) => {
                                         Description
                                     </Card.Text>
                                     <Button variant={'secondary'}
-                                            onClick={() => router.push('/class/seventh')}>Vstoupit do třídy</Button>
+                                            onClick={() => router.push('/class/seventh')}
+                                    >
+                                        Vstoupit do třídy
+                                    </Button>
                                 </Card.Body>
                             </Card>
                         </Row>
@@ -82,7 +88,10 @@ const HomePage = (props) => {
                                         Description
                                     </Card.Text>
                                     <Button variant={'secondary'}
-                                            onClick={() => router.push('/class/eight')}>Vstoupit do třídy</Button>
+                                            onClick={() => router.push('/class/eight')}
+                                    >
+                                        Vstoupit do třídy
+                                    </Button>
                                 </Card.Body>
                             </Card>
                             <Card
@@ -97,7 +106,10 @@ const HomePage = (props) => {
                                         Description
                                     </Card.Text>
                                     <Button variant={'secondary'}
-                                            onClick={() => router.push('/class/ninth')}>Vstoupit do třídy</Button>
+                                            onClick={() => router.push('/class/ninth')}
+                                    >
+                                        Vstoupit do třídy
+                                    </Button>
                                 </Card.Body>
                             </Card>
                         </Row>
