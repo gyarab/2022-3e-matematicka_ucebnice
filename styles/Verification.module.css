@@ -8,11 +8,16 @@
     box-shadow: 0 2px 20px darkgrey;
     -moz-box-shadow: 0 2px 20px darkgrey;
     -webkit-box-shadow: 0 2px 20px darkgrey;
+    background-color: white;
 }
 
 .formContainer {
     display: flex;
     height: calc(100% - 56px);
+}
+
+.buttonGroup {
+    display: flex;
 }
 
 .submitButton:hover {

@@ -2,8 +2,11 @@ import {Button, Form} from "react-bootstrap";
 import verificationStyles from "../../styles/Verification.module.css";
 import ErrorAnnouncement from "../utils/ErrorAnnouncement";
 import {useEffect, useRef, useState} from "react";
+import {useRouter} from "next/router";
 
 const LoginForm = () => {
+    const router = useRouter()
+
     const emailRef = useRef('')
     const passwordRef = useRef('')
 
@@ -87,14 +90,33 @@ const LoginForm = () => {
                     <Form.Control.Feedback type={'invalid'} className={verificationStyles.feedback}>Heslo není
                         zadáno</Form.Control.Feedback>
                 </Form.Group>
-                <Button
-                    variant={"primary"}
-                    type={'submit'}
-                    className={verificationStyles.submitButton}
-                    onClick={handleLogin}
-                >
-                    Přihlásit
-                </Button>
+                <div className={verificationStyles.buttonGroup}>
+                    <Button
+                        variant={"primary"}
+                        type={'submit'}
+                        className={`${verificationStyles.submitButton} m-1`}
+                        onClick={handleLogin}
+                    >
+                        Přihlásit
+                    </Button>
+                    <Button
+                        variant={"secondary"}
+                        type={'button'}
+                        className={`${verificationStyles.submitButton} m-1`}
+                        onClick={() => router.push('/verification/register')}
+                    >
+                        Registrovat
+                    </Button>
+                    <Button
+                        variant={"secondary"}
+                        type={'button'}
+                        className={`${verificationStyles.submitButton} m-1`}
+                        onClick={() => router.push('https://www.google.com')}
+                    >
+                        <img src={"https://www.google.com/favicon.ico"} width={25} height={25} alt={"Google favicon"}/>
+                    </Button>
+                </div>
+
             </Form>
             {
                 err.isErr &&

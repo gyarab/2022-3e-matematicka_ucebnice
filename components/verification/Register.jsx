@@ -107,10 +107,10 @@ const RegisterForm = () => {
                 <Button
                     variant={"primary"}
                     className={verificationStyles.submitButton}
-                    type={'submit'}
+                    type={'button'}
                     onClick={handleLogin}
                 >
-                    Přihlásit
+                    Registrovat
                 </Button>
             </Form>
             {
