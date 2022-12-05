@@ -107,7 +107,7 @@ const RegisterForm = () => {
                 <Button
                     variant={"primary"}
                     className={verificationStyles.submitButton}
-                    type={'button'}
+                    type={'submit'}
                     onClick={handleLogin}
                 >
                     Registrovat
