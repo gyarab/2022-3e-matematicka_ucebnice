@@ -17,6 +17,7 @@ const CustomHead = ({title, themeColorLight, themeColorDark}) => {
     const [isDark, setIsDark] = useState(false)
 
     useEffect(() => {
+        setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches)
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
             setIsDark(event.matches);
         });
