@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import {useEffect, useState} from "react";
 
 /**
  * CUSTOM HEAD ELEMENT
@@ -13,6 +14,14 @@ import Head from 'next/head'
  * @constructor
  */
 const CustomHead = ({title, themeColorLight, themeColorDark}) => {
+    const [isDark, setIsDark] = useState(false)
+
+    useEffect(() => {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            setIsDark(event.matches);
+        });
+    }, [])
+
     return (
         <Head>
             <title>{title}</title>
@@ -28,10 +37,7 @@ const CustomHead = ({title, themeColorLight, themeColorDark}) => {
                 name={"author"}
                 content={'Jakub Švéda, Egor Čekunov, Nella Carraro'}
             />
-            <meta
-                name={"theme-color"}
-                content={`${themeColorLight}`}
-            />
+            <meta name={'theme-color'} content={isDark ? themeColorDark : themeColorLight}/>
             <meta
                 name={"msapplication-TileColor"}
                 content={"#ffffff"}
