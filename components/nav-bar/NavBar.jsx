@@ -21,12 +21,11 @@ const NavBar = ({activeRoute, imgPath}) => {
     TODO -> redesign colors of this navbar (rewrite bootstrap variables)
      */
 
-    const [showImg, setShowImg] = useState(false)
+    const [windowWidth, setWindowWidth] = useState(0)
 
     useEffect(() => {
-        if (typeof window !== 'undefined' && window.innerWidth > 330) {
-            setShowImg(true)
-        }
+        if (typeof window !== 'undefined')
+            setWindowWidth(window.innerWidth)
     }, [])
 
     return (
@@ -34,7 +33,7 @@ const NavBar = ({activeRoute, imgPath}) => {
             <Container>
                 <Navbar.Brand href={"/homepage"} style={{display: 'flex'}} className={'align-items-center'}>
                     {
-                        showImg &&
+                        windowWidth > 330 &&
                         <>
                             <Image
                                 alt={"app logo"}
