@@ -2,15 +2,23 @@ import {Spinner} from "react-bootstrap";
 import loaderStyles from '../../styles/Loader.module.css'
 import {useEffect, useState} from "react";
 
+/**
+ * LOADING SPINNER
+ *
+ * - this component displays loading spinner
+ * - should be used while lazy loading some other component
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const LoadingSpinner = () => {
     const [dotNumber, setDotNumber] = useState(1)
 
     useEffect(() => {
         const timeout = setTimeout(() => {
             setDotNumber(prevState => (prevState + 1) % 4)
-        }, 250)
+        }, 333)
 
-        console.log(dotNumber)
         return () => timeout
     }, [dotNumber])
 
