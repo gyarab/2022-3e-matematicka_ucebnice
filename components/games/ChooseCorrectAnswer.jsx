@@ -19,8 +19,15 @@
  * @constructor
  */
 import {Button, OverlayTrigger, Popover, Tooltip} from "react-bootstrap";
+import {useEffect, useState} from "react";
+import gameStyles from '../../styles/games/Game.module.css'
 
-const ChooseCorrectAnswer = ({question, answers, correctAnswer, helperText, equation}) => {
+
+// question, answers, correctAnswer, helperText, equation
+const ChooseCorrectAnswer = ({game}) => {
+    const [gameNumber, setGameNumber] = useState(0)
+    const [correct, setCorrect] = useState(false)
+
     /*
     TODO -> component design
     TODO -> equation (how to format equation in html-react)
@@ -28,25 +35,106 @@ const ChooseCorrectAnswer = ({question, answers, correctAnswer, helperText, equa
     TODO -> score saving
      */
 
-    const popover = (
-        <Popover id="popover-basic">
-            <Popover.Header as="h3">Nápověda</Popover.Header>
-            <Popover.Body>
-                {helperText}
-            </Popover.Body>
-        </Popover>
-    )
+    const [windowWidth, setWindowWidth] = useState(0)
+
+    useEffect(() => {
+        if (typeof window !== 'undefined')
+            setWindowWidth(window.innerWidth)
+    }, [])
+
+    const handleAnswerSubmit = (e) => {
+        const buttonAnswer = e.target.innerText.toString()
+
+        if (buttonAnswer === game[gameNumber].correctAnswer) {
+            setCorrect(true)
+            e.target.style.backgroundColor = 'var(--bs-success)'
+            e.target.style.borderColor = 'var(--bs-success)'
+            e.target.style.color = 'white'
+            console.log('correct')
+        } else {
+            e.target.style.backgroundColor = 'var(--bs-danger)'
+            e.target.style.borderColor = 'var(--bs-danger)'
+            e.target.style.color = 'white'
+            console.log('incorrect')
+        }
+    }
+
+    const handlePreviousStage = () => {
+        if (gameNumber === 0)
+            setGameNumber(game.length - 1)
+        else {
+            setGameNumber(prevState => {
+                return prevState - 1
+            })
+        }
+    }
+
+    const handleNextStage = () => {
+        setGameNumber(prevState => {
+            return (prevState + 1) % game.length
+        })
+    }
+
+    const renderGame = (localGameNumber) => {
+        const gameStage = game[localGameNumber]
+
+        if (gameStage.autogenerate) {
+            return (
+                <div className={gameStyles.frame}>
+                    <div className={gameStyles.mainContentContainer}>
+                        <div className={gameStyles.buttonGroup}>
+                            <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`} onClick={handlePreviousStage}>Předchozí</Button>
+                            <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`} onClick={handleNextStage}>Další</Button>
+                        </div>
+                        <div className={gameStyles.mainContentContainer}>
+                            autogen
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        const popover = (
+            <Popover id="popover-basic">
+                <Popover.Header as="h3">Nápověda</Popover.Header>
+                <Popover.Body>
+                    {gameStage.helperText}
+                </Popover.Body>
+            </Popover>
+        )
+
+        return (
+            <div className={gameStyles.frame}>
+                <div className={gameStyles.mainContentContainer}>
+                    <div className={gameStyles.buttonGroup}>
+                        <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`} onClick={handlePreviousStage}>Předchozí</Button>
+                        <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`} onClick={handleNextStage}>Další</Button>
+                    </div>
+                    <div className={gameStyles.mainContentContainer}>
+                        <OverlayTrigger trigger={(windowWidth > 500) ? ['hover', 'focus'] : ['click']} placement={'bottom'} overlay={popover}>
+                            <Button className={'m-2'} style={{color: 'white'}} variant={"secondary"}>{gameStage.question}</Button>
+                        </OverlayTrigger>
+                        <div>
+                            {gameStage.answers.map((answer, index) => {
+                                return <Button variant={"outline-secondary"} className={'m-2'} key={index} onClick={handleAnswerSubmit}>{answer}</Button>
+                            })}
+                        </div>
+                    </div>
+                    <div className={gameStyles.contentContainer}>
+                        {
+                            // get some react icon (success + wrong)
+                        }
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     return (
-        <div>
-            <OverlayTrigger trigger={['hover', 'focus']} placement={"right"} overlay={popover}>
-                <Button style={{color: 'white'}} variant={"info"}>{question}</Button>
-            </OverlayTrigger>
-            <div>
-                {answers.map(answer => {
-                    return <Button variant={"outline-secondary m-2"} key={answer}>{answer}</Button>
-                })}
-            </div>
+        <div className={gameStyles.gameContainer}>
+            {
+                renderGame(gameNumber)
+            }
         </div>
     )
 }
