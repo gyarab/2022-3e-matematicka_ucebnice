@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic'
 import {Suspense, useEffect, useState} from "react";
 import LoadingSpinner from "../../components/utils/LoadingSpinner";
 
-const ChooseCorrectAnswer = dynamic(() => import('../../components/games/ChooseCorrectAnswer'), {
+const ChooseCorrectAnswer = dynamic(() => import('../../components/games/choose-correct-answer/ChooseCorrectAnswer'), {
     suspense: true
 })
 

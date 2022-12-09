@@ -20,7 +20,8 @@
  */
 import {Button, OverlayTrigger, Popover, Tooltip} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import gameStyles from '../../styles/games/Game.module.css'
+import gameStyles from '../../../styles/games/Game.module.css'
+import ColoredButton from "./ColoredButton";
 
 
 // question, answers, correctAnswer, helperText, equation
@@ -66,6 +67,7 @@ const ChooseCorrectAnswer = ({game}) => {
             setGameNumber(prevState => {
                 return prevState - 1
             })
+            setStageAnswers([])
         }
     }
 
@@ -73,6 +75,7 @@ const ChooseCorrectAnswer = ({game}) => {
         setGameNumber(prevState => {
             return (prevState + 1) % game.length
         })
+        setStageAnswers([])
     }
 
     const renderGame = (localGameNumber) => {
@@ -116,7 +119,15 @@ const ChooseCorrectAnswer = ({game}) => {
                         </OverlayTrigger>
                         <div>
                             {gameStage.answers.map((answer, index) => {
-                                return <Button variant={"outline-secondary"} className={'m-2'} key={index} onClick={handleAnswerSubmit}>{answer}</Button>
+                                return (
+                                    <ColoredButton
+                                        key={index}
+                                        id={answer.id}
+                                        correctness={typeof stageAnswers === 'undefined' ? undefined : stageAnswers[index]}
+                                        answer={answer.value}
+                                        handleAnswerSubmit={(text, id) => handleAnswerSubmit(text, id)}
+                                    />
+                                )
                             })}
                         </div>
                     </div>
@@ -133,7 +144,7 @@ const ChooseCorrectAnswer = ({game}) => {
     return (
         <div className={gameStyles.gameContainer}>
             {
-                renderGame(gameNumber)
+                renderGame(stageNumber)
             }
         </div>
     )
