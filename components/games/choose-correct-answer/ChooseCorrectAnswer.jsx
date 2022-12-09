@@ -18,7 +18,7 @@
  * @returns {JSX.Element}
  * @constructor
  */
-import {Button, OverlayTrigger, Popover, Tooltip} from "react-bootstrap";
+import {Button, OverlayTrigger, Popover} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import gameStyles from '../../../styles/games/Game.module.css'
 import ColoredButton from "./ColoredButton";
@@ -26,8 +26,7 @@ import ColoredButton from "./ColoredButton";
 
 // question, answers, correctAnswer, helperText, equation
 const ChooseCorrectAnswer = ({game}) => {
-    const [gameNumber, setGameNumber] = useState(0)
-    const [correct, setCorrect] = useState(false)
+    const [stageNumber, setStageNumber] = useState(0)
 
     /*
     TODO -> component design
@@ -46,8 +45,7 @@ const ChooseCorrectAnswer = ({game}) => {
     const handleAnswerSubmit = (e) => {
         const buttonAnswer = e.target.innerText.toString()
 
-        if (buttonAnswer === game[gameNumber].correctAnswer) {
-            setCorrect(true)
+        if (buttonAnswer === game[stageNumber].correctAnswer) {
             e.target.style.backgroundColor = 'var(--bs-success)'
             e.target.style.borderColor = 'var(--bs-success)'
             e.target.style.color = 'white'
@@ -61,21 +59,19 @@ const ChooseCorrectAnswer = ({game}) => {
     }
 
     const handlePreviousStage = () => {
-        if (gameNumber === 0)
-            setGameNumber(game.length - 1)
+        if (stageNumber === 0)
+            setStageNumber(game.length - 1)
         else {
-            setGameNumber(prevState => {
+            setStageNumber(prevState => {
                 return prevState - 1
             })
-            setStageAnswers([])
         }
     }
 
     const handleNextStage = () => {
-        setGameNumber(prevState => {
+        setStageNumber(prevState => {
             return (prevState + 1) % game.length
         })
-        setStageAnswers([])
     }
 
     const renderGame = (localGameNumber) => {
@@ -86,8 +82,10 @@ const ChooseCorrectAnswer = ({game}) => {
                 <div className={gameStyles.frame}>
                     <div className={gameStyles.mainContentContainer}>
                         <div className={gameStyles.buttonGroup}>
-                            <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`} onClick={handlePreviousStage}>Předchozí</Button>
-                            <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`} onClick={handleNextStage}>Další</Button>
+                            <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
+                                    onClick={handlePreviousStage}>Předchozí</Button>
+                            <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
+                                    onClick={handleNextStage}>Další</Button>
                         </div>
                         <div className={gameStyles.mainContentContainer}>
                             autogen
@@ -107,25 +105,32 @@ const ChooseCorrectAnswer = ({game}) => {
         )
 
         return (
-            <div className={gameStyles.frame}>
+            <div className={`${gameStyles.frame} mb-4`}>
                 <div className={gameStyles.mainContentContainer}>
                     <div className={gameStyles.buttonGroup}>
                         <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`} onClick={handlePreviousStage}>Předchozí</Button>
                         <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`} onClick={handleNextStage}>Další</Button>
                     </div>
                     <div className={gameStyles.mainContentContainer}>
-                        <OverlayTrigger trigger={(windowWidth > 500) ? ['hover', 'focus'] : ['click']} placement={'bottom'} overlay={popover}>
-                            <Button className={'m-2'} style={{color: 'white'}} variant={"secondary"}>{gameStage.question}</Button>
+                        <OverlayTrigger
+                            trigger={(windowWidth > 500) ? ['hover', 'focus'] : ['click']}
+                            placement={'bottom'}
+                            overlay={popover}
+                        >
+                            <Button
+                                className={'m-2'}
+                                style={{color: 'white'}}
+                                variant={"secondary"}
+                            >
+                                {gameStage.question}
+                            </Button>
                         </OverlayTrigger>
                         <div>
                             {gameStage.answers.map((answer, index) => {
                                 return (
                                     <ColoredButton
                                         key={index}
-                                        id={answer.id}
-                                        correctness={typeof stageAnswers === 'undefined' ? undefined : stageAnswers[index]}
-                                        answer={answer.value}
-                                        handleAnswerSubmit={(text, id) => handleAnswerSubmit(text, id)}
+                                        answer={answer}
                                     />
                                 )
                             })}
