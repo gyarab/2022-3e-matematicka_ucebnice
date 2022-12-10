@@ -79,7 +79,7 @@ const ChooseCorrectAnswer = ({game}) => {
 
         if (gameStage.autogenerate) {
             return (
-                <div className={gameStyles.frame}>
+                <div className={`${gameStyles.frame} mb-4`}>
                     <div className={gameStyles.mainContentContainer}>
                         <div className={gameStyles.buttonGroup}>
                             <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
