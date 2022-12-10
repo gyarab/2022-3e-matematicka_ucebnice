@@ -33,7 +33,7 @@ const LoadingSpinner = () => {
     }
 
     return (
-        <div className={`${loaderStyles.container} mb-3`}>
+        <div className={`${loaderStyles.container} mb-4`}>
             <div className={`${loaderStyles.innerContainer} p-4`}>
                 <div>
                     Loading

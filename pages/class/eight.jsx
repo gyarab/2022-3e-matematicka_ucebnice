@@ -4,11 +4,11 @@ import {colorThemeDark, colorThemeLight} from "../../lib/env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import dynamic from 'next/dynamic'
-import {Suspense, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import LoadingSpinner from "../../components/utils/LoadingSpinner";
 
 const ChooseCorrectAnswer = dynamic(() => import('../../components/games/choose-correct-answer/ChooseCorrectAnswer'), {
-    suspense: true
+    loading: () => <LoadingSpinner/>
 })
 
 const EightClass = (props) => {
@@ -69,11 +69,9 @@ const EightClass = (props) => {
                 />
                 <div className={'container-fluid'}>
                     <h1>osmá třída</h1>
-                    <Suspense fallback={<LoadingSpinner/>}>
-                        <ChooseCorrectAnswer
-                            game={game}
-                        />
-                    </Suspense>
+                    <ChooseCorrectAnswer
+                        game={game}
+                    />
                 </div>
             </main>
             <CustomFooter/>
