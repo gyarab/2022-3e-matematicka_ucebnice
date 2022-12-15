@@ -21,8 +21,7 @@
 import {Button, OverlayTrigger, Popover} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import gameStyles from '../../../styles/games/Game.module.css'
-import ColoredButton from "./ColoredButton";
-
+import {dangerColor, successColor} from "../../../lib/env-variables";
 
 // question, answers, correctAnswer, helperText, equation
 const ChooseCorrectAnswer = ({game}) => {
@@ -36,24 +35,38 @@ const ChooseCorrectAnswer = ({game}) => {
      */
 
     const [windowWidth, setWindowWidth] = useState(0)
+    const [buttonStyling, setButtonStyling] = useState({
+        answer: null,
+        styling: {}
+    })
 
     useEffect(() => {
         if (typeof window !== 'undefined')
             setWindowWidth(window.innerWidth)
     }, [])
 
-    const handleAnswerSubmit = (e) => {
-        const buttonAnswer = e.target.innerText.toString()
+    const handleAnswerSubmit = (answer) => {
 
-        if (buttonAnswer === game[stageNumber].correctAnswer) {
-            e.target.style.backgroundColor = 'var(--bs-success)'
-            e.target.style.borderColor = 'var(--bs-success)'
-            e.target.style.color = 'white'
+        if (answer === game[stageNumber].correctAnswer) {
+            setButtonStyling({
+                answer: answer,
+                styling: {
+                    backgroundColor: successColor,
+                    borderColor: successColor,
+                    color: 'white'
+                }
+            })
             console.log('correct')
+            setTimeout(handleNextStage, 4000)
         } else {
-            e.target.style.backgroundColor = 'var(--bs-danger)'
-            e.target.style.borderColor = 'var(--bs-danger)'
-            e.target.style.color = 'white'
+            setButtonStyling({
+                answer: answer,
+                styling: {
+                    backgroundColor: dangerColor,
+                    borderColor: dangerColor,
+                    color: 'white'
+                }
+            })
             console.log('incorrect')
         }
     }
@@ -108,8 +121,10 @@ const ChooseCorrectAnswer = ({game}) => {
             <div className={`${gameStyles.frame} mb-4`}>
                 <div className={gameStyles.mainContentContainer}>
                     <div className={gameStyles.buttonGroup}>
-                        <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`} onClick={handlePreviousStage}>Předchozí</Button>
-                        <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`} onClick={handleNextStage}>Další</Button>
+                        <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
+                                onClick={handlePreviousStage}>Předchozí</Button>
+                        <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
+                                onClick={handleNextStage}>Další</Button>
                     </div>
                     <div className={gameStyles.mainContentContainer}>
                         <OverlayTrigger
@@ -128,10 +143,15 @@ const ChooseCorrectAnswer = ({game}) => {
                         <div>
                             {gameStage.answers.map((answer, index) => {
                                 return (
-                                    <ColoredButton
+                                    <Button
                                         key={index}
-                                        answer={answer}
-                                    />
+                                        variant={"outline-secondary"}
+                                        className={`m-2`}
+                                        style={answer === buttonStyling.answer ? buttonStyling.styling : {}}
+                                        onClick={() => handleAnswerSubmit(answer)}
+                                    >
+                                        {answer}
+                                    </Button>
                                 )
                             })}
                         </div>

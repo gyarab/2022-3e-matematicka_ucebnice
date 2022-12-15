@@ -49,18 +49,15 @@
 .button {
     display: flex;
     justify-content: center;
-    width: 6em;
+    width: 6rem;
     color: white;
 }
 
 .button:hover {
+    color: white;
     box-shadow: 0 2px 20px lightgrey;
     -moz-box-shadow: 0 2px 20px lightgrey;
     -webkit-box-shadow: 0 2px 20px lightgrey;
-}
-
-.button:hover {
-    color: white;
 }
 
 @media only screen and (max-width: 1200px) {
