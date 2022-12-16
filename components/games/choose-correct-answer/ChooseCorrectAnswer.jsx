@@ -26,6 +26,7 @@ import {dangerColor, successColor} from "../../../lib/env-variables";
 // question, answers, correctAnswer, helperText, equation
 const ChooseCorrectAnswer = ({game}) => {
     const [stageNumber, setStageNumber] = useState(0)
+    const [attempts, setAttempts] = useState(0)
 
     /*
     TODO -> component design
@@ -46,6 +47,11 @@ const ChooseCorrectAnswer = ({game}) => {
     }, [])
 
     const handleAnswerSubmit = (answer) => {
+        // if button clicked more than once ->  return because nothing changed
+        if (answer === buttonStyling.answer)
+            return
+
+        setAttempts(prevState => prevState + 1)
 
         if (answer === game[stageNumber].correctAnswer) {
             setButtonStyling({
@@ -57,7 +63,7 @@ const ChooseCorrectAnswer = ({game}) => {
                 }
             })
             console.log('correct')
-            setTimeout(handleNextStage, 4000)
+            setTimeout(handleNextStage, 1000)
         } else {
             setButtonStyling({
                 answer: answer,
@@ -94,6 +100,7 @@ const ChooseCorrectAnswer = ({game}) => {
             return (
                 <div className={`${gameStyles.frame} mb-4`}>
                     <div className={gameStyles.mainContentContainer}>
+                        {'attempts: ' + attempts}
                         <div className={gameStyles.buttonGroup}>
                             <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
                                     onClick={handlePreviousStage}>Předchozí</Button>
@@ -120,6 +127,7 @@ const ChooseCorrectAnswer = ({game}) => {
         return (
             <div className={`${gameStyles.frame} mb-4`}>
                 <div className={gameStyles.mainContentContainer}>
+                    {'attempts: ' + attempts}
                     <div className={gameStyles.buttonGroup}>
                         <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
                                 onClick={handlePreviousStage}>Předchozí</Button>
