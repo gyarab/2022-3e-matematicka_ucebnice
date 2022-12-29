@@ -21,7 +21,7 @@
 import {Button, OverlayTrigger, Popover} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import gameStyles from '../../../styles/games/Game.module.css'
-import {dangerColor, successColor} from "../../../lib/env-variables";
+import {dangerColor, successColor} from "../../../lib/frontend-env-variables";
 import GameNav from "../GameNav";
 
 // question, answers, correctAnswer, helperText, equation

@@ -1,7 +1,7 @@
 import NavBar from "../components/nav-bar/NavBar";
 import CustomHead from "../components/utils/CustomHead";
 import CustomFooter from "../components/utils/CustomFooter";
-import {colorThemeDark, colorThemeLight} from "../lib/env-variables";
+import {colorThemeDark, colorThemeLight} from "../lib/frontend-env-variables";
 import {Button, Card, Container, Row} from "react-bootstrap";
 import {useRouter} from "next/router";
 
@@ -32,9 +32,7 @@ const HomePage = (props) => {
             />
 
             <main>
-                <NavBar
-                    imgPath={'/android-chrome-512x512.png'}
-                />
+                <NavBar />
                 <div className={'container-fluid'}>
                     <Container style={{width: '100%'}}>
                         <Row className={'align-items-center justify-content-center'}>

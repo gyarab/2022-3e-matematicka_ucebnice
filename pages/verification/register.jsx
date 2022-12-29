@@ -1,6 +1,6 @@
 import NavBar from "../../components/nav-bar/NavBar";
 import CustomHead from "../../components/utils/CustomHead";
-import {colorThemeDark, colorThemeLight} from "../../lib/env-variables";
+import {colorThemeDark, colorThemeLight} from "../../lib/frontend-env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
 import verificationStyles from "../../styles/Verification.module.css";
 import RegisterForm from "../../components/verification/Register";
@@ -19,9 +19,7 @@ const Register = (props) => {
             />
 
             <main style={{height: '100vh'}}>
-                <NavBar
-                    imgPath={'/android-chrome-512x512.png'}
-                />
+                <NavBar />
                 <div
                     className={`container-fluid justify-content-center align-items-center ${verificationStyles.formContainer}`}
                 >

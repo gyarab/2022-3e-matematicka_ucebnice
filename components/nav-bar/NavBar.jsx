@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import img from '../../public/android-chrome-512x512.png'
 import {useEffect, useState} from "react";
 import Image from "next/image";
+import {navBarImagePath} from "../../lib/frontend-env-variables";
 
 /**
  * NAVIGATOR
@@ -15,7 +16,7 @@ import Image from "next/image";
  * @returns {JSX.Element}
  * @constructor
  */
-const NavBar = ({activeRoute, imgPath}) => {
+const NavBar = ({activeRoute}) => {
     /*
     TODO -> implement marking current route
     TODO -> redesign colors of this navbar (rewrite bootstrap variables)
@@ -37,7 +38,7 @@ const NavBar = ({activeRoute, imgPath}) => {
                         <>
                             <Image
                                 alt={"app logo"}
-                                src={imgPath}
+                                src={navBarImagePath}
                                 width={30}
                                 height={30}
                                 className={"rounded"}

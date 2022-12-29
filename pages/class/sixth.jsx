@@ -1,6 +1,6 @@
 import NavBar from "../../components/nav-bar/NavBar";
 import CustomHead from "../../components/utils/CustomHead";
-import {colorThemeDark, colorThemeLight} from "../../lib/env-variables";
+import {colorThemeDark, colorThemeLight} from "../../lib/frontend-env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
 import Section from "../../components/classes/Section";
 import classStyles from '../../styles/Class.module.css'
@@ -109,7 +109,6 @@ const SixthClass = ({}) => {
             <main>
                 <NavBar
                     activeRoute={'/class/sixth'}
-                    imgPath={'/android-chrome-512x512.png'}
                 />
                 <div className={`container-fluid m-2 ${classStyles.mainContainer}`}>
                     <h1

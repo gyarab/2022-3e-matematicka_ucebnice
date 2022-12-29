@@ -1,6 +1,6 @@
 import NavBar from "../../components/nav-bar/NavBar";
 import CustomHead from "../../components/utils/CustomHead";
-import {colorThemeDark, colorThemeLight} from "../../lib/env-variables";
+import {colorThemeDark, colorThemeLight} from "../../lib/frontend-env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
 
 const SeventhClass = (props) => {
@@ -14,7 +14,6 @@ const SeventhClass = (props) => {
             <main>
                 <NavBar
                     activeRoute={'/class/seventh'}
-                    imgPath={'/android-chrome-512x512.png'}
                 />
                 <div className={'container-fluid'}>
                     <h1>Sedmá třída</h1>

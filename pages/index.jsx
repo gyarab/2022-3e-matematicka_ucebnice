@@ -1,5 +1,5 @@
 import CustomHead from "../components/utils/CustomHead";
-import {colorThemeDark, colorThemeLight} from "../lib/env-variables";
+import {colorThemeDark, colorThemeLight} from "../lib/frontend-env-variables";
 import CustomFooter from "../components/utils/CustomFooter";
 import LoginForm from "../components/verification/Login";
 import indexStyles from '../styles/IndexPage.module.css'

@@ -7,3 +7,15 @@ main {
 nav {
    box-shadow: 0 2px 20px darkgrey;
 }
+
+.darkShadow {
+    box-shadow: 2px 2px 10px darkgrey;
+    -moz-box-shadow: 2px 2px 10px darkgrey;
+    -webkit-box-shadow: 2px 2px 10px darkgrey;
+}
+
+.hoverDarkShadow:hover {
+    box-shadow: 2px 2px 10px darkgrey;
+    -moz-box-shadow: 2px 2px 10px darkgrey;
+    -webkit-box-shadow: 2px 2px 10px darkgrey;
+}

@@ -1,6 +1,6 @@
 import NavBar from "../../components/nav-bar/NavBar";
 import CustomHead from "../../components/utils/CustomHead";
-import {colorThemeDark, colorThemeLight} from "../../lib/env-variables";
+import {colorThemeDark, colorThemeLight} from "../../lib/frontend-env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import dynamic from 'next/dynamic'
@@ -65,7 +65,6 @@ const EightClass = (props) => {
             <main>
                 <NavBar
                     activeRoute={'/class/eight'}
-                    imgPath={'/android-chrome-512x512.png'}
                 />
                 <div className={'container-fluid'}>
                     <h1>osmá třída</h1>
