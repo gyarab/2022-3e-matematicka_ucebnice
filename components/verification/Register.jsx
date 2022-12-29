@@ -57,7 +57,7 @@ const RegisterForm = () => {
                 validated={validated}
                 noValidate
                 onSubmit={handleSubmit}
-                className={`m-1 form ${verificationStyles.customForm}`}
+                className={`m-1 form darkShadow ${verificationStyles.customForm}`}
             >
                 <Form.Group
                     className={"mb-3"}
@@ -106,7 +106,7 @@ const RegisterForm = () => {
 
                 <Button
                     variant={"primary"}
-                    className={verificationStyles.submitButton}
+                    className={`${verificationStyles.submitButton} hoverDarkShadow`}
                     type={'submit'}
                     onClick={handleLogin}
                 >

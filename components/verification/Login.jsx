@@ -57,7 +57,7 @@ const LoginForm = () => {
         <>
             <Form
                 validated={validated}
-                className={`m-1 form ${verificationStyles.customForm}`}
+                className={`m-1 form darkShadow ${verificationStyles.customForm}`}
                 noValidate
                 onSubmit={handleSubmit}
             >
@@ -95,7 +95,7 @@ const LoginForm = () => {
                     <Button
                         variant={"primary"}
                         type={'submit'}
-                        className={`${verificationStyles.submitButton} m-1`}
+                        className={`${verificationStyles.submitButton} m-1 hoverDarkShadow`}
                         onClick={handleLogin}
                     >
                         Přihlásit
@@ -103,7 +103,7 @@ const LoginForm = () => {
                     <Button
                         variant={"secondary"}
                         type={'button'}
-                        className={`${verificationStyles.submitButton} m-1`}
+                        className={`${verificationStyles.submitButton} m-1 hoverDarkShadow`}
                         onClick={() => router.push('/verification/register')}
                     >
                         Registrovat
@@ -111,7 +111,7 @@ const LoginForm = () => {
                     <Button
                         variant={"secondary"}
                         type={'button'}
-                        className={`${verificationStyles.submitButton} m-1`}
+                        className={`${verificationStyles.submitButton} m-1 hoverDarkShadow`}
                         onClick={() => router.push('https://www.google.com')}
                     >
                         <Image priority={false} src={"https://www.google.com/favicon.ico"} width={25} height={25} alt={"Google favicon"}/>
