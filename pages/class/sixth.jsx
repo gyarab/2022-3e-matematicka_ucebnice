@@ -2,8 +2,102 @@ import NavBar from "../../components/nav-bar/NavBar";
 import CustomHead from "../../components/utils/CustomHead";
 import {colorThemeDark, colorThemeLight} from "../../lib/env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
+import Section from "../../components/classes/Section";
+import classStyles from '../../styles/Class.module.css'
 
-const SixthClass = () => {
+/**
+ * GAME IDs
+ *
+ * - 1 -> choose correct answer game
+ * - 2 -> ??
+ */
+
+const sections = [
+    {
+        title: 'Základní počty',
+        games: [
+            {
+                id: 1,
+                title: 'ChooseCorrectAnswer.jsx',
+                content: [
+                    {
+                        gameId: 0,
+                        autogenerate: false,
+                        question: 'Kolik je 1+1?',
+                        answers: ['2', '3', '8'],
+                        correctAnswer: '2',
+                        helperText: 'Pokud budu mít jedno jablko a přidám ještě jedno, kolik jich budu mít?',
+                        equation: null,
+                    },
+                    {
+                        gameId: 1,
+                        autogenerate: false,
+                        question: '',
+                        answers: ['', ''],
+                        correctAnswer: '',
+                        helperText: '', // if not stated -> null
+                        equation: '', // if not stated -> null
+                    },
+                    {
+                        gameId: 2,
+                        autogenerate: true,
+                        class: '6',
+                    },
+                    {
+                        gameId: 3,
+                        autogenerate: true,
+                        class: '', // class number (required)
+                    }
+                ]
+            },
+            {
+                id: 1,
+                title: 'ChooseCorrectAnswer.jsx',
+                content: [
+                    {
+                        gameId: 0,
+                        autogenerate: false,
+                        question: 'Kolik je 1+1?',
+                        answers: ['2', '3', '8'],
+                        correctAnswer: '2',
+                        helperText: 'Pokud budu mít jedno jablko a přidám ještě jedno, kolik jich budu mít?',
+                        equation: null,
+                    },
+                    {
+                        gameId: 1,
+                        autogenerate: false,
+                        question: '',
+                        answers: ['', ''],
+                        correctAnswer: '',
+                        helperText: '', // if not stated -> null
+                        equation: '', // if not stated -> null
+                    },
+                    {
+                        gameId: 2,
+                        autogenerate: true,
+                        class: '6',
+                    },
+                    {
+                        gameId: 3,
+                        autogenerate: true,
+                        class: '', // class number (required)
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        title: '',
+        games: [
+            {
+                id: 0,
+                title: '',
+                content: []
+            }
+        ]
+    }
+]
+const SixthClass = ({}) => {
     return (
         <>
             <CustomHead
@@ -17,8 +111,27 @@ const SixthClass = () => {
                     activeRoute={'/class/sixth'}
                     imgPath={'/android-chrome-512x512.png'}
                 />
-                <div className={'container-fluid'}>
-                    <h1>Šestá třída</h1>
+                <div className={`container-fluid m-2 ${classStyles.mainContainer}`}>
+                    <h1
+                        className={`m-3`}
+                    >
+                        Šestá třída
+                    </h1>
+
+                    <ul
+                        className={`m-3`}
+                    >
+                        {sections.map((section, index) => {
+                            return (
+                                <Section
+                                    key={index}
+                                    id={index}
+                                    title={section.title}
+                                    games={section.games}
+                                />
+                            )
+                        })}
+                    </ul>
                 </div>
             </main>
 
