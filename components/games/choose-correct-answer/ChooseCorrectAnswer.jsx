@@ -22,6 +22,7 @@ import {Button, OverlayTrigger, Popover} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import gameStyles from '../../../styles/games/Game.module.css'
 import {dangerColor, successColor} from "../../../lib/env-variables";
+import GameNav from "../GameNav";
 
 // question, answers, correctAnswer, helperText, equation
 const ChooseCorrectAnswer = ({game}) => {
@@ -100,7 +101,6 @@ const ChooseCorrectAnswer = ({game}) => {
             return (
                 <div className={`${gameStyles.frame} mb-4`}>
                     <div className={gameStyles.mainContentContainer}>
-                        {'attempts: ' + attempts}
                         <div className={gameStyles.buttonGroup}>
                             <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
                                     onClick={handlePreviousStage}>Předchozí</Button>
@@ -127,13 +127,10 @@ const ChooseCorrectAnswer = ({game}) => {
         return (
             <div className={`${gameStyles.frame} mb-4`}>
                 <div className={gameStyles.mainContentContainer}>
-                    {'attempts: ' + attempts}
-                    <div className={gameStyles.buttonGroup}>
-                        <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
-                                onClick={handlePreviousStage}>Předchozí</Button>
-                        <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
-                                onClick={handleNextStage}>Další</Button>
-                    </div>
+                    <GameNav
+                        handleNextStage={handleNextStage}
+                        handlePreviousStage={handlePreviousStage}
+                    />
                     <div className={gameStyles.mainContentContainer}>
                         <OverlayTrigger
                             trigger={(windowWidth > 500) ? ['hover', 'focus'] : ['click']}
@@ -163,11 +160,6 @@ const ChooseCorrectAnswer = ({game}) => {
                                 )
                             })}
                         </div>
-                    </div>
-                    <div className={gameStyles.contentContainer}>
-                        {
-                            // get some react icon (success + wrong)
-                        }
                     </div>
                 </div>
             </div>
