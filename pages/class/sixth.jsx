@@ -1,9 +1,10 @@
 import NavBar from "../../components/nav-bar/NavBar";
 import CustomHead from "../../components/utils/CustomHead";
-import {colorThemeDark, colorThemeLight} from "../../lib/frontend-env-variables";
+import {colorThemeDark, colorThemeLight, heroImageAltText, heroImagePath} from "../../lib/frontend-env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
 import Section from "../../components/classes/Section";
 import classStyles from '../../styles/Class.module.css'
+import HeroImage from "../../components/classes/HeroImage";
 
 /**
  * GAME IDs
@@ -110,13 +111,12 @@ const SixthClass = ({}) => {
                 <NavBar
                     activeRoute={'/class/sixth'}
                 />
-                <div className={`container-fluid m-2 ${classStyles.mainContainer}`}>
-                    <h1
-                        className={`m-3`}
-                    >
-                        Šestá třída
-                    </h1>
-
+                <HeroImage
+                    imagePath={heroImagePath}
+                    altText={heroImageAltText}
+                    description={'Šestá třída'}
+                />
+                <div className={`container-fluid m-2 ${classStyles.mainContainer} w-100`}>
                     <ul
                         className={`m-3`}
                     >

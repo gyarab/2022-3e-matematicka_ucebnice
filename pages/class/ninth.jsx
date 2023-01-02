@@ -1,7 +1,8 @@
 import NavBar from "../../components/nav-bar/NavBar";
 import CustomHead from "../../components/utils/CustomHead";
-import {colorThemeDark, colorThemeLight} from "../../lib/frontend-env-variables";
+import {colorThemeDark, colorThemeLight, heroImageAltText, heroImagePath} from "../../lib/frontend-env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
+import HeroImage from "../../components/classes/HeroImage";
 
 const NinthClass = (props) => {
     return (
@@ -15,8 +16,12 @@ const NinthClass = (props) => {
                 <NavBar
                     activeRoute={'/class/ninth'}
                 />
+                <HeroImage
+                    imagePath={heroImagePath}
+                    altText={heroImageAltText}
+                    description={'Devátá třída'}
+                />
                 <div className={'container-fluid'}>
-                    <h1>devátá třída</h1>
                 </div>
             </main>
             <CustomFooter/>

@@ -4,8 +4,9 @@ main {
     overflow: hidden;
 }
 
-nav {
-   box-shadow: 0 2px 20px darkgrey;
+a, ul, li {
+    text-decoration: none;
+    list-style-type: none;
 }
 
 .darkShadow {

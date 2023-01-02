@@ -1,10 +1,10 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import img from '../../public/android-chrome-512x512.png'
 import {useEffect, useState} from "react";
 import Image from "next/image";
 import {navBarImagePath} from "../../lib/frontend-env-variables";
+import navBarStyles from '../../styles/NavBar.module.css'
 
 /**
  * NAVIGATOR
@@ -17,10 +17,6 @@ import {navBarImagePath} from "../../lib/frontend-env-variables";
  * @constructor
  */
 const NavBar = ({activeRoute}) => {
-    /*
-    TODO -> implement marking current route
-    TODO -> redesign colors of this navbar (rewrite bootstrap variables)
-     */
 
     const [windowWidth, setWindowWidth] = useState(0)
 
@@ -30,9 +26,9 @@ const NavBar = ({activeRoute}) => {
     }, [])
 
     return (
-        <Navbar bg={"secondary"} expand={"lg"}>
+        <Navbar bg={"secondary"} expand={"lg"} className={navBarStyles.customNav}>
             <Container>
-                <Navbar.Brand href={"/homepage"} style={{display: 'flex'}} className={'align-items-center'}>
+                <Navbar.Brand href={"/homepage"} className={'d-flex align-items-center'}>
                     {
                         windowWidth > 330 &&
                         <>

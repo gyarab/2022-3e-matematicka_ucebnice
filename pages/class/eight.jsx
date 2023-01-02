@@ -1,11 +1,12 @@
 import NavBar from "../../components/nav-bar/NavBar";
 import CustomHead from "../../components/utils/CustomHead";
-import {colorThemeDark, colorThemeLight} from "../../lib/frontend-env-variables";
+import {colorThemeDark, colorThemeLight, heroImageAltText, heroImagePath} from "../../lib/frontend-env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import dynamic from 'next/dynamic'
 import {useEffect, useState} from "react";
 import LoadingSpinner from "../../components/utils/LoadingSpinner";
+import HeroImage from "../../components/classes/HeroImage";
 
 const ChooseCorrectAnswer = dynamic(() => import('../../components/games/choose-correct-answer/ChooseCorrectAnswer'), {
     loading: () => <LoadingSpinner/>
@@ -66,8 +67,12 @@ const EightClass = (props) => {
                 <NavBar
                     activeRoute={'/class/eight'}
                 />
+                <HeroImage
+                    imagePath={heroImagePath}
+                    altText={heroImageAltText}
+                    description={'Osmá třída'}
+                />
                 <div className={'container-fluid'}>
-                    <h1>osmá třída</h1>
                     <ChooseCorrectAnswer
                         game={game}
                     />
