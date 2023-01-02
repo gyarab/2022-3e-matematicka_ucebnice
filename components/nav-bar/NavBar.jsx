@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {useEffect, useState} from "react";
 import Image from "next/image";
-import {navBarImagePath} from "../../lib/frontend-env-variables";
+import {navBarImageAltText, navBarImagePath} from "../../lib/frontend-env-variables";
 import navBarStyles from '../../styles/NavBar.module.css'
 
 /**
@@ -12,6 +12,7 @@ import navBarStyles from '../../styles/NavBar.module.css'
  * - bar on the top of the page
  * - after clicking on one of the buttons is user redirected to the requested route
  *
+ * @type {string}
  * @param currentRoute
  * @returns {JSX.Element}
  * @constructor
@@ -33,7 +34,7 @@ const NavBar = ({activeRoute}) => {
                         windowWidth > 330 &&
                         <>
                             <Image
-                                alt={"app logo"}
+                                alt={navBarImageAltText}
                                 src={navBarImagePath}
                                 width={30}
                                 height={30}
