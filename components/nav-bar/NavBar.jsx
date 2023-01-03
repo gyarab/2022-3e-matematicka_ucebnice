@@ -39,6 +39,7 @@ const NavBar = ({activeRoute}) => {
                                 width={30}
                                 height={30}
                                 className={"rounded"}
+                                priority={true}
                             />
                         </>
                     }
