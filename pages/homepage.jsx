@@ -35,20 +35,25 @@ const HomePage = (props) => {
                     <Container style={{width: '100%'}}>
                         <Row className={'align-items-center justify-content-center'}>
                             <HomepageCard
+                                title={'Šestá třída'}
                                 description={'Description'}
                                 redirectDestination={'/class/sixth'}
                             />
                             <HomepageCard
+                                title={'Sedmá třída'}
                                 description={'Description'}
                                 redirectDestination={'/class/seventh'}
                             />
                         </Row>
                         <Row className={'align-items-center justify-content-center'}>
                             <HomepageCard
+
+                                title={'Osmá třída'}
                                 description={'Description'}
                                 redirectDestination={'/class/eight'}
                             />
                             <HomepageCard
+                                title={'Devátá třída'}
                                 description={'Description'}
                                 redirectDestination={'/class/ninth'}
                             />

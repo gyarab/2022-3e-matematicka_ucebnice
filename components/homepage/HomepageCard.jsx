@@ -12,7 +12,7 @@ import Router from 'next/router'
  * @returns {JSX.Element}
  * @constructor
  */
-const HomepageCard = ({description, redirectDestination}) => {
+const HomepageCard = ({title, description, redirectDestination}) => {
     return (
         <Card
             bg={'primary'}
@@ -21,7 +21,7 @@ const HomepageCard = ({description, redirectDestination}) => {
             className={"m-4 mb-2 darkShadow"}
         >
             <Card.Body>
-                <Card.Title>Devátá třída</Card.Title>
+                <Card.Title>{title}</Card.Title>
                 <Card.Text>
                     {description}
                 </Card.Text>
