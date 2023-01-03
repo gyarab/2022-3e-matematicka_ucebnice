@@ -34,6 +34,7 @@ const HeroImage = ({imagePath, altText, description}) => {
                     src={imagePath}
                     layout={'fill'}
                     objectFit={'cover'}
+                    priority={true}
                 />
             </div>
         </div>
