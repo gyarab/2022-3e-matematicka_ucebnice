@@ -27,27 +27,13 @@ const sections = [
                         question: 'Kolik je 1+1?',
                         answers: ['2', '3', '8'],
                         correctAnswer: '2',
-                        helperText: 'Pokud budu mít jedno jablko a přidám ještě jedno, kolik jich budu mít?',
-                        equation: null,
+                        helperText: 'Pokud budu mít jedno jablko a přidám ještě jedno, kolik jich budu mít?', // if not stated -> null; otherwise string
+                        equation: null, // if not stated -> null; otherwise string
                     },
                     {
                         gameId: 1,
-                        autogenerate: false,
-                        question: '',
-                        answers: ['', ''],
-                        correctAnswer: '',
-                        helperText: '', // if not stated -> null
-                        equation: '', // if not stated -> null
-                    },
-                    {
-                        gameId: 2,
                         autogenerate: true,
-                        class: '6',
-                    },
-                    {
-                        gameId: 3,
-                        autogenerate: true,
-                        class: '', // class number (required)
+                        difficulty: 6, // class difficulty (6, 7, 8, 9)
                     }
                 ]
             },

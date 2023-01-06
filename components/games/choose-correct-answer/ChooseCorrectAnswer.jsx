@@ -1,30 +1,22 @@
+import {Button, OverlayTrigger, Popover} from "react-bootstrap";
+import {useEffect, useState} from "react";
+import gameStyles from '../../../styles/games/Game.module.css'
+import {dangerColor, successColor} from "../../../lib/frontend-env-variables";
+import GameNav from "../GameNav";
+import generateEquation from "../../../lib/equationGeneration";
+
+// question, answers, correctAnswer, helperText, equation
+
 /**
  * CHOOSE CORRECT ANSWER GAME
  *
  * This game renders some question based on props, and renders a bunch of buttons with possible answers and one correct
  * answer, which is one of them. User answers by clicking on the button.
  *
- * - question: is question that is asked (string)
- * - answers: possible answers (array of strings)
- * - correctAnswer: correct answer that should be one of the answers from answers array (string)
- * - helperText: text which clarifies the question (string)
- * - equation: text representing some equation, that should be used with math questions (text)
- *
- * @param question
- * @param answers
- * @param correctAnswer
- * @param helperText
- * @param equation
+ * @param game
  * @returns {JSX.Element}
  * @constructor
  */
-import {Button, OverlayTrigger, Popover} from "react-bootstrap";
-import {useEffect, useState} from "react";
-import gameStyles from '../../../styles/games/Game.module.css'
-import {dangerColor, successColor} from "../../../lib/frontend-env-variables";
-import GameNav from "../GameNav";
-
-// question, answers, correctAnswer, helperText, equation
 const ChooseCorrectAnswer = ({game}) => {
     const [stageNumber, setStageNumber] = useState(0)
     const [attempts, setAttempts] = useState(0)
@@ -32,29 +24,30 @@ const ChooseCorrectAnswer = ({game}) => {
     /*
     TODO -> component design
     TODO -> equation (how to format equation in html-react)
-    TODO -> correct answer handler
     TODO -> score saving
+    TODO -> disable to get to another gameStage after completing the game
      */
 
-    const [windowWidth, setWindowWidth] = useState(0)
-    const [buttonStyling, setButtonStyling] = useState({
+    const defaultStyling = {
         answer: null,
         styling: {}
-    })
+    }
+    const [windowWidth, setWindowWidth] = useState(0)
+    const [buttonStyling, setButtonStyling] = useState(defaultStyling)
 
     useEffect(() => {
         if (typeof window !== 'undefined')
             setWindowWidth(window.innerWidth)
     }, [])
 
-    const handleAnswerSubmit = (answer) => {
+    const handleAnswerSubmit = (answer, correctAnswer) => {
         // if button clicked more than once ->  return because nothing changed
         if (answer === buttonStyling.answer)
             return
 
         setAttempts(prevState => prevState + 1)
 
-        if (answer === game[stageNumber].correctAnswer) {
+        if (answer === correctAnswer) {
             setButtonStyling({
                 answer: answer,
                 styling: {
@@ -79,6 +72,8 @@ const ChooseCorrectAnswer = ({game}) => {
     }
 
     const handlePreviousStage = () => {
+        setButtonStyling(defaultStyling)
+
         if (stageNumber === 0)
             setStageNumber(game.length - 1)
         else {
@@ -89,6 +84,7 @@ const ChooseCorrectAnswer = ({game}) => {
     }
 
     const handleNextStage = () => {
+        setButtonStyling(defaultStyling)
         setStageNumber(prevState => {
             return (prevState + 1) % game.length
         })
@@ -98,17 +94,36 @@ const ChooseCorrectAnswer = ({game}) => {
         const gameStage = game[localGameNumber]
 
         if (gameStage.autogenerate) {
+            const task = generateEquation('some length', gameStage.difficulty);
+
             return (
                 <div className={`${gameStyles.frame} mb-4`}>
+                    <GameNav
+                        handleNextStage={handleNextStage}
+                        handlePreviousStage={handlePreviousStage}
+                    />
                     <div className={gameStyles.mainContentContainer}>
-                        <div className={gameStyles.buttonGroup}>
-                            <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
-                                    onClick={handlePreviousStage}>Předchozí</Button>
-                            <Button variant={"info"} type={'button'} className={`${gameStyles.button} m-2`}
-                                    onClick={handleNextStage}>Další</Button>
-                        </div>
-                        <div className={gameStyles.mainContentContainer}>
-                            autogen
+                            <Button
+                                className={'m-2'}
+                                style={{color: 'white'}}
+                                variant={"secondary"}
+                            >
+                                {task.question}
+                            </Button>
+                        <div>
+                            {task.answers.map((answer, index) => {
+                                return (
+                                    <Button
+                                        key={index}
+                                        variant={"outline-secondary"}
+                                        className={`m-2`}
+                                        style={answer === buttonStyling.answer ? buttonStyling.styling : {}}
+                                        onClick={() => handleAnswerSubmit(answer, task.correctAnswer)}
+                                    >
+                                        {answer}
+                                    </Button>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
@@ -153,7 +168,7 @@ const ChooseCorrectAnswer = ({game}) => {
                                         variant={"outline-secondary"}
                                         className={`m-2`}
                                         style={answer === buttonStyling.answer ? buttonStyling.styling : {}}
-                                        onClick={() => handleAnswerSubmit(answer)}
+                                        onClick={() => handleAnswerSubmit(answer, game[stageNumber].correctAnswer)}
                                     >
                                         {answer}
                                     </Button>
