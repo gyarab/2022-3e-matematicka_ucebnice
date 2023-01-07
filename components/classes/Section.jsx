@@ -1,4 +1,8 @@
-import ChooseCorrectAnswer from "../games/choose-correct-answer/ChooseCorrectAnswer";
+import dynamic from "next/dynamic";
+
+const ChooseCorrectAnswer = dynamic(() => import('../games/choose-correct-answer/ChooseCorrectAnswer'), {
+    ssr: false
+})
 
 const Section = ({id, title, games}) => {
 
@@ -20,7 +24,9 @@ const Section = ({id, title, games}) => {
     return (
         <li id={id}>
             <h2>{title}</h2>
-            <ul>
+            <ul
+                className={`p-2`}
+            >
                 {games.map((game, index) => {
                     return (
                         <li

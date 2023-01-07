@@ -97,19 +97,19 @@ const ChooseCorrectAnswer = ({game}) => {
             const task = generateEquation('some length', gameStage.difficulty);
 
             return (
-                <div className={`${gameStyles.frame} mb-4`}>
+                <div className={`${gameStyles.frame}`}>
                     <GameNav
                         handleNextStage={handleNextStage}
                         handlePreviousStage={handlePreviousStage}
                     />
                     <div className={gameStyles.mainContentContainer}>
-                            <Button
-                                className={'m-2'}
-                                style={{color: 'white'}}
-                                variant={"secondary"}
-                            >
-                                {task.question}
-                            </Button>
+                        <Button
+                            className={'m-2'}
+                            style={{color: 'white'}}
+                            variant={"secondary"}
+                        >
+                            {task.question}
+                        </Button>
                         <div>
                             {task.answers.map((answer, index) => {
                                 return (
@@ -140,41 +140,39 @@ const ChooseCorrectAnswer = ({game}) => {
         )
 
         return (
-            <div className={`${gameStyles.frame} mb-4`}>
+            <div className={`${gameStyles.frame}`}>
+                <GameNav
+                    handleNextStage={handleNextStage}
+                    handlePreviousStage={handlePreviousStage}
+                />
                 <div className={gameStyles.mainContentContainer}>
-                    <GameNav
-                        handleNextStage={handleNextStage}
-                        handlePreviousStage={handlePreviousStage}
-                    />
-                    <div className={gameStyles.mainContentContainer}>
-                        <OverlayTrigger
-                            trigger={(windowWidth > 500) ? ['hover', 'focus'] : ['click']}
-                            placement={'bottom'}
-                            overlay={popover}
+                    <OverlayTrigger
+                        trigger={(windowWidth > 500) ? ['hover', 'focus'] : ['click']}
+                        placement={'bottom'}
+                        overlay={popover}
+                    >
+                        <Button
+                            className={'m-2'}
+                            style={{color: 'white'}}
+                            variant={"secondary"}
                         >
-                            <Button
-                                className={'m-2'}
-                                style={{color: 'white'}}
-                                variant={"secondary"}
-                            >
-                                {gameStage.question}
-                            </Button>
-                        </OverlayTrigger>
-                        <div>
-                            {gameStage.answers.map((answer, index) => {
-                                return (
-                                    <Button
-                                        key={index}
-                                        variant={"outline-secondary"}
-                                        className={`m-2`}
-                                        style={answer === buttonStyling.answer ? buttonStyling.styling : {}}
-                                        onClick={() => handleAnswerSubmit(answer, game[stageNumber].correctAnswer)}
-                                    >
-                                        {answer}
-                                    </Button>
-                                )
-                            })}
-                        </div>
+                            {gameStage.question}
+                        </Button>
+                    </OverlayTrigger>
+                    <div>
+                        {gameStage.answers.map((answer, index) => {
+                            return (
+                                <Button
+                                    key={index}
+                                    variant={"outline-secondary"}
+                                    className={`m-2`}
+                                    style={answer === buttonStyling.answer ? buttonStyling.styling : {}}
+                                    onClick={() => handleAnswerSubmit(answer, game[stageNumber].correctAnswer)}
+                                >
+                                    {answer}
+                                </Button>
+                            )
+                        })}
                     </div>
                 </div>
             </div>
@@ -182,7 +180,7 @@ const ChooseCorrectAnswer = ({game}) => {
     }
 
     return (
-        <div className={gameStyles.gameContainer}>
+        <div className={`p-2 mb-3 ${gameStyles.gameContainer}`}>
             {
                 renderGame(stageNumber)
             }

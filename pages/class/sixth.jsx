@@ -102,9 +102,9 @@ const SixthClass = ({}) => {
                     altText={heroImageAltText}
                     description={'Šestá třída'}
                 />
-                <div className={`container-fluid m-2 ${classStyles.mainContainer} w-100`}>
+                <div className={`container-fluid ${classStyles.mainContainer} w-100`}>
                     <ul
-                        className={`m-3`}
+                        className={`p-2`}
                     >
                         {sections.map((section, index) => {
                             return (
