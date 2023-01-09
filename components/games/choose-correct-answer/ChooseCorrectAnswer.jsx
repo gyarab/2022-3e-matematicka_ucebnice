@@ -4,8 +4,11 @@ import gameStyles from '../../../styles/games/Game.module.css'
 import {dangerColor, successColor} from "../../../lib/frontend-env-variables";
 import GameNav from "../GameNav";
 import generateEquation from "../../../lib/equationGeneration";
+import dynamic from 'next/dynamic'
 
-// question, answers, correctAnswer, helperText, equation
+const GameEndModal = dynamic(() => import('../GameEndModal'), {
+    ssr: false
+})
 
 /**
  * CHOOSE CORRECT ANSWER GAME
@@ -20,6 +23,7 @@ import generateEquation from "../../../lib/equationGeneration";
 const ChooseCorrectAnswer = ({game}) => {
     const [stageNumber, setStageNumber] = useState(0)
     const [attempts, setAttempts] = useState(0)
+    const [modalShow, setModalShow] = useState(false)
 
     /*
     TODO -> component design
@@ -74,9 +78,9 @@ const ChooseCorrectAnswer = ({game}) => {
     const handlePreviousStage = () => {
         setButtonStyling(defaultStyling)
 
-        if (stageNumber === 0)
+        if (stageNumber === 0) {
             setStageNumber(game.length - 1)
-        else {
+        } else {
             setStageNumber(prevState => {
                 return prevState - 1
             })
@@ -86,6 +90,9 @@ const ChooseCorrectAnswer = ({game}) => {
     const handleNextStage = () => {
         setButtonStyling(defaultStyling)
         setStageNumber(prevState => {
+            if (prevState === game.length - 1)
+                setModalShow(true)
+
             return (prevState + 1) % game.length
         })
     }
@@ -180,11 +187,19 @@ const ChooseCorrectAnswer = ({game}) => {
     }
 
     return (
-        <div className={`p-2 mb-3 ${gameStyles.gameContainer}`}>
-            {
-                renderGame(stageNumber)
-            }
-        </div>
+        <>
+            <div className={`p-2 mb-3 ${gameStyles.gameContainer}`}>
+                {
+                    renderGame(stageNumber)
+                }
+            </div>
+            <GameEndModal
+                title={'Modal title'}
+                text={'Lorem ipsum'}
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
+        </>
     )
 }
 
