@@ -18,7 +18,7 @@ const RegisterForm = () => {
         emailRef.current.focus()
     }, [])
 
-    const handleLogin = (e) => {
+    const handleRegister = (e) => {
         if (validated)
             e.preventDefault()
 
@@ -34,6 +34,7 @@ const RegisterForm = () => {
     }
 
     const handleSubmit = (e) => {
+        console.log(passwordRef.current)
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
             e.preventDefault();
@@ -108,7 +109,7 @@ const RegisterForm = () => {
                     variant={"primary"}
                     className={`${verificationStyles.submitButton} hoverDarkShadow`}
                     type={'submit'}
-                    onClick={handleLogin}
+                    onClick={handleRegister}
                 >
                     Registrovat
                 </Button>
