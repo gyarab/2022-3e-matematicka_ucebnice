@@ -77,10 +77,7 @@ const ChooseCorrectAnswer = ({game}) => {
 
     const handlePreviousStage = () => {
         setButtonStyling(defaultStyling)
-
-        if (stageNumber === 0) {
-            setStageNumber(game.length - 1)
-        } else {
+        if (stageNumber !== 0) {
             setStageNumber(prevState => {
                 return prevState - 1
             })
@@ -101,7 +98,7 @@ const ChooseCorrectAnswer = ({game}) => {
         const gameStage = game[localGameNumber]
 
         if (gameStage.autogenerate) {
-            const task = generateEquation('some length', gameStage.difficulty);
+            const task = generateEquation(4, gameStage.difficulty);
 
             return (
                 <div className={`${gameStyles.frame}`}>

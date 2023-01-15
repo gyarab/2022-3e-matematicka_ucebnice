@@ -33,7 +33,7 @@ const sections = [
                     {
                         gameId: 1,
                         autogenerate: true,
-                        difficulty: 6, // class difficulty (6, 7, 8, 9)
+                        difficulty: 1,
                     }
                 ]
             },
