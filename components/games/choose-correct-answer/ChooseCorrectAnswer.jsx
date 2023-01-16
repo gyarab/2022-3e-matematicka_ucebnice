@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import gameStyles from '../../../styles/games/Game.module.css'
 import {dangerColor, successColor} from "../../../lib/frontend-env-variables";
 import GameNav from "../GameNav";
-import generateEquation from "../../../lib/equationGeneration";
+import {generateEquation} from "../../../lib/equationGeneration";
 import dynamic from 'next/dynamic'
 
 const GameEndModal = dynamic(() => import('../GameEndModal'), {
