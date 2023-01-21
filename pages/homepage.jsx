@@ -47,7 +47,6 @@ const HomePage = (props) => {
                         </Row>
                         <Row className={'align-items-center justify-content-center'}>
                             <HomepageCard
-
                                 title={'Osmá třída'}
                                 description={'Description'}
                                 redirectDestination={'/class/eight'}

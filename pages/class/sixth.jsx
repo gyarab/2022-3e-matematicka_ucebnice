@@ -70,6 +70,12 @@ const sections = [
                         class: '', // class number (required)
                     }
                 ]
+            },
+            {
+                id: 2,
+                title: 'Pexeso.jsx',
+                difficulty: 2,
+                size: 5
             }
         ]
     },

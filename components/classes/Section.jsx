@@ -3,6 +3,9 @@ import dynamic from "next/dynamic";
 const ChooseCorrectAnswer = dynamic(() => import('../games/choose-correct-answer/ChooseCorrectAnswer'), {
     ssr: false
 })
+const Pexeso = dynamic(() => import('../games/pexeso/Pexeso'), {
+    ssr: false
+})
 
 const Section = ({id, title, games}) => {
 
@@ -14,6 +17,13 @@ const Section = ({id, title, games}) => {
                 return (
                     <ChooseCorrectAnswer
                         game={game.content}
+                    />
+                )
+            case 2:
+                return (
+                    <Pexeso
+                        difficulty={game.difficulty}
+                        size={game.size}
                     />
                 )
             default:
