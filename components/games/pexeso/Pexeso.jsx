@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {generatePexeso} from "../../../lib/equationGeneration";
-import {Container, Row} from "react-bootstrap";
+import {Row} from "react-bootstrap";
 import PexesoCard from "./PexesoCard";
 import gameStyles from "../../../styles/games/Game.module.css";
 
@@ -13,16 +13,11 @@ const Pexeso = ({size, difficulty}) => {
     })
 
     function generateGenpexArray() {
-        for (const [value, key] of pexeso) {
-            console.log(key, value)
-        }
-
         let inArr = []
         for (const [value, key] of pexeso) {
             inArr.push(value)
             inArr.push(key)
         }
-        //console.log(inArr)
 
         const chunkSize = size;
 
@@ -35,13 +30,9 @@ const Pexeso = ({size, difficulty}) => {
             group.push(item);
             acc.push(group);
             return acc;
-        }, [[]]);
-
-        //console.log(inArr)
+        }, [[]])
         return inArr
     }
-
-    // console.log(genpex)
 
     return (
         <>
