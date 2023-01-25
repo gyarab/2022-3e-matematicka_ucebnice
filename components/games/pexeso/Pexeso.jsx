@@ -13,6 +13,7 @@ const Pexeso = ({size, difficulty}) => {
     })
 
     function generateGenpexArray() {
+        console.log(pexeso)
         let inArr = []
         for (const [value, key] of pexeso) {
             inArr.push(value)
@@ -35,28 +36,26 @@ const Pexeso = ({size, difficulty}) => {
     }
 
     return (
-        <>
-            <div className={`p-2 mb-3 ${gameStyles.gameContainer}`}>
-                {
-                    genpex.map((row, index) => {
-                        return (
-                            <Row key={index} className={'align-items-center justify-content-center'}>
-                                {
-                                    row.map((card, idx) => {
-                                        return (
-                                            <PexesoCard
-                                                key={idx}
-                                                value={card}
-                                            />
-                                        )
-                                    })
-                                }
-                            </Row>
-                        )
-                    })
-                }
-            </div>
-        </>
+        <div className={`p-3 m-2 ${gameStyles.frame}`} style={{width: 'fit-content'}}>
+            {
+                genpex.map((row, index) => {
+                    return (
+                        <Row key={index} className={'align-items-center justify-content-center ps-2 pe-2'}>
+                            {
+                                row.map((card, idx) => {
+                                    return (
+                                        <PexesoCard
+                                            key={idx}
+                                            value={card}
+                                        />
+                                    )
+                                })
+                            }
+                        </Row>
+                    )
+                })
+            }
+        </div>
     )
 }
 

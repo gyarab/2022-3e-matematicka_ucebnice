@@ -101,7 +101,7 @@ const ChooseCorrectAnswer = ({game}) => {
             const task = generateEquation(4, gameStage.difficulty);
 
             return (
-                <div className={`${gameStyles.frame}`}>
+                <div className={`${gameStyles.frame} m-2`}>
                     <GameNav
                         handleNextStage={handleNextStage}
                         handlePreviousStage={handlePreviousStage}
@@ -144,7 +144,7 @@ const ChooseCorrectAnswer = ({game}) => {
         )
 
         return (
-            <div className={`${gameStyles.frame}`}>
+            <div className={`${gameStyles.frame} m-2`}>
                 <GameNav
                     handleNextStage={handleNextStage}
                     handlePreviousStage={handlePreviousStage}
@@ -185,11 +185,9 @@ const ChooseCorrectAnswer = ({game}) => {
 
     return (
         <>
-            <div className={`p-2 mb-3 ${gameStyles.gameContainer}`}>
-                {
-                    renderGame(stageNumber)
-                }
-            </div>
+            {
+                renderGame(stageNumber)
+            }
             <GameEndModal
                 title={'Modal title'}
                 text={'Lorem ipsum'}

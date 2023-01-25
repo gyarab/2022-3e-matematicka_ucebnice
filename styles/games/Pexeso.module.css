@@ -3,3 +3,24 @@
     width: 5rem;
     height: 5rem;
 }
+
+.scaleCardOnHover {
+    animation: objectOut;
+    animation-duration: 100ms;
+}
+
+.scaleCardOnHover:hover {
+    animation: objectIn;
+    animation-duration: 100ms;
+    transform: scale(1.1);
+}
+
+@keyframes objectIn {
+    from {transform: scale(1);}
+    to {transform: scale(1.1);}
+}
+
+@keyframes objectOut {
+    from {transform: scale(1.1);}
+    to {transform: scale(1);}
+}
