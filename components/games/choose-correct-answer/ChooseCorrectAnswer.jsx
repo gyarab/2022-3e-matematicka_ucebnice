@@ -103,6 +103,8 @@ const ChooseCorrectAnswer = ({game}) => {
             return (
                 <div className={`${gameStyles.frame} m-2`}>
                     <GameNav
+                        showPreviousButton
+                        showNextButton
                         handleNextStage={handleNextStage}
                         handlePreviousStage={handlePreviousStage}
                     />
@@ -146,6 +148,8 @@ const ChooseCorrectAnswer = ({game}) => {
         return (
             <div className={`${gameStyles.frame} m-2`}>
                 <GameNav
+                    showPreviousButton
+                    showNextButton
                     handleNextStage={handleNextStage}
                     handlePreviousStage={handlePreviousStage}
                 />

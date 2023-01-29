@@ -5,22 +5,153 @@
 }
 
 .scaleCardOnHover {
-    animation: objectOut;
-    animation-duration: 100ms;
+    animation: cardOutAnimation 100ms;
 }
 
 .scaleCardOnHover:hover {
-    animation: objectIn;
-    animation-duration: 100ms;
+    animation: cardInAnimation 100ms;
     transform: scale(1.1);
 }
 
-@keyframes objectIn {
+.correct {
+    background-color: green;
+    color: white;
+    animation: correctAnimation 1s;
+}
+
+.incorrect {
+    background-color: var(--bs-danger);
+    color: white;
+    animation: incorrectAnimation 400ms;
+}
+
+.neutral {
+    background-color: grey;
+    color: white;
+}
+
+/*
+Animations to show cards are correct
+ */
+@keyframes correctAnimation {
+    0% {transform: scale(1) rotate(0deg);}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1) rotate(360deg);}
+}
+
+@-moz-keyframes correctAnimation {
+    0% {transform: scale(1) rotate(0deg);}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1) rotate(360deg);}
+}
+
+@-webkit-keyframes correctAnimation {
+    0% {transform: scale(1) rotate(0deg);}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1) rotate(360deg);}
+}
+
+/*
+Animations to show cards are incorrect
+ */
+@keyframes incorrectAnimation {
+    0% {
+        transform: translateX(4px);
+        -ms-transform: translateX(4px);
+    }
+    25% {
+        transform: translateX(-4px);
+        -ms-transform: translateX(-4px);
+    }
+    50% {
+        transform: translateX(4px);
+        -ms-transform: translateX(4px);
+    }
+    75% {
+        transform: translateX(-4px);
+        -ms-transform: translateX(-4px);
+    }
+    100% {
+        transform: translateX(4px);
+        -ms-transform: translateX(4px);
+    }
+}
+
+@-moz-keyframes incorrectAnimation {
+    0% {
+        transform: translateX(4px);
+        -ms-transform: translateX(4px);
+    }
+    25% {
+        transform: translateX(-4px);
+        -ms-transform: translateX(-4px);
+    }
+    50% {
+        transform: translateX(4px);
+        -ms-transform: translateX(4px);
+    }
+    75% {
+        transform: translateX(-4px);
+        -ms-transform: translateX(-4px);
+    }
+    100% {
+        transform: translateX(4px);
+        -ms-transform: translateX(4px);
+    }
+}
+
+@-webkit-keyframes incorrectAnimation {
+    0% {
+        transform: translateX(4px);
+        -ms-transform: translateX(4px);
+    }
+    25% {
+        transform: translateX(-4px);
+        -ms-transform: translateX(-4px);
+    }
+    50% {
+        transform: translateX(4px);
+        -ms-transform: translateX(4px);
+    }
+    75% {
+        transform: translateX(-4px);
+        -ms-transform: translateX(-4px);
+    }
+    100% {
+        transform: translateX(4px);
+        -ms-transform: translateX(4px);
+    }
+}
+
+/*
+Animations to make pexeso cards bigger or smaller
+ */
+@keyframes cardInAnimation {
     from {transform: scale(1);}
     to {transform: scale(1.1);}
 }
 
-@keyframes objectOut {
+@-moz-keyframes cardInAnimation {
+    from {transform: scale(1);}
+    to {transform: scale(1.1);}
+}
+
+@-webkit-keyframes cardInAnimation {
+    from {transform: scale(1);}
+    to {transform: scale(1.1);}
+}
+
+@keyframes cardOutAnimation {
+    from {transform: scale(1.1);}
+    to {transform: scale(1);}
+}
+
+@-moz-keyframes cardOutAnimation {
+    from {transform: scale(1.1);}
+    to {transform: scale(1);}
+}
+
+@-webkit-keyframes cardOutAnimation {
     from {transform: scale(1.1);}
     to {transform: scale(1);}
 }
