@@ -6,10 +6,16 @@
 
 .scaleCardOnHover {
     animation: cardOutAnimation 100ms;
+    -o-animation: cardOutAnimation 100ms;
+    -moz-animation: cardOutAnimation 100ms;
+    -webkit-animation: cardOutAnimation 100ms;
 }
 
 .scaleCardOnHover:hover {
     animation: cardInAnimation 100ms;
+    -o-animation: cardInAnimation 100ms;
+    -moz-animation: cardInAnimation 100ms;
+    -webkit-animation: cardInAnimation 100ms;
     transform: scale(1.1);
 }
 
@@ -17,17 +23,32 @@
     background-color: green;
     color: white;
     animation: correctAnimation 1s;
+    -o-animation: correctAnimation 1s;
+    -moz-animation: correctAnimation 1s;
+    -webkit-animation: correctAnimation 1s;
 }
 
 .incorrect {
     background-color: var(--bs-danger);
     color: white;
     animation: incorrectAnimation 400ms;
+    -o-animation: incorrectAnimation 400ms;
+    -moz-animation: incorrectAnimation 400ms;
+    -webkit-animation: incorrectAnimation 400ms;
 }
 
 .neutral {
     background-color: grey;
     color: white;
+}
+
+.checked {
+    background-color: var(--bs-info);
+    color: white;
+    animation: cardOutAnimation 100ms;
+    -o-animation: cardOutAnimation 100ms;
+    -moz-animation: cardOutAnimation 100ms;
+    -webkit-animation: cardOutAnimation 100ms;
 }
 
 /*

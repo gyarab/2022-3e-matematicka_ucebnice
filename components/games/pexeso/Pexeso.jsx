@@ -12,7 +12,11 @@ const GameEndModal = dynamic(() => import("../GameEndModal"), {
 })
 
 const Pexeso = ({size, difficulty}) => {
-    const pexeso = useMemo(() => generatePexeso(size, difficulty), [size, difficulty]);
+    /*
+    TODO -> opravit GameEndModal.jsx
+    TODO -> vygenerování nového hracího pole
+     */
+    const pexeso = useMemo(() => generatePexeso(size, 4), [size, difficulty]);
     const pexArray = useMemo(() => generatePexArray(), []);
     const [flipped, setFlipped] = useState({
         value: undefined,
@@ -27,21 +31,23 @@ const Pexeso = ({size, difficulty}) => {
     const [showModal, setShowModal] = useState(false);
 
     function generatePexArray() {
-        let inArr = []
+        let entriesArray = []
         for (const [key, value] of pexeso) {
-            inArr.push({
+            entriesArray.push({
                 value: value,
                 isKey: false
             })
-            inArr.push({
+            entriesArray.push({
                 value: key,
                 isKey: true
             })
         }
 
+        entriesArray = entriesArray.sort((a,b) => Math.random() - 0.5)
+
         const chunkSize = size;
 
-        inArr = inArr.reduce((acc, item) => {
+        entriesArray = entriesArray.reduce((acc, item) => {
             let group = acc.pop();
             if (group.length === chunkSize) {
                 acc.push(group);
@@ -51,7 +57,18 @@ const Pexeso = ({size, difficulty}) => {
             acc.push(group);
             return acc;
         }, [[]])
-        return inArr
+
+        // https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj
+        const shuffleArray = (arr) => {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        return entriesArray
     }
 
     const setNewEvaluation = (correct=false, card1='', card2='') => {
@@ -69,7 +86,7 @@ const Pexeso = ({size, difficulty}) => {
     }
 
     const cardChosen = (value, isKey) => {
-        if (marked.includes(value))
+        if (marked.includes(value) || flipped.value === value)
             return
 
         if (flipped.value === undefined) {
@@ -127,17 +144,23 @@ const Pexeso = ({size, difficulty}) => {
                                     row.map((card, idx) => {
                                         let correct = null
                                         let neutral = false
+                                        let checked = false
+
                                         if (evaluation.card1 === card.value || evaluation.card2 === card.value)
                                             correct = evaluation.correct
 
                                         if (marked.includes(card.value))
                                             neutral = true
 
+                                        if (flipped.value === card.value)
+                                            checked = true
+
                                         return (
                                             <PexesoCard
                                                 key={idx}
                                                 correct={correct}
                                                 neutral={neutral}
+                                                checked={checked}
                                                 value={card.value}
                                                 clickHandler={(e) => cardChosen(e.target.innerHTML, card.isKey)}
                                             />

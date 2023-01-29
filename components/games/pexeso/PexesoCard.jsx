@@ -1,6 +1,6 @@
 import pexesoStyles from '../../../styles/games/Pexeso.module.css'
 
-const PexesoCard = ({value, correct, neutral, clickHandler}) => {
+const PexesoCard = ({value, correct, neutral, checked, clickHandler}) => {
     const correctIsNull = correct === null
     return (
         <div
@@ -14,11 +14,12 @@ const PexesoCard = ({value, correct, neutral, clickHandler}) => {
                  p-2
                  rounded
                  hoverDarkShadow
-                 ${correctIsNull && !neutral ? pexesoStyles.scaleCardOnHover : ''}
+                 ${!checked && correctIsNull && !neutral ? pexesoStyles.scaleCardOnHover : ''}
                  ${pexesoStyles.card}
                  ${!correctIsNull && correct ? pexesoStyles.correct : ''}
                  ${!correctIsNull && !neutral && !correct ? pexesoStyles.incorrect : ''}
-                 ${correctIsNull && neutral ? pexesoStyles.neutral : ''}`
+                 ${neutral && correctIsNull ? pexesoStyles.neutral : ''}
+                 ${checked && correctIsNull ? pexesoStyles.checked : ''}`
             }
         >
             {value}
