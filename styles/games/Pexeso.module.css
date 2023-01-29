@@ -45,10 +45,10 @@
 .checked {
     background-color: var(--bs-info);
     color: white;
-    animation: cardOutAnimation 100ms;
-    -o-animation: cardOutAnimation 100ms;
-    -moz-animation: cardOutAnimation 100ms;
-    -webkit-animation: cardOutAnimation 100ms;
+    animation: cardOutAnimation 300ms;
+    -o-animation: cardOutAnimation 300ms;
+    -moz-animation: cardOutAnimation 300ms;
+    -webkit-animation: cardOutAnimation 300ms;
 }
 
 /*
