@@ -75,7 +75,7 @@ const sections = [
                 id: 2,
                 title: 'Pexeso.jsx',
                 difficulty: 2,
-                size: 6 // should not be even
+                size: 2 // should not be even
             }
         ]
     },

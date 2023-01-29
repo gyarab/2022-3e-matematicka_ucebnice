@@ -1,4 +1,4 @@
-import {useState, useMemo} from "react";
+import {useMemo, useState} from "react";
 import {generatePexeso} from "../../../lib/equationGeneration";
 import {Row} from "react-bootstrap";
 import gameStyles from "../../../styles/games/Game.module.css";
@@ -13,10 +13,9 @@ const GameEndModal = dynamic(() => import("../GameEndModal"), {
 
 const Pexeso = ({size, difficulty}) => {
     /*
-    TODO -> opravit GameEndModal.jsx
     TODO -> vygenerování nového hracího pole
      */
-    const pexeso = useMemo(() => generatePexeso(size, 4), [size, difficulty]);
+    const pexeso = useMemo(() => generatePexeso(size, difficulty), [size, difficulty]);
     const pexArray = useMemo(() => generatePexArray(), []);
     const [flipped, setFlipped] = useState({
         value: undefined,
@@ -43,7 +42,7 @@ const Pexeso = ({size, difficulty}) => {
             })
         }
 
-        entriesArray = entriesArray.sort((a,b) => Math.random() - 0.5)
+        entriesArray = entriesArray.sort((a, b) => Math.random() - 0.5)
 
         const chunkSize = size;
 
@@ -71,7 +70,7 @@ const Pexeso = ({size, difficulty}) => {
         return entriesArray
     }
 
-    const setNewEvaluation = (correct=false, card1='', card2='') => {
+    const setNewEvaluation = (correct = false, card1 = '', card2 = '') => {
         setEvaluation({
             correct: correct,
             card1: card1,
@@ -83,6 +82,9 @@ const Pexeso = ({size, difficulty}) => {
         setMarked(prevState => {
             return [...prevState, key, value]
         })
+
+        if (marked.length + 2 === size ** 2)
+            setShowModal(true)
     }
 
     const cardChosen = (value, isKey) => {
@@ -172,16 +174,13 @@ const Pexeso = ({size, difficulty}) => {
                     })
                 }
             </div>
-
-            {
-                marked.length === pexArray.length &&
-                <GameEndModal
-                    show={showModal}
-                    onHide={hideEndModalHandler}
-                />
-            }
+            <GameEndModal
+                show={showModal}
+                title={"Game end"}
+                text={"eeeennnndddd!"}
+                onHide={hideEndModalHandler}
+            />
         </>
-
     )
 }
 
