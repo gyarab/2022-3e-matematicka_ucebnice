@@ -42,6 +42,7 @@ const Pexeso = ({size, difficulty}) => {
             })
         }
 
+        // shuffle cards
         entriesArray = entriesArray.sort((a, b) => Math.random() - 0.5)
 
         const chunkSize = size;
@@ -56,16 +57,6 @@ const Pexeso = ({size, difficulty}) => {
             acc.push(group);
             return acc;
         }, [[]])
-
-        // https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj
-        const shuffleArray = (arr) => {
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                const temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
 
         return entriesArray
     }
@@ -104,9 +95,10 @@ const Pexeso = ({size, difficulty}) => {
                 console.log('incorrect')
             } else if (flipped.isKey) {
                 // first is key
+
                 if (pexeso.get(flipped.value) === value) {
                     setNewEvaluation(true, flipped.value, value)
-                    setNewMarkedMap(flipped.value, value)
+                    setNewMarkedMap(flipped.value, value.toString())
                     console.log('correct')
                 } else {
                     setNewEvaluation(false, flipped.value, value)
