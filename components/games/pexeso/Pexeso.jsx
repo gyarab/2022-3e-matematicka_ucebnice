@@ -1,5 +1,5 @@
 import {useMemo, useState} from "react";
-import {generatePexeso} from "../../../lib/equationGeneration";
+import {generateEqualPairs} from "../../../lib/equationGeneration";
 import {Row} from "react-bootstrap";
 import gameStyles from "../../../styles/games/Game.module.css";
 import dynamic from "next/dynamic";
@@ -15,7 +15,7 @@ const Pexeso = ({size, difficulty}) => {
     /*
     TODO -> vygenerování nového hracího pole
      */
-    const pexeso = useMemo(() => generatePexeso(size, difficulty), [size, difficulty]);
+    const pexeso = useMemo(() => generateEqualPairs(size, difficulty), [size, difficulty]);
     const pexArray = useMemo(() => generatePexArray(), []);
     const [flipped, setFlipped] = useState({
         value: undefined,
