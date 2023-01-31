@@ -44,9 +44,11 @@ const Section = ({id, title, games}) => {
                         >
                             <div>
                                 {game.title}
-                                {
-                                    renderGame(game)
-                                }
+                                <div className={'d-flex flex-row justify-content-center align-items-center'}>
+                                    {
+                                        renderGame(game)
+                                    }
+                                </div>
                             </div>
 
                         </li>

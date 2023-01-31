@@ -28,6 +28,7 @@ const Pexeso = ({size, difficulty}) => {
     });
     const [marked, setMarked] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [mistakes, setMistakes] = useState(0);
 
     function generatePexArray() {
         let entriesArray = []
@@ -78,6 +79,12 @@ const Pexeso = ({size, difficulty}) => {
             setShowModal(true)
     }
 
+    const registerMistake = () => {
+        setMistakes(prevState => {
+            return prevState + 1
+        })
+    }
+
     const cardChosen = (value, isKey) => {
         if (marked.includes(value) || flipped.value === value)
             return
@@ -92,6 +99,7 @@ const Pexeso = ({size, difficulty}) => {
             const bothAreKeys = flipped.isKey && isKey
             if (bothAreKeys) {
                 setNewEvaluation(false, flipped.value, value)
+                registerMistake()
                 console.log('incorrect')
             } else if (flipped.isKey) {
                 // first is key
@@ -102,6 +110,7 @@ const Pexeso = ({size, difficulty}) => {
                     console.log('correct')
                 } else {
                     setNewEvaluation(false, flipped.value, value)
+                    registerMistake()
                     console.log('incorrect')
                 }
             } else {
@@ -112,6 +121,7 @@ const Pexeso = ({size, difficulty}) => {
                     console.log('correct')
                 } else {
                     setNewEvaluation(false, flipped.value, value)
+                    registerMistake()
                     console.log('incorrect')
                 }
             }
@@ -166,10 +176,13 @@ const Pexeso = ({size, difficulty}) => {
                     })
                 }
             </div>
+            {
+                `Mistakes: ${mistakes}!`
+            }
             <GameEndModal
                 show={showModal}
                 title={"Game end"}
-                text={"eeeennnndddd!"}
+                text={`Congratulations, during the game you have made ${mistakes} mistakes only!`}
                 onHide={hideEndModalHandler}
             />
         </>
