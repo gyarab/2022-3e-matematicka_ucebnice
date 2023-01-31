@@ -1,0 +1,31 @@
+.flipCard {
+    width: 15rem;
+    height: 15rem;
+    perspective: 1000px;
+}
+
+.flipCardInner {
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flipCard:hover .flipCardInner {
+    transform: rotateY(180deg);
+}
+
+.flipCardFront, .flipCardBack {
+    font-size: 20px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flipCardFront {
+    background-color: var(--bs-secondary);
+}
+
+.flipCardBack {
+    background-color: green;
+    color: white;
+    transform: rotateY(180deg);
+}
