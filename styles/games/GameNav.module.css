@@ -1,0 +1,16 @@
+.button {
+    width: 6rem;
+    color: white;
+}
+
+.button:hover {
+    color: white;
+    box-shadow: 0 2px 20px lightgrey;
+    -moz-box-shadow: 0 2px 20px lightgrey;
+    -webkit-box-shadow: 0 2px 20px lightgrey;
+}
+
+.buttonGroup {
+    padding: 5px 5px 10px;
+    border-bottom: 1px solid var(--bs-info);
+}

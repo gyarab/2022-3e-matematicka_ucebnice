@@ -103,8 +103,8 @@ const ChooseCorrectAnswer = ({game}) => {
             return (
                 <div className={`${gameStyles.frame} m-2`}>
                     <GameNav
-                        showPreviousButton
-                        showNextButton
+                        showPreviousButton={stageNumber !== 0}
+                        showNextButton={stageNumber !== game.length - 1}
                         handleNextStage={handleNextStage}
                         handlePreviousStage={handlePreviousStage}
                     />
@@ -148,8 +148,8 @@ const ChooseCorrectAnswer = ({game}) => {
         return (
             <div className={`${gameStyles.frame} m-2`}>
                 <GameNav
-                    showPreviousButton
-                    showNextButton
+                    showPreviousButton={stageNumber !== 0}
+                    showNextButton={stageNumber !== game.length - 1}
                     handleNextStage={handleNextStage}
                     handlePreviousStage={handlePreviousStage}
                 />
