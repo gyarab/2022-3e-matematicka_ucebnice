@@ -6,6 +6,9 @@ const ChooseCorrectAnswer = dynamic(() => import('../games/choose-correct-answer
 const Pexeso = dynamic(() => import('../games/pexeso/Pexeso'), {
     ssr: false
 })
+const CardFlipper = dynamic(() => import('../games/card-flipper/CardFlipper'), {
+    ssr: false
+})
 
 const Section = ({id, title, games}) => {
 
@@ -22,8 +25,15 @@ const Section = ({id, title, games}) => {
             case 2:
                 return (
                     <Pexeso
-                        difficulty={game.difficulty}
                         size={game.size}
+                        difficulty={game.difficulty}
+                    />
+                )
+            case 3:
+                return (
+                    <CardFlipper
+                        size={game.size}
+                        difficulty={game.difficulty}
                     />
                 )
             default:

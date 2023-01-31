@@ -74,8 +74,14 @@ const sections = [
             {
                 id: 2,
                 title: 'Pexeso.jsx',
-                difficulty: 2,
-                size: 4 // should not be even
+                size: 4, // should not be even
+                difficulty: 2
+            },
+            {
+                id: 3,
+                title: 'CardFlipper.jsx',
+                size: 4,
+                difficulty: 2
             }
         ]
     },
