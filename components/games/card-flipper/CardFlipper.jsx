@@ -7,6 +7,10 @@ import gameStyles from '../../../styles/games/Game.module.css'
 
 
 const CardFlipper = ({size, difficulty}) => {
+    /*
+        TODO -> mobile design
+     */
+
     const pairs = useMemo(() => generatePairArray(generateEqualPairs(size, difficulty)), [size, difficulty])
     const [stage, setStage] = useState(0);
     const [isValueShown, setIsValueShown] = useState();

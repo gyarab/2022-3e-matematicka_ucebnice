@@ -13,7 +13,8 @@ const GameEndModal = dynamic(() => import("../GameEndModal"), {
 
 const Pexeso = ({size, difficulty}) => {
     /*
-    TODO -> vygenerování nového hracího pole
+        TODO -> vygenerování nového hracího pole
+        TODO -> mobile design
      */
     const pexeso = useMemo(() => generateEqualPairs(size, difficulty), [size, difficulty]);
     const pexArray = useMemo(() => generatePexArray(), []);

@@ -26,10 +26,11 @@ const ChooseCorrectAnswer = ({game}) => {
     const [modalShow, setModalShow] = useState(false)
 
     /*
-    TODO -> component design
-    TODO -> equation (how to format equation in html-react)
-    TODO -> score saving
-    TODO -> disable to get to another gameStage after completing the game
+        TODO -> component design
+        TODO -> equation (how to format equation in html-react)
+        TODO -> score saving
+        TODO -> disable to get to another gameStage after completing the game
+        TODO -> mobile design
      */
 
     const defaultStyling = {
