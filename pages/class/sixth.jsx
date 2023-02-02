@@ -82,6 +82,12 @@ const sections = [
                 title: 'CardFlipper.jsx',
                 size: 4,
                 difficulty: 2
+            },
+            {
+                id: 4,
+                title: 'TrueFalseGame.jsx',
+                size: 4,
+                difficulty: 2
             }
         ]
     },

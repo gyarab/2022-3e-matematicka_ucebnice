@@ -9,6 +9,9 @@ const Pexeso = dynamic(() => import('../games/pexeso/Pexeso'), {
 const CardFlipper = dynamic(() => import('../games/card-flipper/CardFlipper'), {
     ssr: false
 })
+const TrueFalseGame = dynamic(() => import("../games/true-false-game/TrueFalseGame"), {
+    ssr: false
+})
 
 const Section = ({id, title, games}) => {
 
@@ -32,6 +35,13 @@ const Section = ({id, title, games}) => {
             case 3:
                 return (
                     <CardFlipper
+                        size={game.size}
+                        difficulty={game.difficulty}
+                    />
+                )
+            case 4:
+                return (
+                    <TrueFalseGame
                         size={game.size}
                         difficulty={game.difficulty}
                     />
