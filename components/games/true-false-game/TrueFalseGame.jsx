@@ -5,6 +5,8 @@ import gameUtilsStyles from '../../../styles/games/GameUtils.module.css'
 import trueFalseGameStyles from '../../../styles/games/TrueFalseGame.module.css'
 import GameNav from "../GameNav";
 import {Button, OverlayTrigger, Popover} from "react-bootstrap";
+import { BsFillCheckCircleFill } from 'react-icons/bs'
+import { BsXCircleFill } from 'react-icons/bs'
 
 const popover = (
     <Popover id="popover-basic">
@@ -53,26 +55,24 @@ const TrueFalseGame = ({size, difficulty}) => {
     const handleNextStage = () => {
         if (stage !== pairs.length - 1) {
             setEvaluation(undefined)
-            setStage(prevState => {
-                return (prevState + 1) % pairs.length
-            })
+            setStage(prevState => (prevState + 1) % pairs.length)
         }
     }
 
     const handlePreviousStage = () => {
         if (stage !== 0) {
             setEvaluation(undefined)
-            setStage(prevState => {
-                return prevState - 1
-            })
+            setStage(prevState => (prevState - 1))
         }
     }
 
-    const handleAnswerSubmit = (e) => {
-        const buttonText = e.target.innerHTML
+    const handleAnswerSubmit = (isCorrectButton) => {
+        if (evaluation !== undefined && ((isCorrectButton && evaluation.isCorrectButton) || (!isCorrectButton && !evaluation.isCorrectButton)))
+            return
+
         const isDisplayedKey = pairs[stage].keyValue === pairs[stage].displayedValue
 
-        if (buttonText === 'správně') {
+        if (isCorrectButton) {
             if (isDisplayedKey) {
                 console.log('correct')
                 setEvaluation({
@@ -81,18 +81,10 @@ const TrueFalseGame = ({size, difficulty}) => {
                 })
                 pairs[stage].isCorrect = true
                 pairs[stage].isCorrectButton = true
-                setTimeout(handleNextStage, 1000)
+                setTimeout(handleNextStage, 1300)
             } else {
                 console.log('incorrect')
-                if (evaluation === undefined || pairs[stage].isCorrect === undefined) {
-                    setMistakes(prevState => {
-                        return prevState + 1
-                    })
-                } else if (evaluation.isCorrect || pairs[stage].isCorrect) {
-                    setMistakes(prevState => {
-                        return prevState + 1
-                    })
-                }
+                setMistakes(prevState => prevState + 1)
                 setEvaluation({
                     isCorrect: false,
                     isCorrectButton: true
@@ -103,16 +95,7 @@ const TrueFalseGame = ({size, difficulty}) => {
         } else {
             if (isDisplayedKey) {
                 console.log('incorrect')
-                if (evaluation === undefined || pairs[stage].isCorrect === undefined) {
-                    setMistakes(prevState => {
-                        return prevState + 1
-                    })
-                } else if (evaluation.isCorrect || pairs[stage].isCorrect) {
-                    setMistakes(prevState => {
-                        return prevState + 1
-                    })
-                }
-
+                setMistakes(prevState => prevState + 1)
                 setEvaluation({
                     isCorrect: false,
                     isCorrectButton: false
@@ -168,7 +151,6 @@ const TrueFalseGame = ({size, difficulty}) => {
                     <div className={`d-flex flex-row`}>
                         <Button
                             variant={"outline-secondary"}
-                            style={{width: '5rem'}}
                             className={`
                                 d-flex
                                 justify-content-center
@@ -179,37 +161,35 @@ const TrueFalseGame = ({size, difficulty}) => {
                                 correctButton ? (evaluation.isCorrect ? gameUtilsStyles.correct : gameUtilsStyles.incorrect) :
                                     previousCorrectButton ? (pairs[stage].isCorrect ? gameUtilsStyles.correct : gameUtilsStyles.incorrect) : ''
                             }
-                                ${correctButton || previousCorrectButton ? trueFalseGameStyles.button : ''}`
+                                ${correctButton || previousCorrectButton ? trueFalseGameStyles.checkedButton : ''}
+                                ${trueFalseGameStyles.button}`
                             }
-                            onClick={handleAnswerSubmit}
+                            onClick={() => handleAnswerSubmit(true)}
                         >
-                            {"správně"}
+                            <BsFillCheckCircleFill />
                         </Button>
                         <Button
                             variant={"outline-secondary"}
-                            style={{width: '5rem'}}
                             className={`
                                 d-flex
                                 justify-content-center
                                 align-items-center
                                 hoverDarkShadow
-                                m-2  
+                                m-2
                                 ${
                                 notCorrectButton ? (evaluation.isCorrect ? gameUtilsStyles.correct : gameUtilsStyles.incorrect) :
                                     previousNotCorrectButton ? (pairs[stage].isCorrect ? gameUtilsStyles.correct : gameUtilsStyles.incorrect) : ''
                             }
-                                ${notCorrectButton || previousNotCorrectButton ? trueFalseGameStyles.button : ''}`
+                                ${notCorrectButton || previousNotCorrectButton ? trueFalseGameStyles.checkedButton : ''}
+                                ${trueFalseGameStyles.button}`
                             }
-                            onClick={handleAnswerSubmit}
+                            onClick={() => handleAnswerSubmit(false)}
                         >
-                            {"špatně"}
+                            <BsXCircleFill />
                         </Button>
                     </div>
                 </div>
             </div>
-            {
-                `Mistakes: ${mistakes}!`
-            }
         </>
     )
 }
