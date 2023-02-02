@@ -11,7 +11,7 @@
 }
 
 .flipCard:hover .flipCardInner {
-    transform: rotateY(180deg);
+    transform: rotateY(-180deg);
 }
 
 .flipCardFront, .flipCardBack {
@@ -27,5 +27,5 @@
 .flipCardBack {
     background-color: green;
     color: white;
-    transform: rotateY(180deg);
+    transform: rotateY(-180deg);
 }

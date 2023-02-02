@@ -9,6 +9,7 @@ import gameStyles from '../../../styles/games/Game.module.css'
 const CardFlipper = ({size, difficulty}) => {
     /*
         TODO -> mobile design
+        TODO -> zvážit časový timeout po zobrazení nové karty ==> neotočí se omylem
      */
 
     const pairs = useMemo(() => generatePairArray(generateEqualPairs(size, difficulty)), [size, difficulty])
