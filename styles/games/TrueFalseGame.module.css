@@ -1,0 +1,8 @@
+.button {
+    border: unset !important;
+}
+
+.button:hover {
+    border: unset !important;
+    color: white !important;
+}
