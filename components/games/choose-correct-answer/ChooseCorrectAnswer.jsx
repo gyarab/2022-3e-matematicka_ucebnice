@@ -78,11 +78,8 @@ const ChooseCorrectAnswer = ({game}) => {
 
     const handlePreviousStage = () => {
         setButtonStyling(defaultStyling)
-        if (stageNumber !== 0) {
-            setStageNumber(prevState => {
-                return prevState - 1
-            })
-        }
+        if (stageNumber !== 0)
+            setStageNumber(prevState => prevState - 1)
     }
 
     const handleNextStage = () => {

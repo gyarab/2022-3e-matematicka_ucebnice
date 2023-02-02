@@ -72,18 +72,10 @@ const Pexeso = ({size, difficulty}) => {
     }
 
     const setNewMarkedMap = (key, value) => {
-        setMarked(prevState => {
-            return [...prevState, key, value]
-        })
+        setMarked(prevState => [...prevState, key, value])
 
         if (marked.length + 2 === size ** 2)
             setShowModal(true)
-    }
-
-    const registerMistake = () => {
-        setMistakes(prevState => {
-            return prevState + 1
-        })
     }
 
     const cardChosen = (value, isKey) => {
@@ -100,7 +92,7 @@ const Pexeso = ({size, difficulty}) => {
             const bothAreKeys = flipped.isKey && isKey
             if (bothAreKeys) {
                 setNewEvaluation(false, flipped.value, value)
-                registerMistake()
+                setMistakes(prevState => prevState + 1)
                 console.log('incorrect')
             } else if (flipped.isKey) {
                 // first is key
@@ -111,7 +103,7 @@ const Pexeso = ({size, difficulty}) => {
                     console.log('correct')
                 } else {
                     setNewEvaluation(false, flipped.value, value)
-                    registerMistake()
+                    setMistakes(prevState => prevState + 1)
                     console.log('incorrect')
                 }
             } else {
@@ -122,7 +114,7 @@ const Pexeso = ({size, difficulty}) => {
                     console.log('correct')
                 } else {
                     setNewEvaluation(false, flipped.value, value)
-                    registerMistake()
+                    setMistakes(prevState => prevState + 1)
                     console.log('incorrect')
                 }
             }
@@ -177,9 +169,6 @@ const Pexeso = ({size, difficulty}) => {
                     })
                 }
             </div>
-            {
-                `Mistakes: ${mistakes}!`
-            }
             <GameEndModal
                 show={showModal}
                 title={"Game end"}

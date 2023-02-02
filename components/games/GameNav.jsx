@@ -2,8 +2,6 @@ import gameNavStyles from "../../styles/games/GameNav.module.css";
 import {Button} from "react-bootstrap";
 
 const GameNav = ({showPreviousButton, showNextButton, handlePreviousStage, handleNextStage}) => {
-    const showBothButtons = showPreviousButton && showNextButton
-
     return (
         <div
             className={`
@@ -20,7 +18,7 @@ const GameNav = ({showPreviousButton, showNextButton, handlePreviousStage, handl
                 <Button
                     variant={"info"}
                     type={'button'}
-                    className={`${gameNavStyles.button} d-flex justify-content-center m-2`}
+                    className={`${gameNavStyles.button} d-flex justify-content-center m-1`}
                     onClick={handlePreviousStage}
                 >
                     Předchozí
@@ -31,7 +29,7 @@ const GameNav = ({showPreviousButton, showNextButton, handlePreviousStage, handl
                 <Button
                     variant={"info"}
                     type={'button'}
-                    className={`${gameNavStyles.button} m-2`}
+                    className={`${gameNavStyles.button} m-1`}
                     onClick={handleNextStage}
                 >
                     Další

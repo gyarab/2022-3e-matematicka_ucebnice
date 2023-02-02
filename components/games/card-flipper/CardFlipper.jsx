@@ -33,9 +33,7 @@ const CardFlipper = ({size, difficulty}) => {
             if (!isValueShown)
                 setIsValueShown(true)
 
-            setStage(prevState => {
-                return (prevState + 1) % pairs.length
-            })
+            setStage(prevState => (prevState + 1) % pairs.length)
         }
     }
 
@@ -44,9 +42,7 @@ const CardFlipper = ({size, difficulty}) => {
             if (!isValueShown)
                 setIsValueShown(true)
 
-            setStage(prevState => {
-                return prevState - 1
-            })
+            setStage(prevState => prevState - 1)
         }
     }
 

@@ -11,6 +11,6 @@
 }
 
 .buttonGroup {
-    padding: 5px 5px 10px;
+    padding: 0 0 5px;
     border-bottom: 1px solid var(--bs-info);
 }
