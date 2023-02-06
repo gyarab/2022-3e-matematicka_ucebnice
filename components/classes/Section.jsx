@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import SorterGame from "../games/sorter-game/SorterGame";
 
 const ChooseCorrectAnswer = dynamic(() => import('../games/choose-correct-answer/ChooseCorrectAnswer'), {
     ssr: false
@@ -42,6 +43,14 @@ const Section = ({id, title, games}) => {
             case 4:
                 return (
                     <TrueFalseGame
+                        size={game.size}
+                        difficulty={game.difficulty}
+                    />
+                )
+            case 5:
+                return (
+                    <SorterGame
+                        gameLength={game.gameLength}
                         size={game.size}
                         difficulty={game.difficulty}
                     />

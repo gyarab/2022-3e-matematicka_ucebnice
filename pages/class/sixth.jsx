@@ -88,6 +88,13 @@ const sections = [
                 title: 'TrueFalseGame.jsx',
                 size: 4,
                 difficulty: 2
+            },
+            {
+                id: 5,
+                title: 'SorterGame.jsx',
+                gameLength: 3,
+                size: 4,
+                difficulty: 2
             }
         ]
     },
