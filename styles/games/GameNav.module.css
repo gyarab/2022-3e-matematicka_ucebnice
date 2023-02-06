@@ -4,7 +4,7 @@
 }
 
 .button:hover {
-    color: white;
+    color: white !important;
     box-shadow: 0 2px 20px lightgrey;
     -moz-box-shadow: 0 2px 20px lightgrey;
     -webkit-box-shadow: 0 2px 20px lightgrey;
