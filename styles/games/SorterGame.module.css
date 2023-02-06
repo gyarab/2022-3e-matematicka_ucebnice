@@ -1,0 +1,43 @@
+.isDragging {
+    width: calc((100% - (2 * 52px)) * 0.6 * 0.75) !important;
+    max-width: 400px;
+    user-select: none;
+    background: var(--bs-info);
+    color: white;
+}
+
+.notDragging {
+    max-width: 400px;
+    user-select: none;
+    background: var(--bs-secondary);
+}
+
+@media only screen and (max-width: 1200px) {
+    .isDragging {
+        width: calc((100% - (2 * 52px)) * 0.6 * 0.75) !important;
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    .isDragging {
+        width: calc((100% - (2 * 48px)) * 0.7 * 0.75) !important;
+    }
+}
+
+@media only screen and (max-width: 766px) {
+    .isDragging {
+        width: calc((100% - (2 * 46px)) * 0.8 * 0.75) !important;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .isDragging {
+        width: calc((100% - (2 * 44px)) * 0.9 * 0.75) !important;
+    }
+}
+
+@media only screen and (max-width: 330px) {
+    .isDragging {
+        width: calc((100% - (2 * 44px)) * 0.95 * 0.75) !important;
+    }
+}
