@@ -11,10 +11,10 @@
     border-radius: 100%;
     -moz-border-radius: 100%;
     -webkit-border-radius: 100%;
-    padding-top: 12px;
-    -webkit-padding-before: 12px;
-    padding-bottom: 12px;
-    -webkit-padding-after: 12px;
+    padding-top: 11px;
+    -webkit-padding-before: 11px;
+    padding-bottom: 11px;
+    -webkit-padding-after: 11px;
 }
 
 .button:hover {
