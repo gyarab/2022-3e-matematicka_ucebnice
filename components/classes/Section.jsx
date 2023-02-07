@@ -1,16 +1,21 @@
 import dynamic from "next/dynamic";
 import SorterGame from "../games/sorter-game/SorterGame";
+import LoadingSpinner from "../utils/LoadingSpinner";
 
 const ChooseCorrectAnswer = dynamic(() => import('../games/choose-correct-answer/ChooseCorrectAnswer'), {
+    loading: () => <LoadingSpinner/>,
     ssr: false
 })
 const Pexeso = dynamic(() => import('../games/pexeso/Pexeso'), {
+    loading: () => <LoadingSpinner/>,
     ssr: false
 })
 const CardFlipper = dynamic(() => import('../games/card-flipper/CardFlipper'), {
+    loading: () => <LoadingSpinner/>,
     ssr: false
 })
 const TrueFalseGame = dynamic(() => import("../games/true-false-game/TrueFalseGame"), {
+    loading: () => <LoadingSpinner/>,
     ssr: false
 })
 
