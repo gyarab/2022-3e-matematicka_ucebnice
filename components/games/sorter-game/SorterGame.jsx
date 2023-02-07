@@ -28,7 +28,7 @@ const SorterGame = ({gameLength, size, difficulty}) => {
     useEffect(() => {
         setGame(prevState => {
             prevState[0] = generateSorterGameObject(size, difficulty)
-            return prevState
+            return [...prevState]
         })
     }, []);
 
@@ -72,7 +72,6 @@ const SorterGame = ({gameLength, size, difficulty}) => {
 
     const handleAnswerSubmit = () => {
         let equationStr = game[stage].items.join('')
-        console.log(equationStr)
 
         let result = false
         try {
@@ -104,8 +103,6 @@ const SorterGame = ({gameLength, size, difficulty}) => {
             })
         }
     }
-
-    console.log(game[stage], game[stage] !== undefined)
 
     const resultCheckable = typeof game[stage] !== 'undefined' && game[stage].evaluation !== undefined
     return (
@@ -160,6 +157,13 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                             )}
                         </StrictModeDroppable>
                     </DragDropContext>
+                    <div className={`d-flex flex-column align-items-center justify-content-center w-75 ${sorterGameStyles.doubleBorderTop}`}>
+                        <div className={`d-flex align-items-center justify-content-center w-100 p-2 m-1 rounded-2 ${sorterGameStyles.result}`}>
+                            {
+                                typeof game[stage] !== "undefined" ? game[stage].result : ''
+                            }
+                        </div>
+                    </div>
                     <div className={`w-75 d-flex flex-row align-items-center justify-content-end`}>
                         <Button
                             variant={"outline-secondary"}
@@ -175,7 +179,7 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                             }
                             onClick={handleAnswerSubmit}
                         >
-                            <BsFillCheckCircleFill />
+                            <BsFillCheckCircleFill/>
                         </Button>
                     </div>
 

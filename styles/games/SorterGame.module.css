@@ -12,6 +12,15 @@
     background: var(--bs-secondary);
 }
 
+.result {
+    background: var(--bs-info);
+    color: white;
+}
+
+.doubleBorderTop {
+    border-top: 5px double var(--bs-info);
+}
+
 @media only screen and (max-width: 1200px) {
     .isDragging {
         width: calc((100% - (2 * 52px)) * 0.6 * 0.75) !important;
