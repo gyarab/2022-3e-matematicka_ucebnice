@@ -1,5 +1,4 @@
 import dynamic from "next/dynamic";
-import SorterGame from "../games/sorter-game/SorterGame";
 import LoadingSpinner from "../utils/LoadingSpinner";
 
 const ChooseCorrectAnswer = dynamic(() => import('../games/choose-correct-answer/ChooseCorrectAnswer'), {
@@ -15,6 +14,10 @@ const CardFlipper = dynamic(() => import('../games/card-flipper/CardFlipper'), {
     ssr: false
 })
 const TrueFalseGame = dynamic(() => import("../games/true-false-game/TrueFalseGame"), {
+    loading: () => <LoadingSpinner/>,
+    ssr: false
+})
+const SorterGame = dynamic(() => import("../games/sorter-game/SorterGame"), {
     loading: () => <LoadingSpinner/>,
     ssr: false
 })

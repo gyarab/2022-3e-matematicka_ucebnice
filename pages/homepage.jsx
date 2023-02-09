@@ -45,7 +45,7 @@ const HomePage = (props) => {
                                 redirectDestination={'/class/seventh'}
                             />
                         </Row>
-                        <Row className={'align-items-center justify-content-center'}>
+                        <Row className={'align-items-center justify-content-center mb-5'}>
                             <HomepageCard
                                 title={'Osmá třída'}
                                 description={'Description'}
