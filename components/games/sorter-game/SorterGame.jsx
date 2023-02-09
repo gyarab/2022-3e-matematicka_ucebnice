@@ -144,7 +144,8 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                                                         d-flex 
                                                         align-items-center 
                                                         justify-content-center
-                                                        ${snapshot.isDragging ? `darkShadow ${sorterGameStyles.isDragging}` : sorterGameStyles.notDragging}`
+                                                        ${snapshot.isDragging ? `darkShadow ${sorterGameStyles.isDragging}` : sorterGameStyles.notDragging}
+                                                        ${sorterGameStyles.maxWidth}`
                                                     }
                                                 >
                                                     {item}
@@ -157,14 +158,14 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                             )}
                         </StrictModeDroppable>
                     </DragDropContext>
-                    <div className={`d-flex flex-column align-items-center justify-content-center w-75 ${sorterGameStyles.doubleBorderTop}`}>
-                        <div className={`d-flex align-items-center justify-content-center w-100 p-2 m-1 rounded-2 ${sorterGameStyles.result}`}>
+                    <div className={`d-flex flex-column align-items-center justify-content-center w-75 ${sorterGameStyles.doubleBorderTop} ${sorterGameStyles.maxWidth}`}>
+                        <div className={`d-flex align-items-center justify-content-center m-1 p-2 w-100 rounded-2 ${sorterGameStyles.result} ${sorterGameStyles.maxWidth}`}>
                             {
                                 typeof game[stage] !== "undefined" ? game[stage].result : ''
                             }
                         </div>
                     </div>
-                    <div className={`w-75 d-flex flex-row align-items-center justify-content-end`}>
+                    <div className={`w-75 d-flex flex-row align-items-center justify-content-end ${sorterGameStyles.maxWidth}`}>
                         <Button
                             variant={"outline-secondary"}
                             className={`

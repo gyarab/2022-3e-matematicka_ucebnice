@@ -1,13 +1,11 @@
 .isDragging {
     width: calc((100% - (2 * 52px)) * 0.6 * 0.75) !important;
-    max-width: 400px;
     user-select: none;
     background: var(--bs-info);
     color: white;
 }
 
 .notDragging {
-    max-width: 400px;
     user-select: none;
     background: var(--bs-secondary);
 }
@@ -15,6 +13,10 @@
 .result {
     background: var(--bs-info);
     color: white;
+}
+
+.maxWidth {
+    max-width: 400px;
 }
 
 .doubleBorderTop {
