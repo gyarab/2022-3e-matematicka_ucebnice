@@ -6,6 +6,9 @@ import Section from "../../components/classes/Section";
 import classStyles from '../../styles/Class.module.css'
 import HeroImage from "../../components/classes/HeroImage";
 import {useClassSections} from "../../components/utils/hooks/useClassSections";
+import {useSession} from "next-auth/react";
+import useAuthorization from "../../components/utils/hooks/useAuthorization";
+import {useEffect} from "react";
 
 /**
  * GAME IDs
@@ -15,7 +18,14 @@ import {useClassSections} from "../../components/utils/hooks/useClassSections";
  */
 
 const SixthClass = ({}) => {
-    const classSections = useClassSections('hello.cz')
+
+    const {data: session, status} = useSession()
+    const classSections = useClassSections('url', status)
+    const {authenticated, component} = useAuthorization(status)
+
+    if (!authenticated)
+        return component
+
 
     return (
         <>
