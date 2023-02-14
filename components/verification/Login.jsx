@@ -4,8 +4,9 @@ import ErrorAnnouncement from "../utils/ErrorAnnouncement";
 import {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
 import Image from "next/image";
+import { useSession, signIn, signOut } from "next-auth/react";
 
-const LoginForm = () => {
+const LoginForm = ({loginCallbackURL}) => {
     const router = useRouter()
 
     const emailRef = useRef('')
@@ -21,13 +22,17 @@ const LoginForm = () => {
         emailRef.current.focus()
     }, [])
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         if (validated)
             e.preventDefault()
 
-        const email = emailRef.current.value
-        const password = passwordRef.current.value
-        console.log(email, password)
+        const parameters = {
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            callbackUrl: loginCallbackURL,
+        }
+        console.log(parameters)
+        await signIn("credentials", parameters)
 
         setErr({
             isErr: true,
@@ -51,6 +56,10 @@ const LoginForm = () => {
             message: ''
         })
         setValidated(false)
+    }
+
+    const handleGoogleAuthLogin = async (e) => {
+        await signIn('google', {callbackUrl: loginCallbackURL})
     }
 
     return (
@@ -112,7 +121,7 @@ const LoginForm = () => {
                         variant={"secondary"}
                         type={'button'}
                         className={`${verificationStyles.submitButton} m-1 hoverDarkShadow`}
-                        onClick={() => router.push('https://www.google.com')}
+                        onClick={handleGoogleAuthLogin}
                     >
                         <Image priority={false} src={"https://www.google.com/favicon.ico"} width={25} height={25} alt={"Google favicon"}/>
                     </Button>
