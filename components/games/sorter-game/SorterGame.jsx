@@ -77,31 +77,28 @@ const SorterGame = ({gameLength, size, difficulty}) => {
             // incorrect
         }
 
-        if (result) {
-            console.log('correct')
+        const setEvaluation = (result) => {
             setGame(prevState => {
                 prevState[stage] = {
                     items: prevState[stage].items,
                     result: prevState[stage].result,
-                    evaluation: true
-                }
-                return [...prevState]
-            })
-            setTimeout(handleNextStage, 1300)
-        } else {
-            console.log('incorrect')
-            setGame(prevState => {
-                prevState[stage] = {
-                    items: prevState[stage].items,
-                    result: prevState[stage].result,
-                    evaluation: false
+                    evaluation: result
                 }
                 return [...prevState]
             })
         }
-    }
 
-    console.log(game[stage])
+        if (result) {
+            console.log('correct')
+            setEvaluation(true)
+
+            if (stage !== gameLength - 1)
+                setTimeout(handleNextStage, 1000)
+        } else {
+            console.log('incorrect')
+            setEvaluation(false)
+        }
+    }
 
     const resultCheckable = typeof game[stage] !== 'undefined' && game[stage].evaluation !== undefined
     return (

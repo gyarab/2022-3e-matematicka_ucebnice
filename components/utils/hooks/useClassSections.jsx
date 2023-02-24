@@ -39,7 +39,7 @@ export const useClassSections = (url, authenticated) => {
                                 id: 5,
                                 title: 'SorterGame.jsx',
                                 gameLength: 3,
-                                size: 4,
+                                size: 5,
                                 difficulty: 4
                             }
                         ]
