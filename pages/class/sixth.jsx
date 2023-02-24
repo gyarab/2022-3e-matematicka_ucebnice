@@ -8,7 +8,6 @@ import HeroImage from "../../components/classes/HeroImage";
 import {useClassSections} from "../../components/utils/hooks/useClassSections";
 import {useSession} from "next-auth/react";
 import useAuthorization from "../../components/utils/hooks/useAuthorization";
-import {useEffect} from "react";
 
 /**
  * GAME IDs
@@ -18,7 +17,6 @@ import {useEffect} from "react";
  */
 
 const SixthClass = ({}) => {
-
     const {data: session, status} = useSession()
     const classSections = useClassSections('url', status)
     const {authenticated, component} = useAuthorization(status)
@@ -34,7 +32,6 @@ const SixthClass = ({}) => {
                 themeColorLight={colorThemeLight}
                 themeColorDark={colorThemeDark}
             />
-
             <main>
                 <NavBar
                     activeRoute={'/class/sixth'}
@@ -61,7 +58,6 @@ const SixthClass = ({}) => {
                     </ul>
                 </div>
             </main>
-
             <CustomFooter/>
         </>
     )
