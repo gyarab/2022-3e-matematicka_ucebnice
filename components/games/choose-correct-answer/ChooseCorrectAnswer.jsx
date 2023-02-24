@@ -1,7 +1,9 @@
-import {Button, OverlayTrigger, Popover} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import gameStyles from '../../../styles/games/Game.module.css'
-import {dangerColor, successColor} from "../../../lib/frontend-env-variables";
+import gameUtilsStyles from '../../../styles/games/GameUtils.module.css'
+import trueFalseGameStyles from '../../../styles/games/TrueFalseGame.module.css'
+import chooseCorrectAnswerStyles from '../../../styles/games/ChooseCorrectAnswer.module.css'
 import GameNav from "../GameNav";
 import {generateEquation} from "../../../lib/equationGeneration";
 import dynamic from 'next/dynamic'
@@ -9,11 +11,6 @@ import dynamic from 'next/dynamic'
 const GameEndModal = dynamic(() => import('../GameEndModal'), {
     ssr: false
 })
-
-const defaultStyling = {
-    answer: null,
-    styling: {}
-}
 
 /**
  * CHOOSE CORRECT ANSWER GAME
@@ -30,73 +27,72 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty}) => {
         TODO -> component design
         TODO -> equation (how to format equation in html-react)
         TODO -> score storage
-        TODO -> disable to get to another gameStage after completing the game
-        TODO -> mobile design
      */
 
-    const [windowWidth, setWindowWidth] = useState(0)
-    const [buttonStyling, setButtonStyling] = useState(defaultStyling)
     const [game, setGame] = useState([]);
     const [stage, setStage] = useState(0)
+    const [evaluation, setEvaluation] = useState(undefined);
     const [attempts, setAttempts] = useState(0)
     const [modalShow, setModalShow] = useState(false)
 
-    const setNewGameStage = (nextStage) => {
+    const setGameUsingStage = (stage, isNew = true, evaluation = undefined) => {
         setGame(prevState => {
-            prevState[nextStage] = generateEquation(size, difficulty)
+            if (isNew) {
+                prevState[stage] = {
+                    ...generateEquation(size, difficulty),
+                    evaluation: evaluation
+                }
+            } else {
+                prevState[stage] = {
+                    ...prevState[stage],
+                    evaluation: evaluation
+                }
+            }
+
             return [...prevState]
         })
     }
 
     useEffect(() => {
-        if (typeof window !== 'undefined')
-            setWindowWidth(window.innerWidth)
-
-        setNewGameStage(0)
+        setGameUsingStage(0)
     }, []);
 
-    const handleAnswerSubmit = (answer, correctAnswer) => {
+    const handleAnswerSubmit = (answer) => {
         // if button clicked more than once ->  return because nothing changed
-        if (answer === buttonStyling.answer)
+        if (evaluation !== undefined && answer === evaluation.answer)
             return
 
         setAttempts(prevState => prevState + 1)
 
-        if (answer === correctAnswer) {
-            setButtonStyling({
+        if (answer === game[stage].correctAnswer) {
+            setGameUsingStage(stage, false, {
                 answer: answer,
-                styling: {
-                    backgroundColor: successColor,
-                    borderColor: successColor,
-                    color: 'white'
-                }
+                isCorrect: true
             })
             console.log('correct')
-            setTimeout(handleNextStage, 1000)
+            if (stage !== gameLength - 1)
+                setTimeout(handleNextStage, 1000)
         } else {
-            setButtonStyling({
+            setGameUsingStage(stage, false, {
                 answer: answer,
-                styling: {
-                    backgroundColor: dangerColor,
-                    borderColor: dangerColor,
-                    color: 'white'
-                }
+                isCorrect: false
             })
+            setAttempts(prevState => prevState + 1)
             console.log('incorrect')
         }
     }
 
     const handlePreviousStage = () => {
-        setButtonStyling(defaultStyling)
+        setEvaluation(undefined)
         setStage(prevState => prevState - 1)
     }
 
     const handleNextStage = () => {
-        setButtonStyling(defaultStyling)
+        setEvaluation(undefined)
         setStage(prevState => {
             const nextStage = (prevState + 1) % gameLength
             if (typeof game[nextStage] === 'undefined')
-                setNewGameStage(nextStage)
+                setGameUsingStage(nextStage)
 
             return nextStage
         })
@@ -122,14 +118,20 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty}) => {
                             readyToRender ? game[stage].question : ''
                         }
                     </Button>
-                    <div>
+                    <div className={`w-100 d-flex flex-wrap justify-content-center`}>
                         {readyToRender && game[stage].answers.map((answer, index) => {
+                            const resultCheckable = game[stage].evaluation !== undefined && game[stage].evaluation.answer === answer
+
                             return (
                                 <Button
                                     key={index}
                                     variant={"outline-secondary"}
-                                    className={`m-2`}
-                                    style={answer === buttonStyling.answer ? buttonStyling.styling : {}}
+                                    className={`
+                                        m-2
+                                        ${resultCheckable ? game[stage].evaluation.isCorrect ? gameUtilsStyles.correct : gameUtilsStyles.incorrect : ''}
+                                        ${resultCheckable ? trueFalseGameStyles.checkedButton : ''}
+                                        ${chooseCorrectAnswerStyles.button}`
+                                    }
                                     onClick={() => handleAnswerSubmit(answer)}
                                 >
                                     {answer}
