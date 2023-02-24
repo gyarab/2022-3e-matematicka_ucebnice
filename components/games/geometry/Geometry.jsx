@@ -1,5 +1,3 @@
-
-
 const Geometry = () => {
     return (
         <div>

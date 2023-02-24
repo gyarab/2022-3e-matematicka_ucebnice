@@ -49,25 +49,22 @@ const SorterGame = ({gameLength, size, difficulty}) => {
     }
 
     const handleNextStage = () => {
-        if (stage !== gameLength - 1) {
-            setStage(prevState => {
-                const nextStage = (prevState + 1) % gameLength
+        setStage(prevState => {
+            const nextStage = (prevState + 1) % gameLength
 
-                if (typeof game[nextStage] === 'undefined') {
-                    setGame(prevState => {
-                        prevState[nextStage] = generateSorterGameObject(size, difficulty)
-                        return [...prevState]
-                    })
-                }
+            if (typeof game[nextStage] === 'undefined') {
+                setGame(prevState => {
+                    prevState[nextStage] = generateSorterGameObject(size, difficulty)
+                    return [...prevState]
+                })
+            }
 
-                return nextStage
-            })
-        }
+            return nextStage
+        })
     }
 
     const handlePreviousStage = () => {
-        if (stage !== 0)
-            setStage(prevState => prevState - 1)
+        setStage(prevState => prevState - 1)
     }
 
     const handleAnswerSubmit = () => {
@@ -104,6 +101,8 @@ const SorterGame = ({gameLength, size, difficulty}) => {
         }
     }
 
+    console.log(game[stage])
+
     const resultCheckable = typeof game[stage] !== 'undefined' && game[stage].evaluation !== undefined
     return (
         <>
@@ -114,7 +113,7 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                     handleNextStage={handleNextStage}
                     handlePreviousStage={handlePreviousStage}
                 />
-                <div className={gameStyles.mainContentContainer} style={{overflow: "scroll"}}>
+                <div className={gameStyles.mainContentContainer}>
                     <DragDropContext onDragEnd={onDragEnd}>
                         <StrictModeDroppable droppableId="droppable">
                             {(provided, snapshot) => (
@@ -158,14 +157,17 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                             )}
                         </StrictModeDroppable>
                     </DragDropContext>
-                    <div className={`d-flex flex-column align-items-center justify-content-center w-75 ${sorterGameStyles.doubleBorderTop} ${sorterGameStyles.maxWidth}`}>
-                        <div className={`d-flex align-items-center justify-content-center m-1 p-2 w-100 rounded-2 ${sorterGameStyles.result} ${sorterGameStyles.maxWidth}`}>
+                    <div
+                        className={`d-flex flex-column align-items-center justify-content-center w-75 ${sorterGameStyles.doubleBorderTop} ${sorterGameStyles.maxWidth}`}>
+                        <div
+                            className={`d-flex align-items-center justify-content-center m-1 p-2 w-100 rounded-2 ${sorterGameStyles.result} ${sorterGameStyles.maxWidth}`}>
                             {
                                 typeof game[stage] !== "undefined" ? game[stage].result : ''
                             }
                         </div>
                     </div>
-                    <div className={`w-75 d-flex flex-row align-items-center justify-content-end ${sorterGameStyles.maxWidth}`}>
+                    <div
+                        className={`w-75 d-flex flex-row align-items-center justify-content-end ${sorterGameStyles.maxWidth}`}>
                         <Button
                             variant={"outline-secondary"}
                             className={`
