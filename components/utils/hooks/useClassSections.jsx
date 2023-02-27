@@ -13,22 +13,9 @@ export const useClassSections = (url, authenticated) => {
                             {
                                 id: 1,
                                 title: 'ChooseCorrectAnswer.jsx',
-                                content: [
-                                    {
-                                        gameId: 0,
-                                        autogenerate: false,
-                                        question: 'Kolik je 1+1?',
-                                        answers: ['2', '3', '8'],
-                                        correctAnswer: '2',
-                                        helperText: 'Pokud budu mít jedno jablko a přidám ještě jedno, kolik jich budu mít?', // if not stated -> null; otherwise string
-                                        equation: null, // if not stated -> null; otherwise string
-                                    },
-                                    {
-                                        gameId: 1,
-                                        autogenerate: true,
-                                        difficulty: 1,
-                                    }
-                                ]
+                                gameLength: 2,
+                                size: 5,
+                                difficulty: 3
                             },
                             {
                                 id: 2,
@@ -52,7 +39,7 @@ export const useClassSections = (url, authenticated) => {
                                 id: 5,
                                 title: 'SorterGame.jsx',
                                 gameLength: 3,
-                                size: 4,
+                                size: 5,
                                 difficulty: 4
                             }
                         ]

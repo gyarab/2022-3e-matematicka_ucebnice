@@ -19,7 +19,7 @@ const UserPanel = () => {
                 themeColorLight={colorThemeLight}
                 themeColorDark={colorThemeDark}
             />
-            <main className={'container-fluid'}>
+            <main>
                 <NavBar />
             </main>
             <CustomFooter/>

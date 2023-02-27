@@ -5,7 +5,6 @@ import GameNav from "../GameNav";
 import gameStyles from '../../../styles/games/Game.module.css'
 
 
-
 const CardFlipper = ({size, difficulty}) => {
     /*
         TODO -> mobile design
@@ -29,21 +28,17 @@ const CardFlipper = ({size, difficulty}) => {
     }
 
     const handleNextStage = () => {
-        if (stage !== pairs.length - 1) {
-            if (!isValueShown)
-                setIsValueShown(true)
+        if (!isValueShown)
+            setIsValueShown(true)
 
-            setStage(prevState => (prevState + 1) % pairs.length)
-        }
+        setStage(prevState => (prevState + 1) % pairs.length)
     }
 
     const handlePreviousStage = () => {
-        if (stage !== 0) {
-            if (!isValueShown)
-                setIsValueShown(true)
+        if (!isValueShown)
+            setIsValueShown(true)
 
-            setStage(prevState => prevState - 1)
-        }
+        setStage(prevState => prevState - 1)
     }
 
     const flipCard = () => {

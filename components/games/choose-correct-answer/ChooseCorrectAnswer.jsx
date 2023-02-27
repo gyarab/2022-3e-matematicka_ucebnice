@@ -1,7 +1,9 @@
-import {Button, OverlayTrigger, Popover} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import gameStyles from '../../../styles/games/Game.module.css'
-import {dangerColor, successColor} from "../../../lib/frontend-env-variables";
+import gameUtilsStyles from '../../../styles/games/GameUtils.module.css'
+import trueFalseGameStyles from '../../../styles/games/TrueFalseGame.module.css'
+import chooseCorrectAnswerStyles from '../../../styles/games/ChooseCorrectAnswer.module.css'
 import GameNav from "../GameNav";
 import {generateEquation} from "../../../lib/equationGeneration";
 import dynamic from 'next/dynamic'
@@ -20,160 +22,117 @@ const GameEndModal = dynamic(() => import('../GameEndModal'), {
  * @returns {JSX.Element}
  * @constructor
  */
-const ChooseCorrectAnswer = ({game}) => {
-    const [stageNumber, setStageNumber] = useState(0)
-    const [attempts, setAttempts] = useState(0)
-    const [modalShow, setModalShow] = useState(false)
-
+const ChooseCorrectAnswer = ({gameLength, size, difficulty}) => {
     /*
         TODO -> component design
         TODO -> equation (how to format equation in html-react)
-        TODO -> score saving
-        TODO -> disable to get to another gameStage after completing the game
-        TODO -> mobile design
+        TODO -> score storage
      */
 
-    const defaultStyling = {
-        answer: null,
-        styling: {}
+    const [game, setGame] = useState([]);
+    const [stage, setStage] = useState(0)
+    const [evaluation, setEvaluation] = useState(undefined);
+    const [attempts, setAttempts] = useState(0)
+    const [modalShow, setModalShow] = useState(false)
+
+    const setGameUsingStage = (stage, isNew = true, evaluation = undefined) => {
+        setGame(prevState => {
+            if (isNew) {
+                prevState[stage] = {
+                    ...generateEquation(size, difficulty),
+                    evaluation: evaluation
+                }
+            } else {
+                prevState[stage] = {
+                    ...prevState[stage],
+                    evaluation: evaluation
+                }
+            }
+
+            return [...prevState]
+        })
     }
-    const [windowWidth, setWindowWidth] = useState(0)
-    const [buttonStyling, setButtonStyling] = useState(defaultStyling)
 
     useEffect(() => {
-        if (typeof window !== 'undefined')
-            setWindowWidth(window.innerWidth)
-    }, [])
+        setGameUsingStage(0)
+    }, []);
 
-    const handleAnswerSubmit = (answer, correctAnswer) => {
+    const handleAnswerSubmit = (answer) => {
         // if button clicked more than once ->  return because nothing changed
-        if (answer === buttonStyling.answer)
+        if (evaluation !== undefined && answer === evaluation.answer)
             return
 
         setAttempts(prevState => prevState + 1)
 
-        if (answer === correctAnswer) {
-            setButtonStyling({
+        if (answer === game[stage].correctAnswer) {
+            setGameUsingStage(stage, false, {
                 answer: answer,
-                styling: {
-                    backgroundColor: successColor,
-                    borderColor: successColor,
-                    color: 'white'
-                }
+                isCorrect: true
             })
             console.log('correct')
-            setTimeout(handleNextStage, 1000)
+            if (stage !== gameLength - 1)
+                setTimeout(handleNextStage, 1000)
         } else {
-            setButtonStyling({
+            setGameUsingStage(stage, false, {
                 answer: answer,
-                styling: {
-                    backgroundColor: dangerColor,
-                    borderColor: dangerColor,
-                    color: 'white'
-                }
+                isCorrect: false
             })
+            setAttempts(prevState => prevState + 1)
             console.log('incorrect')
         }
     }
 
     const handlePreviousStage = () => {
-        setButtonStyling(defaultStyling)
-        if (stageNumber !== 0)
-            setStageNumber(prevState => prevState - 1)
+        setEvaluation(undefined)
+        setStage(prevState => prevState - 1)
     }
 
     const handleNextStage = () => {
-        setButtonStyling(defaultStyling)
-        setStageNumber(prevState => {
-            if (prevState === game.length - 1)
-                setModalShow(true)
+        setEvaluation(undefined)
+        setStage(prevState => {
+            const nextStage = (prevState + 1) % gameLength
+            if (typeof game[nextStage] === 'undefined')
+                setGameUsingStage(nextStage)
 
-            return (prevState + 1) % game.length
+            return nextStage
         })
     }
 
-    const renderGame = (localGameNumber) => {
-        const gameStage = game[localGameNumber]
-
-        if (gameStage.autogenerate) {
-            const task = generateEquation(4, gameStage.difficulty);
-
-            return (
-                <div className={`${gameStyles.frame} m-2`}>
-                    <GameNav
-                        showPreviousButton={stageNumber !== 0}
-                        showNextButton={stageNumber !== game.length - 1}
-                        handleNextStage={handleNextStage}
-                        handlePreviousStage={handlePreviousStage}
-                    />
-                    <div className={gameStyles.mainContentContainer}>
-                        <Button
-                            className={'m-2'}
-                            style={{color: 'white'}}
-                            variant={"secondary"}
-                        >
-                            {task.question}
-                        </Button>
-                        <div>
-                            {task.answers.map((answer, index) => {
-                                return (
-                                    <Button
-                                        key={index}
-                                        variant={"outline-secondary"}
-                                        className={`m-2`}
-                                        style={answer === buttonStyling.answer ? buttonStyling.styling : {}}
-                                        onClick={() => handleAnswerSubmit(answer, task.correctAnswer)}
-                                    >
-                                        {answer}
-                                    </Button>
-                                )
-                            })}
-                        </div>
-                    </div>
-                </div>
-            )
-        }
-
-        const popover = (
-            <Popover id="popover-basic">
-                <Popover.Header as="h3">Nápověda</Popover.Header>
-                <Popover.Body>
-                    {gameStage.helperText}
-                </Popover.Body>
-            </Popover>
-        )
-
-        return (
+    const readyToRender = typeof game[stage] !== "undefined"
+    return (
+        <>
             <div className={`${gameStyles.frame} m-2`}>
                 <GameNav
-                    showPreviousButton={stageNumber !== 0}
-                    showNextButton={stageNumber !== game.length - 1}
+                    showPreviousButton={stage !== 0}
+                    showNextButton={stage !== gameLength - 1}
                     handleNextStage={handleNextStage}
                     handlePreviousStage={handlePreviousStage}
                 />
                 <div className={gameStyles.mainContentContainer}>
-                    <OverlayTrigger
-                        trigger={(windowWidth > 500) ? ['hover', 'focus'] : ['click']}
-                        placement={'bottom'}
-                        overlay={popover}
+                    <Button
+                        className={'m-2'}
+                        style={{color: 'white'}}
+                        variant={"secondary"}
                     >
-                        <Button
-                            className={'m-2'}
-                            style={{color: 'white'}}
-                            variant={"secondary"}
-                        >
-                            {gameStage.question}
-                        </Button>
-                    </OverlayTrigger>
-                    <div>
-                        {gameStage.answers.map((answer, index) => {
+                        {
+                            readyToRender ? game[stage].question : ''
+                        }
+                    </Button>
+                    <div className={`w-100 d-flex flex-wrap justify-content-center`}>
+                        {readyToRender && game[stage].answers.map((answer, index) => {
+                            const resultCheckable = game[stage].evaluation !== undefined && game[stage].evaluation.answer === answer
+
                             return (
                                 <Button
                                     key={index}
                                     variant={"outline-secondary"}
-                                    className={`m-2`}
-                                    style={answer === buttonStyling.answer ? buttonStyling.styling : {}}
-                                    onClick={() => handleAnswerSubmit(answer, game[stageNumber].correctAnswer)}
+                                    className={`
+                                        m-2
+                                        ${resultCheckable ? game[stage].evaluation.isCorrect ? gameUtilsStyles.correct : gameUtilsStyles.incorrect : ''}
+                                        ${resultCheckable ? trueFalseGameStyles.checkedButton : ''}
+                                        ${chooseCorrectAnswerStyles.button}`
+                                    }
+                                    onClick={() => handleAnswerSubmit(answer)}
                                 >
                                     {answer}
                                 </Button>
@@ -182,14 +141,6 @@ const ChooseCorrectAnswer = ({game}) => {
                     </div>
                 </div>
             </div>
-        )
-    }
-
-    return (
-        <>
-            {
-                renderGame(stageNumber)
-            }
             <GameEndModal
                 title={'Modal title'}
                 text={'Lorem ipsum'}

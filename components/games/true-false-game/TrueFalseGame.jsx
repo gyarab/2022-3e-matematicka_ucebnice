@@ -5,8 +5,7 @@ import gameUtilsStyles from '../../../styles/games/GameUtils.module.css'
 import trueFalseGameStyles from '../../../styles/games/TrueFalseGame.module.css'
 import GameNav from "../GameNav";
 import {Button, OverlayTrigger, Popover} from "react-bootstrap";
-import { BsFillCheckCircleFill } from 'react-icons/bs'
-import { BsXCircleFill } from 'react-icons/bs'
+import {BsFillCheckCircleFill, BsXCircleFill} from 'react-icons/bs'
 
 const popover = (
     <Popover id="popover-basic">
@@ -53,17 +52,14 @@ const TrueFalseGame = ({size, difficulty}) => {
     }
 
     const handleNextStage = () => {
-        if (stage !== pairs.length - 1) {
-            setEvaluation(undefined)
-            setStage(prevState => (prevState + 1) % pairs.length)
-        }
+        setEvaluation(undefined)
+        setStage(prevState => (prevState + 1) % pairs.length)
     }
 
     const handlePreviousStage = () => {
-        if (stage !== 0) {
-            setEvaluation(undefined)
-            setStage(prevState => (prevState - 1))
-        }
+        setEvaluation(undefined)
+        setStage(prevState => (prevState - 1))
+
     }
 
     const handleAnswerSubmit = (isCorrectButton) => {
@@ -81,7 +77,9 @@ const TrueFalseGame = ({size, difficulty}) => {
                 })
                 pairs[stage].isCorrect = true
                 pairs[stage].isCorrectButton = true
-                setTimeout(handleNextStage, 1300)
+
+                if (stage !== pairs.length - 1)
+                    setTimeout(handleNextStage, 1300)
             } else {
                 console.log('incorrect')
                 setMistakes(prevState => prevState + 1)
@@ -111,7 +109,8 @@ const TrueFalseGame = ({size, difficulty}) => {
                 pairs[stage].isCorrect = true
                 pairs[stage].isCorrectButton = false
 
-                setTimeout(handleNextStage, 1300)
+                if (stage !== pairs.length - 1)
+                    setTimeout(handleNextStage, 1000)
             }
         }
     }
@@ -166,7 +165,7 @@ const TrueFalseGame = ({size, difficulty}) => {
                             }
                             onClick={() => handleAnswerSubmit(true)}
                         >
-                            <BsFillCheckCircleFill />
+                            <BsFillCheckCircleFill/>
                         </Button>
                         <Button
                             variant={"outline-secondary"}
@@ -185,7 +184,7 @@ const TrueFalseGame = ({size, difficulty}) => {
                             }
                             onClick={() => handleAnswerSubmit(false)}
                         >
-                            <BsXCircleFill />
+                            <BsXCircleFill/>
                         </Button>
                     </div>
                 </div>

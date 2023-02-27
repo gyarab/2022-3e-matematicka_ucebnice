@@ -49,25 +49,22 @@ const SorterGame = ({gameLength, size, difficulty}) => {
     }
 
     const handleNextStage = () => {
-        if (stage !== gameLength - 1) {
-            setStage(prevState => {
-                const nextStage = (prevState + 1) % gameLength
+        setStage(prevState => {
+            const nextStage = (prevState + 1) % gameLength
 
-                if (typeof game[nextStage] === 'undefined') {
-                    setGame(prevState => {
-                        prevState[nextStage] = generateSorterGameObject(size, difficulty)
-                        return [...prevState]
-                    })
-                }
+            if (typeof game[nextStage] === 'undefined') {
+                setGame(prevState => {
+                    prevState[nextStage] = generateSorterGameObject(size, difficulty)
+                    return [...prevState]
+                })
+            }
 
-                return nextStage
-            })
-        }
+            return nextStage
+        })
     }
 
     const handlePreviousStage = () => {
-        if (stage !== 0)
-            setStage(prevState => prevState - 1)
+        setStage(prevState => prevState - 1)
     }
 
     const handleAnswerSubmit = () => {
@@ -80,27 +77,26 @@ const SorterGame = ({gameLength, size, difficulty}) => {
             // incorrect
         }
 
+        const setEvaluation = (result) => {
+            setGame(prevState => {
+                prevState[stage] = {
+                    items: prevState[stage].items,
+                    result: prevState[stage].result,
+                    evaluation: result
+                }
+                return [...prevState]
+            })
+        }
+
         if (result) {
             console.log('correct')
-            setGame(prevState => {
-                prevState[stage] = {
-                    items: prevState[stage].items,
-                    result: prevState[stage].result,
-                    evaluation: true
-                }
-                return [...prevState]
-            })
-            setTimeout(handleNextStage, 1300)
+            setEvaluation(true)
+
+            if (stage !== gameLength - 1)
+                setTimeout(handleNextStage, 1000)
         } else {
             console.log('incorrect')
-            setGame(prevState => {
-                prevState[stage] = {
-                    items: prevState[stage].items,
-                    result: prevState[stage].result,
-                    evaluation: false
-                }
-                return [...prevState]
-            })
+            setEvaluation(false)
         }
     }
 
@@ -114,7 +110,7 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                     handleNextStage={handleNextStage}
                     handlePreviousStage={handlePreviousStage}
                 />
-                <div className={gameStyles.mainContentContainer} style={{overflow: "scroll"}}>
+                <div className={gameStyles.mainContentContainer}>
                     <DragDropContext onDragEnd={onDragEnd}>
                         <StrictModeDroppable droppableId="droppable">
                             {(provided, snapshot) => (
@@ -158,14 +154,17 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                             )}
                         </StrictModeDroppable>
                     </DragDropContext>
-                    <div className={`d-flex flex-column align-items-center justify-content-center w-75 ${sorterGameStyles.doubleBorderTop} ${sorterGameStyles.maxWidth}`}>
-                        <div className={`d-flex align-items-center justify-content-center m-1 p-2 w-100 rounded-2 ${sorterGameStyles.result} ${sorterGameStyles.maxWidth}`}>
+                    <div
+                        className={`d-flex flex-column align-items-center justify-content-center w-75 ${sorterGameStyles.doubleBorderTop} ${sorterGameStyles.maxWidth}`}>
+                        <div
+                            className={`d-flex align-items-center justify-content-center m-1 p-2 w-100 rounded-2 ${sorterGameStyles.result} ${sorterGameStyles.maxWidth}`}>
                             {
                                 typeof game[stage] !== "undefined" ? game[stage].result : ''
                             }
                         </div>
                     </div>
-                    <div className={`w-75 d-flex flex-row align-items-center justify-content-end ${sorterGameStyles.maxWidth}`}>
+                    <div
+                        className={`w-75 d-flex flex-row align-items-center justify-content-end ${sorterGameStyles.maxWidth}`}>
                         <Button
                             variant={"outline-secondary"}
                             className={`

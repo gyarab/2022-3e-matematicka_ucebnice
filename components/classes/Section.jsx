@@ -31,7 +31,9 @@ const Section = ({id, title, games}) => {
             case 1:
                 return (
                     <ChooseCorrectAnswer
-                        game={game.content}
+                        gameLength={game.gameLength}
+                        size={game.size}
+                        difficulty={game.difficulty}
                     />
                 )
             case 2:
