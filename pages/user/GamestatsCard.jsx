@@ -17,19 +17,16 @@ const GameStatsCard = ({gameTitle, statsMap}) => {
         <Card
             bg={'primary'}
             text={'white'}
-            style={{width: '24rem'}}
+            style={{width: '26rem'}}
             className={"m-4 mb-2 darkShadow"}
         >
             <Card.Body>
-                <Card.Title>{gameTitle}</Card.Title>                
+                <Card.Title style={{textAlign: 'center'}}>{gameTitle}</Card.Title>                
                 <Card.Body>
                     <GenerateGameStatsTable
+                    statsMap = {statsMap}
                     />
                 </Card.Body>
-                    
-
-                    
-
 
             </Card.Body>
         </Card>
