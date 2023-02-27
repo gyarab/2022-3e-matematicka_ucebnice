@@ -1,8 +1,8 @@
 import Router from "next/router";
-import { Button, Card } from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import verificationStyles from "../../styles/Verification.module.css";
 
-const Error = ({ message, status }) => {
+const Error = ({message, status}) => {
 
     const generateButtonDescription = () => {
         if (status === 401)
@@ -22,32 +22,29 @@ const Error = ({ message, status }) => {
     }
 
     return (
-        <div className="container mx-auto pt-5">
-            <div className="">
-                <Card
-                    bg={'primary'}
-                    text={'white'}
-                    className={"mx-auto"}
-                    style={{ height: '15rem' }}
-                > <div className="container">
-                        <h1 className="pt-3 text-secondary">CHYBA {status}</h1>
-                        <p className="pt-3">
-                            {message}
-                        </p>
+        <div className="w-100 d-flex flex-column align-items-center justify-content-center vh-100">
+            <Card
+                className={`w-75 darkShadow border-0 rounded-3`}
+            >
+                <div className="container">
+                    <div className={`d-flex flex-row align-items-center mt-3`}>
+                        <h1 className="text-primary me-3">Chyba</h1><h1><kbd>{status}</kbd></h1>
                     </div>
-                    <div className="position-absolute bottom-0 start-20 pb-2 ps-2">
-                        <Button
-                            variant={"secondary"}
-                            type={'submit'}
-                            style={{ width: '8rem' }}
-                            className={`${verificationStyles.submitButton} m-1 hoverDarkShadow`}
-                            onClick={handleButtonClick}
-                        >
-                            {generateButtonDescription()}
-                        </Button>
-                    </div>
-                </Card>
-            </div>
+                    <h6 className="pt-3 text-dark">
+                        {message}
+                    </h6>
+                </div>
+                <div className="d-flex flex-row justify-content-end align-items-center m-2">
+                    <Button
+                        variant={"primary"}
+                        type={'submit'}
+                        className={`${verificationStyles.submitButton} m-1 hoverDarkShadow`}
+                        onClick={handleButtonClick}
+                    >
+                        {generateButtonDescription()}
+                    </Button>
+                </div>
+            </Card>
         </div>
     )
 }
