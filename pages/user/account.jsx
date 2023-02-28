@@ -36,16 +36,15 @@ const Account = () => {
                     <ul
                         className={`p-2`}
                     >
-      
+                        <GameStatsCard
+                            gameTitle={'nejaka hra'}
+                            statsMap ={' '}
+                        />
                     </ul>
                 </div>
             </main>
 
             <CustomFooter/>
-            <GameStatsCard
-                gameTitle={'nejaka hra'} 
-                statsMap ={' '}
-                />
         </>
 
   )

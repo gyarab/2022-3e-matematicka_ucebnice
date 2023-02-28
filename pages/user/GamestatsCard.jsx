@@ -1,6 +1,6 @@
-import {Button, Card} from "react-bootstrap";
-import Router from 'next/router'
+import {Card} from "react-bootstrap";
 import GenerateGameStatsTable from "./GenerateGameStatsTable";
+
 /**
  * GAME STATS CARD
  *
@@ -21,10 +21,10 @@ const GameStatsCard = ({gameTitle, statsMap}) => {
             className={"m-4 mb-2 darkShadow"}
         >
             <Card.Body>
-                <Card.Title style={{textAlign: 'center'}}>{gameTitle}</Card.Title>                
+                <Card.Title style={{textAlign: 'center'}}>{gameTitle}</Card.Title>
                 <Card.Body>
                     <GenerateGameStatsTable
-                    statsMap = {statsMap}
+                        statsMap={statsMap}
                     />
                 </Card.Body>
 
