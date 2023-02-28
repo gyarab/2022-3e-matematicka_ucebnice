@@ -25,7 +25,7 @@ const Account = () => {
 
             <main>
                 <NavBar
-                    activeRoute={'/class/sixth'}
+                    activeRoute={'/user/account'}
                 />
                 <HeroImage
                     imagePath={heroImagePath}
