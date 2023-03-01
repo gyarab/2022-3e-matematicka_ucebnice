@@ -11,10 +11,12 @@ const CardFlipperCard = ({keyValue, value, isValueShown, flipCard}) => {
             }
         >
             <div className={`position-relative w-100 h-100 darkShadow rounded ${cardFlipperStyles.flipCardInner}`}>
-                <div className={`d-flex align-items-center justify-content-center position-absolute w-100 h-100 rounded ${cardFlipperStyles.flipCardFront}`}>
+                <div
+                    className={`d-flex align-items-center justify-content-center position-absolute w-100 h-100 rounded ${cardFlipperStyles.flipCardFront}`}>
                     {`${value} = ?`}
                 </div>
-                <div className={`d-flex align-items-center justify-content-center position-absolute w-100 h-100 rounded ${cardFlipperStyles.flipCardBack}`}>
+                <div
+                    className={`d-flex align-items-center justify-content-center position-absolute w-100 h-100 rounded ${cardFlipperStyles.flipCardBack}`}>
                     {keyValue}
                 </div>
             </div>

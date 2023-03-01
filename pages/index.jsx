@@ -41,7 +41,7 @@ const Home = () => {
     TODO -> page design
      */
 
-    const { data: session } = useSession();
+    const {data: session} = useSession();
 
     return (
         <>
@@ -51,11 +51,11 @@ const Home = () => {
                 themeColorDark={colorThemeDark}
             />
 
-            <main className={indexStyles.mainContainer}>
+            <main className={`d-flex align-items-center`} style={{height: '100vh'}}>
                 <div className={indexStyles.backgroundCircle}></div>
-                <div className={indexStyles.container}>
+                <div className={`w-100 h-100 d-flex flex-row align-items-center justify-content-between m-5`}>
                     <div className={indexStyles.contentContainer}>
-                        <h1 className={indexStyles.title}>Matematická učebnice</h1>
+                        <h1 className={`text-center ${indexStyles.title}`}>Matematická učebnice</h1>
                         <p className={indexStyles.text}>
                             {
                                 JSON.stringify(session)

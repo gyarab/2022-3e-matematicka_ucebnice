@@ -28,11 +28,10 @@ const HomePage = (props) => {
                 themeColorLight={colorThemeLight}
                 themeColorDark={colorThemeDark}
             />
-
             <main>
                 <NavBar/>
                 <div className={'container-fluid'}>
-                    <Container style={{width: '100%'}}>
+                    <Container className={`w-100`}>
                         <Row className={'align-items-center justify-content-center'}>
                             <HomepageCard
                                 title={'Šestá třída'}
