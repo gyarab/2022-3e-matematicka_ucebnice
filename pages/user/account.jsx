@@ -3,7 +3,7 @@ import CustomHead from "../../components/utils/CustomHead";
 import {colorThemeDark, colorThemeLight, heroImageAltText, heroImagePath} from "../../lib/frontend-env-variables";
 import CustomFooter from "../../components/utils/CustomFooter";
 import HeroImage from "../../components/classes/HeroImage";
-import GameStatsCard from "./GamestatsCard";
+import GameStatsCard from "../../components/account-page/GameStatsCard";
 
 
 const Account = () => {
@@ -30,7 +30,7 @@ const Account = () => {
                     >
                         <GameStatsCard
                             gameTitle={'nejaka hra'}
-                            statsMap={' '}
+                            statsMap={new Map().set(1, 1).set(2, 2).set(3, 3)}
                         />
                     </ul>
                 </div>
