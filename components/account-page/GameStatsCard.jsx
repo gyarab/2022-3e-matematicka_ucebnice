@@ -16,7 +16,7 @@ const GameStatsCard = ({gameTitle, statsMap}) => {
     return (
         <li>
             <Card
-                bg={'primary'}
+                bg={'secondary'}
                 text={'white'}
                 style={{width: '26rem'}}
                 className={"m-4 mb-2"}

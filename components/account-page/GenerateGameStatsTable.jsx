@@ -12,17 +12,25 @@ import {Table} from "react-bootstrap";
  * @constructor
  */
 const StatsTable = ({statsMap}) => {
+    console.log(statsMap);
+
     return (
         <Table
-            bgcolor={'primary'}
-            style={{width: '18rem', color: 'white'}}
-            className={"m-4 mb-2 darkShadow rounded"}
+            bgcolor={'secondary'}
+            style={{color: 'white'}}
+            className={`table rounded`}
         >
             <tbody>
-            <tr>
-                <td>nejlepsi vysledek:</td>
-                <td>3ka! ☻</td>
-            </tr>
+            {
+                [...statsMap.keys()].map((key) => {
+                    return (
+                        <tr key={key}>
+                            <td>{key}</td>
+                            <td>{statsMap.get(key)}</td>
+                        </tr>
+                    )
+                })
+            }
             </tbody>
         </Table>
     )
