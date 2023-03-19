@@ -1,7 +1,11 @@
 import CustomHead from "../../components/utils/CustomHead";
-import {colorThemeDark, colorThemeLight} from "../../lib/frontend-env-variables";
+
 import NavBar from "../../components/nav-bar/NavBar";
 import CustomFooter from "../../components/utils/CustomFooter";
+import HeroImage from "../../components/classes/HeroImage";
+import {colorThemeDark, colorThemeLight, heroImageAltText, heroImagePath} from "../../lib/frontend-env-variables";
+import classStyles from '../../styles/Class.module.css'
+import GameStatsCard from "./GamestatsCard";
 
 /**
  * USER PANEL
@@ -14,15 +18,29 @@ import CustomFooter from "../../components/utils/CustomFooter";
 const UserPanel = () => {
     return (
         <>
-            <CustomHead
-                title={'MU - výsledky'}
-                themeColorLight={colorThemeLight}
-                themeColorDark={colorThemeDark}
-            />
+            
             <main>
-                <NavBar />
-            </main>
+
+            <NavBar />
             <CustomFooter/>
+            
+            <HeroImage
+                    imagePath={heroImagePath}
+                    altText={heroImageAltText}
+                    description={'Muj učet'}
+            />
+            <div className={`container-fluid ${classStyles.mainContainer} w-100`}>
+
+            <GameStatsCard
+                gameTitle={'nejaka hra'} 
+                statsMap ={''}
+
+                
+                />
+
+            </div>
+            
+            </main>
         </>
     )
 }
