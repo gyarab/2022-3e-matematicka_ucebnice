@@ -44,7 +44,7 @@ const Account = () => {
             <CustomFooter/>
             <GameStatsCard
                 gameTitle={'nejaka hra'} 
-                statsMap ={' '}
+                statsMap ={''}
                 />
         </>
 
