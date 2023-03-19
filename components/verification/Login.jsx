@@ -4,7 +4,7 @@ import ErrorAnnouncement from "../utils/ErrorAnnouncement";
 import {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
 import Image from "next/image";
-import { useSession, signIn, signOut } from "next-auth/react";
+import {signIn} from "next-auth/react";
 
 const LoginForm = ({loginCallbackURL}) => {
     const router = useRouter()
@@ -123,7 +123,8 @@ const LoginForm = ({loginCallbackURL}) => {
                         className={`${verificationStyles.submitButton} m-1 hoverDarkShadow`}
                         onClick={handleGoogleAuthLogin}
                     >
-                        <Image priority={false} src={"https://www.google.com/favicon.ico"} width={25} height={25} alt={"Google favicon"}/>
+                        <Image priority={false} src={"https://www.google.com/favicon.ico"} width={25} height={25}
+                               alt={"Google favicon"}/>
                     </Button>
                 </div>
 

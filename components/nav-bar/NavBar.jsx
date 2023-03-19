@@ -56,7 +56,7 @@ const NavBar = ({activeRoute}) => {
                         <Nav.Link href={"/class/seventh"} eventKey={'/class/seventh'}>Sedmá třída</Nav.Link>
                         <Nav.Link href={"/class/eight"} eventKey={'/class/eight'}>Osmá třída</Nav.Link>
                         <Nav.Link href={"/class/ninth"} eventKey={'/class/ninth'}>Devátá třída</Nav.Link>
-                        <Nav.Link href={"/user/userpanel"} eventKey={'/user/userpanel'}>Můj účet</Nav.Link>
+                        <Nav.Link href={"/user/account"} eventKey={'/user/account'}>Můj účet</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

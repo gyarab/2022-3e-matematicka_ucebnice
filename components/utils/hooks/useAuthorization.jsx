@@ -5,7 +5,7 @@ const useAuthorization = (status) => {
     if (status === "loading") {
         return {
             authenticated: false,
-            component: <LoadingPage />
+            component: <LoadingPage/>
         }
     }
 
