@@ -21,6 +21,7 @@ const UserPanel = () => {
             
             <main>
 
+
             <NavBar />
             <CustomFooter/>
             
@@ -34,10 +35,10 @@ const UserPanel = () => {
             <GameStatsCard
                 gameTitle={'nejaka hra'} 
                 statsMap ={''}
-
+                
                 
                 />
-
+            
             </div>
             
             </main>

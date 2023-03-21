@@ -43,13 +43,6 @@ const Account = () => {
             </main>
 
             <CustomFooter/>
-<<<<<<< HEAD
-            <GameStatsCard
-                gameTitle={'nejaka hra'} 
-                statsMap ={''}
-                />
-=======
->>>>>>> e44dcab807dfb93bdd0fa2ab86ea2c8cf1c5a3e5
         </>
 
     )
