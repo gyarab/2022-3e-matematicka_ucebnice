@@ -54,7 +54,7 @@ const CardFlipper = ({size, difficulty}) => {
                     handleNextStage={handleNextStage}
                     handlePreviousStage={handlePreviousStage}
                 />
-                <div className={gameStyles.mainContentContainer}>
+                <div className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
                     <CardFlipperCard
                         keyValue={pairs[stage].keyValue}
                         value={pairs[stage].value}

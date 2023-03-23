@@ -68,15 +68,6 @@ const SorterGame = ({gameLength, size, difficulty}) => {
     }
 
     const handleAnswerSubmit = () => {
-        let equationStr = game[stage].items.join('')
-
-        let result = false
-        try {
-            result = eval(equationStr) === Number.parseInt(game[stage].result)
-        } catch (e) {
-            // incorrect
-        }
-
         const setEvaluation = (result) => {
             setGame(prevState => {
                 prevState[stage] = {
@@ -86,6 +77,16 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                 }
                 return [...prevState]
             })
+        }
+
+        let equationStr = game[stage].items.join('')
+
+        let result = false
+        try {
+            result = eval(equationStr) === Number.parseInt(game[stage].result)
+        } catch (e) {
+            console.log("incorrect")
+            setEvaluation(false)
         }
 
         if (result) {
@@ -110,30 +111,35 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                     handleNextStage={handleNextStage}
                     handlePreviousStage={handlePreviousStage}
                 />
-                <div className={gameStyles.mainContentContainer}>
-                    <DragDropContext onDragEnd={onDragEnd}>
-                        <StrictModeDroppable droppableId="droppable">
-                            {(provided, snapshot) => (
-                                <div
-                                    {...provided.droppableProps}
-                                    ref={provided.innerRef}
-                                    className={`
+                <div
+                    className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
+                    <div
+                        className={`w-100 d-flex flex-row align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
+
+                        <DragDropContext onDragEnd={onDragEnd}>
+                            <StrictModeDroppable droppableId={"droppable"}>
+                                {(provided, snapshot) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        className={`
                                         d-flex w-100 
                                         flex-column 
                                         align-items-center 
                                         justify-content-center 
                                         rounded-2 
                                         pb-1 pt-1`
-                                    }
-                                >
-                                    {game[stage].items.map((item, index) => (
-                                        <Draggable key={index.toString()} draggableId={index.toString()} index={index}>
-                                            {(provided, snapshot) => (
-                                                <div
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                    className={`
+                                        }
+                                    >
+                                        {game[stage].items.map((item, index) => (
+                                            <Draggable key={index.toString()} draggableId={index.toString()}
+                                                       index={index}>
+                                                {(provided, snapshot) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        className={`
                                                         hoverDarkShadow 
                                                         m-1 p-2 w-75
                                                         rounded-2 
@@ -142,18 +148,63 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                                                         justify-content-center
                                                         ${snapshot.isDragging ? `darkShadow ${sorterGameStyles.isDragging}` : sorterGameStyles.notDragging}
                                                         ${sorterGameStyles.maxWidth}`
-                                                    }
-                                                >
-                                                    {item}
-                                                </div>
-                                            )}
-                                        </Draggable>
-                                    ))}
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </StrictModeDroppable>
-                    </DragDropContext>
+                                                        }
+                                                    >
+                                                        {item}
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </StrictModeDroppable>
+                        </DragDropContext>
+                        <DragDropContext onDragEnd={onDragEnd}>
+                            <StrictModeDroppable droppableId={"droppable"}>
+                                {(provided, snapshot) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        className={`
+                                        d-flex w-100 
+                                        flex-column 
+                                        align-items-center 
+                                        justify-content-center 
+                                        rounded-2 
+                                        pb-1 pt-1`
+                                        }
+                                    >
+                                        {game[stage].items.map((item, index) => (
+                                            <Draggable key={index.toString()} draggableId={index.toString()}
+                                                       index={index}>
+                                                {(provided, snapshot) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        className={`
+                                                        hoverDarkShadow 
+                                                        m-1 p-2 w-75
+                                                        rounded-2 
+                                                        d-flex 
+                                                        align-items-center 
+                                                        justify-content-center
+                                                        ${snapshot.isDragging ? `darkShadow ${sorterGameStyles.isDragging}` : sorterGameStyles.notDragging}
+                                                        ${sorterGameStyles.maxWidth}`
+                                                        }
+                                                    >
+                                                        {item}
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </StrictModeDroppable>
+                        </DragDropContext>
+                    </div>
                     <div
                         className={`d-flex flex-column align-items-center justify-content-center w-75 ${sorterGameStyles.doubleBorderTop} ${sorterGameStyles.maxWidth}`}>
                         <div
@@ -182,7 +233,6 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                             <BsFillCheckCircleFill/>
                         </Button>
                     </div>
-
                 </div>
             </div>
         </>
