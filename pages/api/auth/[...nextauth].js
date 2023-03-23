@@ -1,6 +1,10 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
+import FacebookProvider from "next-auth/providers/facebook";
+import GitHubProvider from "next-auth/providers/github";
+import {TypeORMLegacyAdapter} from "@next-auth/typeorm-legacy-adapter";
+import {SnakeNamingStrategy} from 'typeorm-naming-strategies'
+
 
 export default NextAuth({
     // Configure one or more authentication providers
@@ -9,31 +13,23 @@ export default NextAuth({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET
         }),
-        CredentialsProvider({
-            name: 'Credentials',
-            credentials: {
-                username: {
-                    label: 'username',
-                    type: 'text',
-                    placeholder: 'jsmith'
-                },
-                password: {
-                    password: 'password',
-                    type: 'password'
-                }
-            },
-            async authorize(credentials, req) {
-                console.log(credentials)
-                if (credentials.email === '')
-                    return null
-
-                const user = {
-                    name: credentials.email,
-                    email: credentials.email,
-                }
-                return user
-            }
-        })
+        FacebookProvider({
+            clientId: process.env.FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET
+        }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID,
+            clientSecret: process.env.GITHUB_SECRET
+        }),
         // ...add more providers here
     ],
+    adapter: TypeORMLegacyAdapter({
+        type: "postgres",
+        host: process.env.HOST,
+        port: process.env.PORT,
+        username: process.env.USERNAME,
+        password: process.env.PASSWORD,
+        database: process.env.DB_NAME,
+        namingStrategy: new SnakeNamingStrategy(),
+    }),
 })
