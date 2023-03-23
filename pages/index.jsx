@@ -4,6 +4,7 @@ import CustomFooter from "../components/utils/CustomFooter";
 import LoginForm from "../components/verification/Login";
 import indexStyles from '../styles/IndexPage.module.css';
 import {useSession} from "next-auth/react";
+import LoginContainer from "../components/verification/LoginContainer";
 
 /*
 async function getServerSideProps(context) {
@@ -63,8 +64,8 @@ const Home = () => {
                         </p>
                     </div>
                     <div className={indexStyles.contentContainer}>
-                        <LoginForm
-                            loginCallbackURL={'/homepage'}
+                        <LoginContainer
+                            callbackURL={'/homepage'}
                         />
                     </div>
                 </div>

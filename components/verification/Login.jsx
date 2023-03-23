@@ -4,7 +4,7 @@ import ErrorAnnouncement from "../utils/ErrorAnnouncement";
 import {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
 import Image from "next/image";
-import {signIn} from "next-auth/react";
+import {signIn, signOut} from "next-auth/react";
 
 const LoginForm = ({loginCallbackURL}) => {
     const router = useRouter()
@@ -23,8 +23,8 @@ const LoginForm = ({loginCallbackURL}) => {
     }, [])
 
     const handleLogin = async (e) => {
-        if (validated)
-            e.preventDefault()
+        e.preventDefault()
+
 
         const parameters = {
             email: emailRef.current.value,
