@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next-auth/typeorm-legacy-adapter": "^2.0.1",
     "@react-buddy/ide-toolbox": "^2.3.0",
     "bootstrap": "^5.2.3",
     "lighthouse": "^9.6.8",
@@ -20,7 +21,9 @@
     "react-bootstrap": "^2.6.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
-    "sharp": "^0.31.3"
+    "sharp": "^0.31.3",
+    "typeorm": "^0.3.7",
+    "typeorm-naming-strategies": "^4.1.0"
   },
   "devDependencies": {
     "eslint": "8.25.0",
