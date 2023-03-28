@@ -6,6 +6,7 @@ import HeroImage from "../../components/classes/HeroImage";
 import {colorThemeDark, colorThemeLight, heroImageAltText, heroImagePath} from "../../lib/frontend-env-variables";
 import classStyles from '../../styles/Class.module.css'
 import GameStatsCard from "./GamestatsCard";
+import {useBackendAuth} from "../../components/utils/hooks/useBackendAuth";
 
 /**
  * USER PANEL
@@ -47,3 +48,9 @@ const UserPanel = () => {
 }
 
 export default UserPanel
+
+export async function getServerSideProps(context) {
+    return useBackendAuth(context, (session) => {
+        return { props: {session} }
+    })
+}

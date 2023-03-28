@@ -4,6 +4,7 @@ import CustomFooter from "../components/utils/CustomFooter";
 import {colorThemeDark, colorThemeLight} from "../lib/frontend-env-variables";
 import {Container, Row} from "react-bootstrap";
 import HomepageCard from "../components/homepage/HomepageCard";
+import {useBackendAuth} from "../components/utils/hooks/useBackendAuth";
 
 /**
  * APPLICATION HOME PAGE
@@ -65,3 +66,9 @@ const HomePage = (props) => {
 }
 
 export default HomePage
+
+export async function getServerSideProps(context) {
+    return useBackendAuth(context, (session) => {
+        return { props: {session} }
+    })
+}

@@ -7,6 +7,7 @@ import HeroImage from "../../components/classes/HeroImage";
 import {useClassSections} from "../../components/utils/hooks/useClassSections";
 import {useSession} from "next-auth/react";
 import useAuthentication from "../../components/utils/hooks/useAuthentication";
+import {useBackendAuth} from "../../components/utils/hooks/useBackendAuth";
 
 /**
  * GAME IDs
@@ -16,13 +17,7 @@ import useAuthentication from "../../components/utils/hooks/useAuthentication";
  */
 
 const SixthClass = ({}) => {
-    const {data: session, status} = useSession()
-    const {authenticated, component} = useAuthentication(status)
-    console.log(authenticated, component)
-    const classSections = useClassSections('url', status)
-    if (!authenticated) {
-        return component
-    }
+    const classSections = useClassSections('url')
 
     return (
         <>
@@ -62,4 +57,10 @@ const SixthClass = ({}) => {
     )
 }
 
-export default SixthClass
+export default SixthClass;
+
+export async function getServerSideProps(context) {
+    return useBackendAuth(context, (session) => {
+        return { props: {session} }
+    })
+}

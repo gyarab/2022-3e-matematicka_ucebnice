@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic'
 import {useEffect, useState} from "react";
 import LoadingSpinner from "../../components/utils/LoadingSpinner";
 import HeroImage from "../../components/classes/HeroImage";
+import {useBackendAuth} from "../../components/utils/hooks/useBackendAuth";
 
 const ChooseCorrectAnswer = dynamic(() => import('../../components/games/choose-correct-answer/ChooseCorrectAnswer'), {
     loading: () => <LoadingSpinner/>
@@ -84,3 +85,9 @@ const EightClass = (props) => {
 }
 
 export default EightClass
+
+export async function getServerSideProps(context) {
+    return useBackendAuth(context, (session) => {
+        return { props: {session} }
+    })
+}
