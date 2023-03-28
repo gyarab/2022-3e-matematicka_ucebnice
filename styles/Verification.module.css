@@ -32,3 +32,8 @@
     -moz-padding-start: 5.5px;
     -webkit-padding-start: 5.5px;
 }
+
+.title {
+    color: var(--bs-primary);
+    font-size: 25px;
+}

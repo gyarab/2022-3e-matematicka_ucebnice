@@ -1,31 +1,10 @@
 import CustomHead from "../components/utils/CustomHead";
 import {colorThemeDark, colorThemeLight} from "../lib/frontend-env-variables";
 import CustomFooter from "../components/utils/CustomFooter";
-import LoginForm from "../components/verification/Login";
 import indexStyles from '../styles/IndexPage.module.css';
 import {useSession} from "next-auth/react";
 import LoginContainer from "../components/verification/LoginContainer";
-
-/*
-async function getServerSideProps(context) {
-    try {
-        const token = cookie.parse(context.req.headers.cookie).accesToken
-        const authSession = await validateToken({token: token})
-        if (!authSession) {
-            return {
-                redirect: {
-                    destination: "/login",
-                    permanent: false
-                }
-            }
-        }
-
-        return {props: {}}
-    } catch (e) {
-        return {props: {}}
-    }
-}
- */
+import {useBackendAuth} from "../components/utils/hooks/useBackendAuth";
 
 /**
  * INDEX PAGE
@@ -42,7 +21,7 @@ const Home = () => {
     TODO -> page design
      */
 
-    const {data: session} = useSession();
+    const {data: session, status} = useSession();
 
     return (
         <>
@@ -51,7 +30,6 @@ const Home = () => {
                 themeColorLight={colorThemeLight}
                 themeColorDark={colorThemeDark}
             />
-
             <main className={`d-flex align-items-center`} style={{height: '100vh'}}>
                 <div className={indexStyles.backgroundCircle}></div>
                 <div className={`w-100 h-100 d-flex flex-row align-items-center justify-content-between m-5`}>
@@ -64,13 +42,10 @@ const Home = () => {
                         </p>
                     </div>
                     <div className={indexStyles.contentContainer}>
-                        <LoginContainer
-                            callbackURL={'/homepage'}
-                        />
+                        <LoginContainer />
                     </div>
                 </div>
             </main>
-
             <CustomFooter/>
         </>
     )

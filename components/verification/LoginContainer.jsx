@@ -4,23 +4,26 @@ import {Button} from "react-bootstrap";
 import {signIn} from "next-auth/react";
 import {googleLogoImagePath, googleLogoAltText} from "../../lib/frontend-env-variables";
 
-const LoginContainer = ({callbackURL}) => {
+const LoginContainer = () => {
     const handleGoogleAuthLogin = async (e) => {
-        await signIn('google', {callbackUrl: callbackURL})
+        await signIn('google')
     }
 
     return (
-        <div className={`w-100 d-flex flex-row align-items-center justify-content-center`}>
+        <div className={`w-100 d-flex flex-column justify-content-center darkShadow ${verificationStyles.customForm}`}>
+            <h2 className={`p-2 ${verificationStyles.title}`}>
+                Přihlášení
+            </h2>
             <Button
                 variant={"light"}
                 type={'button'}
-                className={`${verificationStyles.submitButton} m-1 hoverDarkShadow rounded-5`}
+                className={` w-100 d-flex justify-content-center align-items-center m-1 hoverDarkShadow rounded ${verificationStyles.submitButton}`}
                 onClick={handleGoogleAuthLogin}
             >
                 <Image
                     priority={false}
-                    width={200}
-                    height={200}
+                    width={50}
+                    height={50}
                     src={googleLogoImagePath}
                     alt={googleLogoAltText}
                     onClick={handleGoogleAuthLogin}
