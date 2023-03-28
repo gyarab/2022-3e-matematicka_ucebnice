@@ -32,4 +32,9 @@ export default NextAuth({
         database: process.env.DB_NAME,
         namingStrategy: new SnakeNamingStrategy(),
     }),
+    callbacks: {
+        async redirect({url, baseUrl}) {
+            return baseUrl + '/homepage';
+        },
+    }
 })
