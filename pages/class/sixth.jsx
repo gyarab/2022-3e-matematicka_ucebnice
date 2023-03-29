@@ -16,7 +16,7 @@ import {useBackendAuth} from "../../components/utils/hooks/useBackendAuth";
  * - 2 -> ??
  */
 
-const SixthClass = ({}) => {
+const SixthClass = () => {
     const classSections = useClassSections('url')
 
     return (
@@ -26,7 +26,7 @@ const SixthClass = ({}) => {
                 themeColorLight={colorThemeLight}
                 themeColorDark={colorThemeDark}
             />
-            <main>
+            <main className={'mt-5'}>
                 <NavBar
                     activeRoute={'/class/sixth'}
                 />

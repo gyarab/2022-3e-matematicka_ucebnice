@@ -20,7 +20,7 @@ const UserPanel = () => {
     return (
         <>
             
-            <main>
+            <main className={'mt-5'}>
 
 
             <NavBar />

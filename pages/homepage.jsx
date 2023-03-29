@@ -29,7 +29,7 @@ const HomePage = (props) => {
                 themeColorLight={colorThemeLight}
                 themeColorDark={colorThemeDark}
             />
-            <main>
+            <main className={'mt-5'}>
                 <NavBar/>
                 <div className={'container-fluid'}>
                     <Container className={`w-100`}>

@@ -64,7 +64,7 @@ const EightClass = (props) => {
                 themeColorLight={colorThemeLight}
                 themeColorDark={colorThemeDark}
             />
-            <main>
+            <main className={'mt-5'}>
                 <NavBar
                     activeRoute={'/class/eight'}
                 />

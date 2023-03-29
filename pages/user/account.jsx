@@ -22,7 +22,7 @@ const Account = () => {
                 themeColorDark={colorThemeDark}
             />
 
-            <main>
+            <main className={'mt-5'}>
                 <NavBar
                     activeRoute={'/user/account'}
                 />

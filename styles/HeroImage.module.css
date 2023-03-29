@@ -22,4 +22,5 @@
 .description {
     font-size: 50px;
     backdrop-filter: blur(3px);
+    z-index: 4;
 }

@@ -18,6 +18,9 @@ import navBarStyles from '../../styles/NavBar.module.css'
  * @constructor
  */
 const NavBar = ({activeRoute}) => {
+    /*
+    TODO -> onClick outside the navbar => roll out the nav if it was rolled out
+     */
 
     const [windowWidth, setWindowWidth] = useState(0)
 
@@ -27,7 +30,12 @@ const NavBar = ({activeRoute}) => {
     }, [])
 
     return (
-        <Navbar bg={"secondary"} expand={"lg"} className={navBarStyles.customNav}>
+        <Navbar
+            bg={"secondary"}
+            expand={"lg"}
+            fixed={'top'}
+            className={`${navBarStyles.customNav}`}
+        >
             <Container>
                 <Navbar.Brand href={"/homepage"} className={'d-flex align-items-center'}>
                     {
@@ -52,6 +60,7 @@ const NavBar = ({activeRoute}) => {
                 />
                 <Navbar.Collapse id={"basic-navbar-nav"}>
                     <Nav className={"me-auto"} activeKey={activeRoute}>
+                        <Nav.Link href={"/homepage"} eventKey={'/homepage'}>Domovská stránka</Nav.Link>
                         <Nav.Link href={"/class/sixth"} eventKey={'/class/sixth'}>Šestá třída</Nav.Link>
                         <Nav.Link href={"/class/seventh"} eventKey={'/class/seventh'}>Sedmá třída</Nav.Link>
                         <Nav.Link href={"/class/eight"} eventKey={'/class/eight'}>Osmá třída</Nav.Link>
