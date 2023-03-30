@@ -2,7 +2,7 @@ import CustomHead from "../components/utils/CustomHead";
 import {colorThemeDark, colorThemeLight} from "../lib/frontend-env-variables";
 import CustomFooter from "../components/utils/CustomFooter";
 import indexStyles from '../styles/IndexPage.module.css';
-import {useSession} from "next-auth/react";
+import {getSession, useSession} from "next-auth/react";
 import LoginContainer from "../components/verification/LoginContainer";
 import {useBackendAuth} from "../components/utils/hooks/useBackendAuth";
 
@@ -49,6 +49,21 @@ const Home = () => {
             <CustomFooter/>
         </>
     )
+}
+
+export async function getServerSideProps(context) {
+    const session = await getSession(context)
+
+    if (session) {
+        return {
+            redirect: {
+                destination: "/homepage",
+                permanent: false
+            }
+        }
+    }
+
+    return { props: {}}
 }
 
 export default Home;

@@ -60,7 +60,6 @@ const NavBar = ({activeRoute}) => {
                 />
                 <Navbar.Collapse id={"basic-navbar-nav"}>
                     <Nav className={"me-auto"} activeKey={activeRoute}>
-                        <Nav.Link href={"/homepage"} eventKey={'/homepage'}>Domovská stránka</Nav.Link>
                         <Nav.Link href={"/class/sixth"} eventKey={'/class/sixth'}>Šestá třída</Nav.Link>
                         <Nav.Link href={"/class/seventh"} eventKey={'/class/seventh'}>Sedmá třída</Nav.Link>
                         <Nav.Link href={"/class/eight"} eventKey={'/class/eight'}>Osmá třída</Nav.Link>
