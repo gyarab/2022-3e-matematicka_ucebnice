@@ -2,6 +2,8 @@
     background-color: var(--bs-secondary);
     width: 5rem;
     height: 5rem;
+    margin: 8px;
+    padding: 8px;
 }
 
 .scaleCardOnHover {
@@ -32,6 +34,43 @@
     -moz-animation: cardOutAnimation 300ms;
     -webkit-animation: cardOutAnimation 300ms;
 }
+
+@media only screen and (max-width: 500px) {
+    .card {
+        margin: 4px;
+        padding: 4px;
+        font-size: 15px;
+        width: 4.5rem;
+        height: 4.5rem;
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    .card {
+        font-size: 13px;
+        width: 4rem;
+        height: 4rem;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    .card {
+        font-size: 12px;
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+}
+
+@media only screen and (max-width: 355px) {
+    .card {
+        margin: 4px;
+        padding: 2px;
+        font-size: 8px;
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
 
 /*
 Animations to make pexeso cards bigger or smaller

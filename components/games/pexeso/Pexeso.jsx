@@ -132,7 +132,7 @@ const Pexeso = ({size, difficulty}) => {
 
     return (
         <>
-            <div className={`p-3 m-2 ${gameStyles.frame}`} style={{width: 'fit-content'}}>
+            <div className={`${gameStyles.frame}`} style={{width: 'fit-content'}}>
                 {
                     pexArray.map((row, index) => {
                         return (

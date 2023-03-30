@@ -11,8 +11,6 @@ const PexesoCard = ({value, correct, neutral, checked, clickHandler}) => {
                  flex-column
                  align-items-center
                  justify-content-center
-                 m-2
-                 p-2
                  rounded
                  hoverDarkShadow
                  ${!checked && correctIsNull && !neutral ? pexesoStyles.scaleCardOnHover : ''}

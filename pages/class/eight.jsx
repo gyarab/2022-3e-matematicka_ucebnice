@@ -73,11 +73,6 @@ const EightClass = (props) => {
                     altText={heroImageAltText}
                     description={'Osmá třída'}
                 />
-                <div className={'container-fluid'}>
-                    <ChooseCorrectAnswer
-                        game={game}
-                    />
-                </div>
             </main>
             <CustomFooter/>
         </>
@@ -88,6 +83,6 @@ export default EightClass
 
 export async function getServerSideProps(context) {
     return useBackendAuth(context, (session) => {
-        return { props: {session} }
+        return {props: {session}}
     })
 }
