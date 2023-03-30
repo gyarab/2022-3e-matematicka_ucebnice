@@ -34,12 +34,12 @@ const NavBar = ({activeRoute}) => {
             bg={"secondary"}
             expand={"lg"}
             fixed={'top'}
-            className={`${navBarStyles.customNav}`}
+            className={`darkShadow ${navBarStyles.customNav}`}
         >
             <Container>
                 <Navbar.Brand href={"/homepage"} className={'d-flex align-items-center'}>
                     {
-                        windowWidth > 330 &&
+                        windowWidth > 320 &&
                         <>
                             <Image
                                 alt={navBarImageAltText}
