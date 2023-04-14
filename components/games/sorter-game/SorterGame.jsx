@@ -41,7 +41,7 @@ const SorterGame = ({gameLength, size, difficulty}) => {
             prevState[stage] = {
                 items: reorder(prevState[stage].items, result.source.index, result.destination.index),
                 result: prevState[stage].result,
-                elevation: prevState[stage].evaluation
+                evaluation: prevState[stage].evaluation
             }
 
             return [...prevState]
@@ -112,10 +112,25 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                     handlePreviousStage={handlePreviousStage}
                 />
                 <div
-                    className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
+                    className={`
+                        w-100
+                        d-flex
+                        flex-column
+                        align-items-center
+                        justify-content-center
+                        ${gameStyles.mainContentContainer}`
+                    }
+                >
                     <div
-                        className={`w-100 d-flex flex-row align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
-
+                        className={`
+                            w-100
+                            d-flex
+                            flex-row
+                            align-items-center
+                            justify-content-center
+                            ${gameStyles.mainContentContainer}`
+                        }
+                    >
                         <DragDropContext onDragEnd={onDragEnd}>
                             <StrictModeDroppable droppableId={"droppable"}>
                                 {(provided, snapshot) => (
@@ -132,8 +147,11 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                                         }
                                     >
                                         {game[stage].items.map((item, index) => (
-                                            <Draggable key={index.toString()} draggableId={index.toString()}
-                                                       index={index}>
+                                            <Draggable
+                                                key={index.toString()}
+                                                draggableId={index.toString()}
+                                                index={index}
+                                            >
                                                 {(provided, snapshot) => (
                                                     <div
                                                         ref={provided.innerRef}

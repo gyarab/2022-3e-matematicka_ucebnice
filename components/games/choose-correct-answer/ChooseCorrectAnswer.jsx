@@ -54,6 +54,8 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty}) => {
     }
 
     useEffect(() => {
+
+
         setGameUsingStage(0)
     }, []);
 

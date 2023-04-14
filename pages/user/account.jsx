@@ -4,7 +4,7 @@ import {colorThemeDark, colorThemeLight, heroImageAltText, heroImagePath} from "
 import CustomFooter from "../../components/utils/CustomFooter";
 import HeroImage from "../../components/classes/HeroImage";
 import GameStatsCard from "../../components/account-page/GameStatsCard";
-import {useBackendAuth} from "../../components/utils/hooks/useBackendAuth";
+import {doBackendAuth} from "../../components/utils/hooks/doBackendAuth";
 
 
 const Account = () => {
@@ -52,7 +52,7 @@ const Account = () => {
 export default Account
 
 export async function getServerSideProps(context) {
-    return useBackendAuth(context, (session) => {
+    return doBackendAuth(context, (session) => {
         return { props: {session} }
     })
 }
