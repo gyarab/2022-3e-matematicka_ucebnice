@@ -4,7 +4,7 @@ import CustomFooter from "../components/utils/CustomFooter";
 import indexStyles from '../styles/IndexPage.module.css';
 import {getSession, useSession} from "next-auth/react";
 import LoginContainer from "../components/verification/LoginContainer";
-import {useBackendAuth} from "../components/utils/hooks/useBackendAuth";
+import {doBackendAuth} from "../components/utils/hooks/doBackendAuth";
 
 /**
  * INDEX PAGE

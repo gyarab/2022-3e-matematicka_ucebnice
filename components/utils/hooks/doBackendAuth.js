@@ -1,6 +1,6 @@
 import {getSession} from "next-auth/react";
 
-export async function useBackendAuth(context, callback) {
+export async function doBackendAuth(context, callback) {
     const session = await getSession(context)
 
     if (!session) {
@@ -8,7 +8,8 @@ export async function useBackendAuth(context, callback) {
             redirect: {
                 destination: "/api/auth/signin",
                 permanent: false
-            }
+            },
+            props: {}
         }
     }
 
