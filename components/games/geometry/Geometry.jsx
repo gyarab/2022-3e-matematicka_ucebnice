@@ -17,7 +17,8 @@ class Dot {
  * @param {number} tSettings 1 - right angle triangle, 2 - rovnostrany
  * @returns
  */
-const Geometry = (question ="empty",shape =-1,value =-1,tSettings = -1) => {
+
+const Geometry = ({question ="empty",shape =-1,value =-1,tSettings = -1}) => {
   //TODO functions, checking rightness, remove upper part of canvas, make better dotAdd using rewritting
   //parameters
   /*
