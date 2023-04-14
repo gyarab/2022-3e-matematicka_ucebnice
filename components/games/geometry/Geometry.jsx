@@ -1,8 +1,10 @@
 import {useCallback, useState} from "react"
 import Button from 'react-bootstrap/Button';
 import {Graphics, Stage} from "@inlet/react-pixi";
-
 import {Color} from 'pixi.js';
+import {generateTriangleQuestion} from "../../../lib/geometryGeneration";
+import GameNav from "../GameNav";
+import gameStyles from "../../../styles/games/Game.module.css"
 
 class Dot {
     constructor(x, y) {
@@ -41,7 +43,7 @@ const Geometry = ({question = "empty", shape = -1, value = -1, tSettings = -1}) 
 const Geometry = (difficulty) => {
   //TODO functions, checking rightness, remove upper part of canvas, make better dotAdd using rewritting
   //parameters
-  /*
+
   text - question
   dependences:
     shape
@@ -164,7 +166,6 @@ const Geometry = (difficulty) => {
                 <GameNav
                     showPreviousButton={stage !== 0}
                     handleNextStage={handleNextStage}
-
                 />
                 <div
                     className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
