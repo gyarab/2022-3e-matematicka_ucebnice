@@ -53,9 +53,26 @@ const Geometry = (difficulty = 1) => {
         -
 
 
+<<<<<<< HEAD
+
+  const questions = useMemo(() =>(generateGeometricQuestions(size,difficulty),[size, difficulty]));
+  const [dotList, setDotList]  = useState([])
+  const [stage, setStage] = useState(0);
+  let bgColor = new Color(0x3C486B)
+  let gridColor = new Color(0xF0F0F0)
+  let dotColor = new Color(0xF9D949)
+  let lineColor = new Color(0xF45050)
+
+  let dotLimit = 100
+
+  const handleNextStage = () => {
+    setStage(prevState => (prevState + 1))
+}
+=======
     */
 
-    const [game, setGame] = useState([generateTriangleQuestion(difficulty)])
+    //const [game, setGame] = useState(0)
+    const game = generateTriangleQuestion(1)
     const [dotList, setDotList] = useState([])
     const [stage, setStage] = useState(0);
 
@@ -149,7 +166,7 @@ const Geometry = (difficulty = 1) => {
                 style={{color: 'white'}}
                 variant={"secondary"}
             >
-                {`${game[stage].question}`}
+                {`${game.question}`}
             </Button>
             <div className={`${gameStyles.frame} m-2`}>
                 <GameNav
