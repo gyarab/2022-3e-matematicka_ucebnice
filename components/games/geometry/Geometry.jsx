@@ -4,7 +4,7 @@ import {Stage,Graphics,Sprite,Container,useTick,color } from "@inlet/react-pixi"
 import gameStyles from "../../../styles/games/Game.module.css";
 import gameUtilsStyles from '../../../styles/games/GameUtils.module.css'
 import GameNav from "../GameNav";
-import { generateTriangleQuestion } from "../../../lib/geometryGeneration";
+import { generateTriangleQuestion,generateGeometricQuestions } from "../../../lib/geometryGeneration";
 import { Color } from 'pixi.js';
 class Dot {
   constructor(x, y) {
@@ -20,7 +20,7 @@ class Dot {
  * @param {number} tSettings 1 - right angle triangle, 2 - rovnostrany
  * @returns
  */
-const Geometry = (difficulty) => {
+const Geometry = ({size, difficulty}) => {
   //TODO functions, checking rightness, remove upper part of canvas, make better dotAdd using rewritting
   //parameters
   /*
@@ -35,8 +35,8 @@ const Geometry = (difficulty) => {
 
   */
 
-  //const [game, setGame] = useState(0)
-  const game = generateTriangleQuestion(1)
+  
+  const questions = useMemo(() =>(generateGeometricQuestions(size,difficulty),[size, difficulty]));
   const [dotList, setDotList]  = useState([])
   const [stage, setStage] = useState(0);
   let bgColor = new Color(0x3C486B)
@@ -45,10 +45,7 @@ const Geometry = (difficulty) => {
   let lineColor = new Color(0xF45050)
 
   let dotLimit = 100
-  
-  function generateGameSetting(){
-    
-  }
+
   const handleNextStage = () => {
     setStage(prevState => (prevState + 1))
 }
@@ -68,6 +65,11 @@ setGame(prevState =>{
   const deleteLastDot = () =>{
     setDotList(prevState =>{
       let newList = []
+
+      console.log("questions 1")
+      console.log(questions[0])
+      console.log("questions 2")
+      console.log(questions[1])
       for (let i = 0; i < prevState.length-1; i++){
         newList.push(prevState.at(i))
       }
@@ -141,7 +143,7 @@ setGame(prevState =>{
         style={{color: 'white'}}
         variant={"secondary"}
     >
-        {`${game.question}`}
+        {`${questions[stage].question}`}
     </Button>
       <div className={`${gameStyles.frame} m-2`}>
                 <GameNav

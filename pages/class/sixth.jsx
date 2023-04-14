@@ -6,7 +6,7 @@ import Section from "../../components/classes/Section";
 import HeroImage from "../../components/classes/HeroImage";
 import {useClassSections} from "../../components/utils/hooks/useClassSections";
 import {useEffect} from "react";
-import axios from "axios";
+//import axios from "axios";
 import {useRouter} from "next/router";
 
 /**
@@ -19,7 +19,7 @@ import {useRouter} from "next/router";
 const SixthClass = () => {
     const router = useRouter()
     const classSections = useClassSections('url')
-
+    /*
     useEffect(() => {
         axios.post('/api/games/getGameStage')
             .then(res => console.log(res))
@@ -28,7 +28,7 @@ const SixthClass = () => {
                 await router.push('/api/auth/signin')
             })
     }, []);
-
+    */
     return (
         <>
             <CustomHead

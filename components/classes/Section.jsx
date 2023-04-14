@@ -72,7 +72,8 @@ const Section = ({id, title, games}) => {
             case 6:
                 return (
                     <Geometry
-                    
+                    size={game.size}
+                    difficulty={game.difficulty}
                     />
                 )
             default:
