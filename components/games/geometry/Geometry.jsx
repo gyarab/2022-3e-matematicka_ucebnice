@@ -20,6 +20,10 @@ const lineColor = new Color(0xF45050)
 
 const dotLimit = 100
 
+const calcMove = (deflection, coefficient, layer) => {
+    return (deflection + coefficient * layer)
+}
+
 /**
  *
  * @param {String} question main question
@@ -98,7 +102,7 @@ const Geometry = (difficulty = 1) => {
         setDotList(prevState => [...prevState.splice(0, prevState.length - 1)])
     }
 
-    const drawGrid = useCallback(g => {
+    const drawGrid = (g) => {
         function lines_across() {
             for (let i = 0; i < 10; i++) {
                 g.moveTo(0, i * 40)
@@ -114,11 +118,21 @@ const Geometry = (difficulty = 1) => {
         }
 
         function hitBox() {
+            const hitBox = {
+                width: 40,
+                height: 40
+            }
+
             for (let i = 0; i < 9; i++) {
                 for (let j = 0; j < 9; j++) {
                     g.beginFill(bgColor)
-                    g.lineStyle(0, bgColor, 0)
-                    g.drawRect(25 + i * 40, 25 + j * 40, 30, 30)
+                    g.lineStyle(bgColor)
+                    g.drawRect(
+                        calcMove(25, i, 40),
+                        calcMove(25, j, 40),
+                        hitBox.width,
+                        hitBox.height
+                    )
                 }
             }
         }
@@ -130,31 +144,54 @@ const Geometry = (difficulty = 1) => {
         g.lineStyle(4, gridColor, 1)
         lines_across()
         lines_down()
-
-    }, []);
+    }
 
     const drawGeometry = (g) => {
         g.clear()
-        g.beginFill(0x8600b3)
-        g.lineStyle(4, 0x3336FF, 1)
-        //dots
 
+        // render loop
         for (let i = 0; i < dotList.length; i++) {
+            const dot = dotList.at(i)
+
+            // dots
             g.lineStyle(4, dotColor, 1)
             g.beginFill(lineColor)
-            g.drawCircle(dotList.at(i).x * 40 + 40, dotList.at(i).y * 40 + 40, 8)
+            g.drawCircle(
+                calcMove(40, dot.x, 40),
+                calcMove(40, dot.y, 40),
+                8
+            )
+
+            // lines
+            if (i < dotList.length - 1) {
+                const nextDot = dotList.at(i + 1)
+                g.lineStyle(8, lineColor, 1)
+                g.beginFill(lineColor)
+                g.moveTo(
+                    calcMove(40, dot.x, 40),
+                    calcMove(40, dot.y, 40),
+                )
+                g.lineTo(
+                    calcMove(40, nextDot.x, 40),
+                    calcMove(40, nextDot.y, 40),
+                )
+            }
         }
-        //lines
-        for (let i = 0; i < dotList.length - 1; i++) {
-            g.lineStyle(8, lineColor, 1)
-            g.beginFill(lineColor)
-            g.moveTo(dotList.at(i).x * 40 + 40, dotList.at(i).y * 40 + 40)
-            g.lineTo(dotList.at(i + 1).x * 40 + 40, dotList.at(i + 1).y * 40 + 40)
-        }
+
         //last
         if (dotList.length > 2) {
-            g.moveTo(dotList.at(0).x * 40 + 40, dotList.at(0).y * 40 + 40)
-            g.lineTo(dotList.at(dotList.length - 1).x * 40 + 40, dotList.at(dotList.length - 1).y * 40 + 40)
+            const firstDot = dotList.at(0)
+            const lastDot = dotList.at(dotList.length - 1)
+            g.lineStyle(8, lineColor, 1)
+            g.beginFill(lineColor)
+            g.moveTo(
+                calcMove(40, firstDot.x, 40),
+                calcMove(40, firstDot.y, 40),
+            )
+            g.lineTo(
+                calcMove(40, lastDot.x, 40),
+                calcMove(40, lastDot.y, 40),
+            )
         }
     };
 
