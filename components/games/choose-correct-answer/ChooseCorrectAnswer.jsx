@@ -136,6 +136,7 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty}) => {
                                 >
                                     {answer}
                                 </Button>
+                                
                             )
                         })}
                     </div>
