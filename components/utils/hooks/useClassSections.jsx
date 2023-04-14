@@ -40,6 +40,10 @@ export const useClassSections = (url) => {
                             gameLength: 3,
                             size: 5,
                             difficulty: 4
+                        },
+                        {
+                            id: 6,
+                            title: 'Geometry.jsx',
                         }
                     ]
                 },
