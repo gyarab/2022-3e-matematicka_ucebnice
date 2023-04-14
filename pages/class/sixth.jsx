@@ -58,9 +58,11 @@ const SixthClass = () => {
 }
 
 export default SixthClass;
-
+/*
 export async function getServerSideProps(context) {
     return useBackendAuth(context, (session) => {
         return { props: {session} }
     })
+
 }
+*/

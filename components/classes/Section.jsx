@@ -21,6 +21,10 @@ const SorterGame = dynamic(() => import("../games/sorter-game/SorterGame"), {
     loading: () => <LoadingSpinner/>,
     ssr: false
 })
+const Geometry = dynamic(() => import("../games/geometry/Geometry"),{
+    loading: () => <LoadingSpinner/>,
+    ssr: false
+})
 
 const Section = ({id, title, games}) => {
 
@@ -63,6 +67,12 @@ const Section = ({id, title, games}) => {
                         gameLength={game.gameLength}
                         size={game.size}
                         difficulty={game.difficulty}
+                    />
+                )
+            case 6:
+                return (
+                    <Geometry
+                    
                     />
                 )
             default:

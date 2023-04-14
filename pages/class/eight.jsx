@@ -81,8 +81,11 @@ const EightClass = (props) => {
 
 export default EightClass
 
+/*
 export async function getServerSideProps(context) {
     return useBackendAuth(context, (session) => {
         return {props: {session}}
     })
+    
 }
+*/
