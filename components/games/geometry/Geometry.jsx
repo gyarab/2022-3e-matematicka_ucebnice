@@ -25,42 +25,39 @@ const dotLimit = 100
  * @param {String} question main question
  * @param {number} shape number of dots 3 - triangle 4 - rectangle -1
  * @param {number} value value of object
- * @param {number} tSettings 1 - right angle triangle, 2 - rovnostrany
+ * @param {number} tSettings 1 - triangle with right angle, 2 - triangle with the same size sides??
  * @returns
  */
-const Geometry = ({question = "empty", shape = -1, value = -1, tSettings = -1}) => {
+//const Geometry = ({question = "empty", shape = -1, value = -1, tSettings = -1}) => {
+//TODO functions, checking rightness, remove upper part of canvas, make better dotAdd using rewritting
+//parameters
+/*
+text - question
+dependences:
+  shape
+  value - optional
+  triange setting - optional
+  one angle - optional
+  -
+*/
+const Geometry = (difficulty = 1) => {
     //TODO functions, checking rightness, remove upper part of canvas, make better dotAdd using rewritting
     //parameters
     /*
-    text - question
-    dependences:
-      shape
-      value - optional
-      triange setting - optional
-      one angle - optional
-      -
-
-const Geometry = (difficulty) => {
-  //TODO functions, checking rightness, remove upper part of canvas, make better dotAdd using rewritting
-  //parameters
-
-  text - question
-  dependences:
-    shape
-    value - optional
-    triange setting - optional
-    one angle - optional
-    -
+      text - question
+      dependences:
+        shape
+        value - optional
+        triange setting - optional
+        one angle - optional
+        -
 
 
     */
 
-    //const [game, setGame] = useState(0)
-    const game = generateTriangleQuestion(1)
+    const [game, setGame] = useState([generateTriangleQuestion(difficulty)])
     const [dotList, setDotList] = useState([])
     const [stage, setStage] = useState(0);
-
-    let dotLimit = 100
 
     function generateGameSetting() {
 
@@ -71,9 +68,7 @@ const Geometry = (difficulty) => {
     }
 
     const handlePreviousStage = () => {
-
         setStage(prevState => (prevState - 1))
-
     }
     /*
     setGame(prevState =>{
@@ -83,32 +78,25 @@ const Geometry = (difficulty) => {
     */
 
     const deleteLastDot = () => {
-        setDotList(prevState => {
-            let newList = []
-            for (let i = 0; i < prevState.length - 1; i++) {
-                newList.push(prevState.at(i))
-            }
-            return [...newList]
-        })
+        setDotList(prevState => [...prevState.splice(0, prevState.length - 1)])
     }
 
     const drawGrid = useCallback(g => {
-
-        function lines_across(g1 = g) {
+        function lines_across() {
             for (let i = 0; i < 10; i++) {
                 g.moveTo(0, i * 40)
                 g.lineTo(400, i * 40)
             }
         }
 
-        function lines_down(g1 = g) {
+        function lines_down() {
             for (let i = 0; i < 10; i++) {
                 g.moveTo(i * 40, 0)
                 g.lineTo(i * 40, 400)
             }
         }
 
-        function hitBox(g1 = g) {
+        function hitBox() {
             for (let i = 0; i < 9; i++) {
                 for (let j = 0; j < 9; j++) {
                     g.beginFill(bgColor)
@@ -120,14 +108,15 @@ const Geometry = (difficulty) => {
 
         g.clear()
 
-        hitBox(g)
+        hitBox()
         g.beginFill(gridColor)
         g.lineStyle(4, gridColor, 1)
-        lines_across(g)
-        lines_down(g)
+        lines_across()
+        lines_down()
 
     }, []);
-    const drawGeometry = g => {
+
+    const drawGeometry = (g) => {
         g.clear()
         g.beginFill(0x8600b3)
         g.lineStyle(4, 0x3336FF, 1)
@@ -160,7 +149,7 @@ const Geometry = (difficulty) => {
                 style={{color: 'white'}}
                 variant={"secondary"}
             >
-                {`${game.question}`}
+                {`${game[stage].question}`}
             </Button>
             <div className={`${gameStyles.frame} m-2`}>
                 <GameNav
@@ -170,56 +159,53 @@ const Geometry = (difficulty) => {
                 <div
                     className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
                     <Button
-                        key={69}
                         variant={"outline-secondary"}
-
                         className={`m-2`}
                         onClick={() => deleteLastDot()}
                     >
                         Odstranit
                     </Button>
 
-                    <Stage id='Stage'
-                           width={400}
-                           height={400}
-                           renderOnComponentChange={true}
-                           raf={false}
+                    <Stage
+                        id='Stage'
+                        width={400}
+                        height={400}
+                        renderOnComponentChange={true}
+                        raf={false}
+                        options={{
+                            backgroundColor: bgColor.value,
+                            antialias: true,
+                        }}
+                    >
+                        <Graphics
+                            draw={drawGrid}
+                            interactive={true}
+                            pointerdown={(e) => {
+                                const x = Math.floor((e.data.global.x - 20) / 40)
+                                const y = Math.floor((e.data.global.y - 20) / 40)
 
-                           options={{
-                               backgroundColor: bgColor,
-                               antialias: true,
-                           }}>
-
-                        <Graphics draw={drawGrid}
-                                  interactive={true}
-                                  pointerdown={(e) => {
-                                      var x = Math.floor((e.data.global.x - 20) / 40)
-                                      var y = Math.floor((e.data.global.y - 20) / 40)
-
-
-                                      setDotList(prevState => {
-                                          if (prevState.length < dotLimit) prevState.push(new Dot(x, y))
-                                          //unike dots in list
-                                          let unikeList = []
-                                          unikeList.push(prevState.at(0))
-                                          for (let i = 1; i < prevState.length; i++) {
-                                              let unike = true;
-                                              for (let j = 0; j < unikeList.length; j++) {
-                                                  if (unikeList.at(j).x === prevState.at(i).x && unikeList.at(j).y === prevState.at(i).y) {
-                                                      unike = false
-                                                  }
-                                              }
-                                              if (unike) {
-                                                  unikeList.push(prevState.at(i))
-                                              }
-                                          }
-                                          console.log(unikeList)
-                                          console.log(unikeList.length)
-                                          return [...unikeList]
-                                      })
-
-
-                                  }}
+                                setDotList(prevState => {
+                                    if (prevState.length < dotLimit)
+                                        prevState.push(new Dot(x, y))
+                                    //unique dots in list
+                                    let uniqueList = []
+                                    uniqueList.push(prevState.at(0))
+                                    for (let i = 1; i < prevState.length; i++) {
+                                        let unique = true;
+                                        for (let j = 0; j < uniqueList.length; j++) {
+                                            if (uniqueList.at(j).x === prevState.at(i).x && uniqueList.at(j).y === prevState.at(i).y) {
+                                                unique = false
+                                            }
+                                        }
+                                        if (unique) {
+                                            uniqueList.push(prevState.at(i))
+                                        }
+                                    }
+                                    console.log(uniqueList)
+                                    console.log(uniqueList.length)
+                                    return [...uniqueList]
+                                })
+                            }}
                         />
                         <Graphics name={"Geometry"} draw={drawGeometry}/>
                     </Stage>

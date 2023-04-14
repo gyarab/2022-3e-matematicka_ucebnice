@@ -24,10 +24,8 @@ const LoadingSpinner = () => {
 
     const renderDots = () => {
         let dots = ''
-
-        for (let i = 0; i < dotNumber; i++) {
+        for (let i = 0; i < dotNumber; i++)
             dots += '.'
-        }
 
         return dots
     }
