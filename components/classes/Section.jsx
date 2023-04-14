@@ -21,7 +21,7 @@ const SorterGame = dynamic(() => import("../games/sorter-game/SorterGame"), {
     loading: () => <LoadingSpinner/>,
     ssr: false
 })
-const Geometry = dynamic(() => import("../games/geometry/Geometry"), {
+const Geometry = dynamic(() => import("../games/geometry/Geometry"),{
     loading: () => <LoadingSpinner/>,
     ssr: false
 })
@@ -71,7 +71,9 @@ const Section = ({id, title, games}) => {
                 )
             case 6:
                 return (
-                    <Geometry/>
+                    <Geometry
+                    
+                    />
                 )
             default:
                 return <div>Fail to load + {id}</div>

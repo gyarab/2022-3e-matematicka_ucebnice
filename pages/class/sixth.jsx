@@ -5,9 +5,9 @@ import CustomFooter from "../../components/utils/CustomFooter";
 import Section from "../../components/classes/Section";
 import HeroImage from "../../components/classes/HeroImage";
 import {useClassSections} from "../../components/utils/hooks/useClassSections";
-import {useSession} from "next-auth/react";
-import useAuthentication from "../../components/utils/hooks/useAuthentication";
-import {useBackendAuth} from "../../components/utils/hooks/useBackendAuth";
+import {useEffect} from "react";
+import axios from "axios";
+import {useRouter} from "next/router";
 
 /**
  * GAME IDs
@@ -17,7 +17,17 @@ import {useBackendAuth} from "../../components/utils/hooks/useBackendAuth";
  */
 
 const SixthClass = () => {
+    const router = useRouter()
     const classSections = useClassSections('url')
+
+    useEffect(() => {
+        axios.post('/api/games/getGameStage')
+            .then(res => console.log(res))
+            .catch(async (err) => {
+                console.log(err.response.data)
+                await router.push('/api/auth/signin')
+            })
+    }, []);
 
     return (
         <>
@@ -59,8 +69,10 @@ const SixthClass = () => {
 
 export default SixthClass;
 
+/*
 export async function getServerSideProps(context) {
     return useBackendAuth(context, (session) => {
         return { props: {session} }
     })
 }
+*/

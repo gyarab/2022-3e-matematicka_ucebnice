@@ -44,7 +44,9 @@ export const useClassSections = (url) => {
                         {
                             id: 6,
                             title: 'Geometry.jsx',
-                        }
+                            difficulty: 2
+                        },
+
                     ]
                 },
                 {
