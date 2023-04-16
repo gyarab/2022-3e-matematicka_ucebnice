@@ -2,6 +2,9 @@ import {Spinner} from "react-bootstrap";
 import loaderStyles from '../../styles/Loader.module.css'
 import {useEffect, useState} from "react";
 
+const initialState = '.'
+const timeout = 333
+
 /**
  * LOADING SPINNER
  *
@@ -12,32 +15,23 @@ import {useEffect, useState} from "react";
  * @constructor
  */
 const LoadingSpinner = () => {
-    const [dotNumber, setDotNumber] = useState(1)
+    const [dots, setDots] = useState(initialState)
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            setDotNumber(prevState => (prevState + 1) % 4)
-        }, 333)
-
-        return () => timeout
-    }, [dotNumber])
-
-    const renderDots = () => {
-        let dots = ''
-        for (let i = 0; i < dotNumber; i++)
-            dots += '.'
-
-        return dots
-    }
+        const timer = setTimeout(() => {
+            if (dots.length < 3)
+                setDots(prevState => (prevState + initialState))
+            else
+                setDots(initialState)
+        }, timeout)
+        return () => clearTimeout(timer)
+    }, [dots])
 
     return (
         <div className={`${loaderStyles.container} mb-4`}>
             <div className={`${loaderStyles.innerContainer} p-4`}>
                 <div>
-                    Loading
-                    {
-                        renderDots()
-                    }
+                    Loading{dots}
                 </div>
                 <Spinner animation={"border"} variant={"primary"} className={'mt-3'}/>
             </div>
