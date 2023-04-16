@@ -5,7 +5,6 @@ import {Color} from 'pixi.js';
 import {generateGeometricQuestions, generateTriangleQuestion} from "../../../lib/geometryGeneration";
 import GameNav from "../GameNav";
 import gameStyles from "../../../styles/games/Game.module.css"
-
 class Dot {
     constructor(x, y) {
         this.x = x;
@@ -13,10 +12,10 @@ class Dot {
     }
 }
 
-const bgColor = new Color(0x3C486B)
-const gridColor = new Color(0xF0F0F0)
-const dotColor = new Color(0xF9D949)
-const lineColor = new Color(0xF45050)
+const bgColor = new Color(0xDE780B)
+const gridColor = new Color(0xF6B200)
+const dotColor = new Color(0xDE780B)
+const lineColor = new Color(0,0,0)
 
 const dotLimit = 100
 
@@ -62,12 +61,9 @@ const Geometry = (size = 1, difficulty = 1) => {
   const questions = useMemo(() =>(generateGeometricQuestions(size,difficulty),[size, difficulty]));
   const [dotList, setDotList]  = useState([])
   const [stage, setStage] = useState(0);
-  let bgColor = new Color(0x3C486B)
-  let gridColor = new Color(0xF0F0F0)
-  let dotColor = new Color(0xF9D949)
-  let lineColor = new Color(0xF45050)
+  
 
-  let dotLimit = 100
+  
 
   const handleNextStage = () => {
     setStage(prevState => (prevState + 1))
@@ -78,7 +74,9 @@ const Geometry = (size = 1, difficulty = 1) => {
     const [game, setGame] = useState(generateGeometricQuestions(size,difficulty))
     const [dotList, setDotList] = useState([])
     const [stage, setStage] = useState(0);
+    
 
+    
     function generateGameSetting() {
 
     }
@@ -239,7 +237,7 @@ const Geometry = (size = 1, difficulty = 1) => {
                                 const y = Math.floor((e.data.global.y - 20) / 40)
 
                                 setDotList(prevState => {
-                                    if (prevState.length < dotLimit)
+                                    if (prevState.length < game[stage].shape)
                                         prevState.push(new Dot(x, y))
                                     //unique dots in list
                                     let uniqueList = []
