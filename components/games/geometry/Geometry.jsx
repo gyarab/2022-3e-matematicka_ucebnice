@@ -1,8 +1,8 @@
-import {useCallback, useState} from "react"
+import {useCallback, useMemo, useState} from "react"
 import Button from 'react-bootstrap/Button';
 import {Graphics, Stage} from "@inlet/react-pixi";
 import {Color} from 'pixi.js';
-import {generateTriangleQuestion} from "../../../lib/geometryGeneration";
+import {generateGeometricQuestions, generateTriangleQuestion} from "../../../lib/geometryGeneration";
 import GameNav from "../GameNav";
 import gameStyles from "../../../styles/games/Game.module.css"
 
@@ -44,7 +44,7 @@ dependences:
   one angle - optional
   -
 */
-const Geometry = (difficulty = 1) => {
+const Geometry = (size = 1, difficulty = 1) => {
     //TODO functions, checking rightness, remove upper part of canvas, make better dotAdd using rewritting
     //parameters
     /*
@@ -75,8 +75,7 @@ const Geometry = (difficulty = 1) => {
 =======
     */
 
-    //const [game, setGame] = useState(0)
-    const game = generateTriangleQuestion(1)
+    const [game, setGame] = useState(generateGeometricQuestions(size,difficulty))
     const [dotList, setDotList] = useState([])
     const [stage, setStage] = useState(0);
 
@@ -198,20 +197,22 @@ const Geometry = (difficulty = 1) => {
 
     return (
         <div>
-            <Button
-                className={'m-2'}
-                style={{color: 'white'}}
-                variant={"secondary"}
-            >
-                {`${game.question}`}
-            </Button>
             <div className={`${gameStyles.frame} m-2`}>
                 <GameNav
                     showPreviousButton={stage !== 0}
+                    showNextButton={stage !== game.length - 1}
+                    handlePreviousStage={handlePreviousStage}
                     handleNextStage={handleNextStage}
                 />
                 <div
                     className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
+                    <Button
+                        className={'m-2'}
+                        style={{color: 'white'}}
+                        variant={"secondary"}
+                    >
+                        {`${game[stage].question}`}
+                    </Button>
                     <Button
                         variant={"outline-secondary"}
                         className={`m-2`}
@@ -221,7 +222,6 @@ const Geometry = (difficulty = 1) => {
                     </Button>
 
                     <Stage
-                        id='Stage'
                         width={400}
                         height={400}
                         renderOnComponentChange={true}
