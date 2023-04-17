@@ -58,7 +58,6 @@ const Geometry = (size = 1, difficulty = 1) => {
         value - optional
         triange setting - optional
         one angle - optional
-
     */
 
     const [game, setGame] = useState(generateGeometricQuestions(size, difficulty))
@@ -88,7 +87,28 @@ const Geometry = (size = 1, difficulty = 1) => {
         setDotList(prevState => [...prevState.splice(0, prevState.length - 1)])
     }
     const checkGeometry = () => {
-        
+        const correct = true
+        if (game[stage].tSettings != -1){
+            //kontrola trojuhelnika planimetrie
+        }
+        if(game[stage].value != -1){
+            //kontrola obsahu
+            if(game[stage].shape == 3){
+                //trojuhelnik
+            }
+            if(game[stage].shape == 3){
+                //ctverec
+            }
+            
+        }
+        return correct;
+
+    }
+    const stageChange = () =>{
+        if(checkGeometry()){
+            //TODO error with max stage
+            setStage(prevState => (prevState + 1))
+        }
     }
 
     const drawGrid = (g) => {
@@ -143,47 +163,6 @@ const Geometry = (size = 1, difficulty = 1) => {
 
 
     return (
-<<<<<<< HEAD
-        <div>
-            <div className={`${gameStyles.frame} m-2`}>
-                <GameNav
-                    showPreviousButton={stage !== 0}
-                    showNextButton={stage !== game.length - 1}
-                    handlePreviousStage={handlePreviousStage}
-                    handleNextStage={handleNextStage}
-                />
-                <div
-                    className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
-                    <Button
-                        className={'m-2'}
-                        style={{color: 'white'}}
-                        variant={"secondary"}
-                    >
-                        {`${game[stage].question}`}
-                    </Button>
-                    <Button
-                        variant={"outline-secondary"}
-                        className={`m-2`}
-                        onClick={() => deleteLastDot()}
-                    >
-                        Odstranit
-                    </Button>
-                    <Button
-                        variant={"outline-secondary"}
-                        className={`m-2`}
-                        onClick={() => checkGeometry()}
-                    >
-                        zkontrolovat
-                    </Button>
-                    <Stage
-                        width={400}
-                        height={400}
-                        renderOnComponentChange={true}
-                        raf={false}
-                        options={{
-                            backgroundColor: bgColor.value,
-                            antialias: true,
-=======
         <div className={`${gameStyles.frame} m-2`}>
             <GameNav
                 showPreviousButton={stage !== 0}
@@ -205,6 +184,13 @@ const Geometry = (size = 1, difficulty = 1) => {
                     onClick={() => deleteLastDot()}
                 >
                     Odstranit
+                </Button>
+                <Button
+                    variant={"outline-secondary"}
+                    className={`m-2`}
+                    onClick={() => stageChange()}
+                >
+                    Zkontrolovat
                 </Button>
 
                 <Stage
@@ -230,7 +216,6 @@ const Geometry = (size = 1, difficulty = 1) => {
                                 return
 
                             setDotList(prevState => [...prevState, newDot])
->>>>>>> fee07428621d8dc4b3c021062cf7c41f693b02d4
                         }}
                     />
                     <Graphics name={"Geometry"} draw={drawGeometry}/>
