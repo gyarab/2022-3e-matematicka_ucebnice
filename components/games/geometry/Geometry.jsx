@@ -98,6 +98,9 @@ const Geometry = (size = 1, difficulty = 1) => {
     const deleteLastDot = () => {
         setDotList(prevState => [...prevState.splice(0, prevState.length - 1)])
     }
+    const checkGeometry = () => {
+        
+    }
 
     const drawGrid = (g) => {
         function lines_across() {
@@ -218,7 +221,13 @@ const Geometry = (size = 1, difficulty = 1) => {
                     >
                         Odstranit
                     </Button>
-
+                    <Button
+                        variant={"outline-secondary"}
+                        className={`m-2`}
+                        onClick={() => checkGeometry()}
+                    >
+                        zkontrolovat
+                    </Button>
                     <Stage
                         width={400}
                         height={400}
