@@ -168,7 +168,7 @@ const Geometry = (size = 1, difficulty = 1) => {
                     height={400}
                     renderOnComponentChange={true}
                     raf={false}
-                    className={`rounded-2`} // TODO -> update rounded design
+                    className={`rounded-2 m-2 darkShadow`} // TODO -> update rounded design
                     options={{
                         backgroundColor: bgColor.value,
                         antialias: true,
