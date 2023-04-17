@@ -113,7 +113,6 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty}) => {
                 <div className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
                     <Button
                         className={'m-2'}
-                        style={{color: 'white'}}
                         variant={"secondary"}
                     >
                         {

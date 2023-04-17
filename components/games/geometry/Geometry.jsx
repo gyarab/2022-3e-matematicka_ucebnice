@@ -19,9 +19,6 @@ const gridColor = new Color(0xFFFFFF)
 const dotColor = new Color(0xDE780B)
 const lineColor = new Color(0, 0, 0)
 
-const dotLimit = 100
-let logger = 0
-
 const calcMove = (deflection, coefficient, layer) => {
     return (deflection + coefficient * layer)
 }
@@ -74,7 +71,6 @@ const Geometry = (size = 1, difficulty = 1) => {
     }
 
     const resetDotList = () => {
-        logger = 0
         setDotList([])
     }
 
@@ -89,52 +85,27 @@ const Geometry = (size = 1, difficulty = 1) => {
     }
 
     const deleteLastDot = () => {
-        logger--
         setDotList(prevState => [...prevState.splice(0, prevState.length - 1)])
     }
 
     const drawGrid = (g) => {
-        function lines_across() {
-            for (let i = 0; i < 10; i++) {
-                g.moveTo(0, i * 40)
-                g.lineTo(400, i * 40)
-            }
-        }
-
-        function lines_down() {
-            for (let i = 0; i < 10; i++) {
-                g.moveTo(i * 40, 0)
-                g.lineTo(i * 40, 400)
-            }
-        }
-
-        function hitBox() {
-            const hitBox = {
-                width: 40,
-                height: 40
-            }
-
-            for (let i = 0; i < 9; i++) {
-                for (let j = 0; j < 9; j++) {
-                    g.beginFill(bgColor)
-                    g.lineStyle(bgColor)
-                    g.drawRect(
-                        calcMove(25, i, 40),
-                        calcMove(25, j, 40),
-                        hitBox.width,
-                        hitBox.height
-                    )
-                }
-            }
-        }
-
         g.clear()
 
-        hitBox()
-        g.beginFill(gridColor)
-        g.lineStyle(4, gridColor, 1)
-        lines_across()
-        lines_down()
+        const hitBox = {
+            width: 40,
+            height: 40
+        }
+
+        // draws hit boxes
+        for (let i = 0; i < 9; i++)
+            for (let j = 0; j < 9; j++)
+                g.beginFill(bgColor).lineStyle(bgColor).drawRect(calcMove(25, i, 40), calcMove(25, j, 40), hitBox.width, hitBox.height)
+
+        g.beginFill(gridColor).lineStyle(4, gridColor, 1)
+
+        // draws grid lines
+        for (let i = 1; i < 10; i++)
+            g.moveTo(0, i * 40).lineTo(400, i * 40).moveTo(i * 40, 0).lineTo(i * 40, 400)
     }
 
     const drawGeometry = (g) => {
@@ -145,19 +116,14 @@ const Geometry = (size = 1, difficulty = 1) => {
             const dot = dotList.at(i)
 
             // dots
-            g.lineStyle(4, dotColor, 1)
-            g.beginFill(lineColor)
+            g.lineStyle(4, dotColor, 1).beginFill(lineColor)
             g.drawCircle(calcMove(40, dot.x, 40), calcMove(40, dot.y, 40), 8)
 
             // lines
             if (i < dotList.length - 1) {
                 const nextDot = dotList.at(i + 1)
-                g.lineStyle(8, lineColor, 1)
-                g.beginFill(lineColor)
-                g.moveTo(
-                    calcMove(40, dot.x, 40),
-                    calcMove(40, dot.y, 40),
-                )
+                g.lineStyle(5, lineColor, 1).beginFill(lineColor)
+                g.moveTo(calcMove(40, dot.x, 40), calcMove(40, dot.y, 40))
                 g.lineTo(calcMove(40, nextDot.x, 40), calcMove(40, nextDot.y, 40))
             }
         }
@@ -166,8 +132,7 @@ const Geometry = (size = 1, difficulty = 1) => {
         if (dotList.length > 2) {
             const firstDot = dotList.at(0)
             const lastDot = dotList.at(dotList.length - 1)
-            g.lineStyle(8, lineColor, 1)
-            g.beginFill(lineColor)
+            g.lineStyle(5, lineColor, 1).beginFill(lineColor)
             g.moveTo(calcMove(40, firstDot.x, 40), calcMove(40, firstDot.y, 40))
             g.lineTo(calcMove(40, lastDot.x, 40), calcMove(40, lastDot.y, 40))
         }
@@ -186,7 +151,6 @@ const Geometry = (size = 1, difficulty = 1) => {
                 className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
                 <Button
                     className={'m-2'}
-                    style={{color: 'white'}}
                     variant={"secondary"}
                 >
                     {`${game[stage].question}`}
@@ -204,7 +168,7 @@ const Geometry = (size = 1, difficulty = 1) => {
                     height={400}
                     renderOnComponentChange={true}
                     raf={false}
-                    className={`rounded-5`} // TODO -> update rounded design
+                    className={`rounded-2`} // TODO -> update rounded design
                     options={{
                         backgroundColor: bgColor.value,
                         antialias: true,
