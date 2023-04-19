@@ -23,7 +23,7 @@ const calcMove = (deflection, coefficient, layer) => {
     return (deflection + coefficient * layer)
 }
 
-const isInArr = (part, list) => {
+const isDotInArr = (part, list) => {
     for (const item of list)
         if (item.x === part.x && item.y === part.y)
             return true
@@ -70,9 +70,8 @@ const Geometry = (size = 1, difficulty = 1) => {
 
     }
 
-    const resetDotList = () => {
-        setDotList([])
-    }
+    const resetDotList = () => setDotList([])
+
 
     const handleNextStage = () => {
         resetDotList()
@@ -85,7 +84,7 @@ const Geometry = (size = 1, difficulty = 1) => {
     }
 
     const deleteLastDot = () => {
-        setDotList(prevState => [...prevState.splice(0, prevState.length - 1)])
+        setDotList((prevState) => prevState.slice(0, -1))
     }
 
     const drawGrid = (g) => {
@@ -109,6 +108,7 @@ const Geometry = (size = 1, difficulty = 1) => {
     }
 
     const drawGeometry = (g) => {
+        console.log(dotList, 'here')
         g.clear()
 
         // render loop
@@ -166,8 +166,8 @@ const Geometry = (size = 1, difficulty = 1) => {
                 <Stage
                     width={400}
                     height={400}
-                    renderOnComponentChange={true}
                     raf={false}
+                    renderOnComponentChange={true}
                     className={`rounded-2 m-2 darkShadow`} // TODO -> update rounded design
                     options={{
                         backgroundColor: bgColor.value,
@@ -182,7 +182,7 @@ const Geometry = (size = 1, difficulty = 1) => {
                             const y = Math.floor((e.data.global.y - 20) / 40)
                             const newDot = new Dot(x, y)
 
-                            if (isInArr(newDot, dotList))
+                            if (isDotInArr(newDot, dotList))
                                 return
 
                             setDotList(prevState => [...prevState, newDot])
