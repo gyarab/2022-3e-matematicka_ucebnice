@@ -2,7 +2,7 @@ import verificationStyles from "../../styles/Verification.module.css";
 import Image from "next/image";
 import {Button} from "react-bootstrap";
 import {signIn} from "next-auth/react";
-import {googleLogoImagePath, googleLogoAltText} from "../../lib/frontend-env-variables";
+import {googleLogoImagePath, googleLogoAltText} from "../../lib/utils/frontend-env-variables.js";
 
 const LoginContainer = () => {
     const handleGoogleAuthLogin = async (e) => {

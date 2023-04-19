@@ -5,7 +5,7 @@ import gameUtilsStyles from '../../../styles/games/GameUtils.module.css'
 import trueFalseGameStyles from '../../../styles/games/TrueFalseGame.module.css'
 import chooseCorrectAnswerStyles from '../../../styles/games/ChooseCorrectAnswer.module.css'
 import GameNav from "../GameNav";
-import {generateEquation} from "../../../lib/equationGeneration";
+import {generateEquation} from "../../../lib/generation/equationGeneration.js";
 import dynamic from 'next/dynamic'
 
 const GameEndModal = dynamic(() => import('../GameEndModal'), {

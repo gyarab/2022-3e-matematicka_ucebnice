@@ -1,7 +1,7 @@
 import NavBar from "../components/nav-bar/NavBar";
 import CustomHead from "../components/utils/CustomHead";
 import CustomFooter from "../components/utils/CustomFooter";
-import {colorThemeDark, colorThemeLight} from "../lib/frontend-env-variables";
+import {colorThemeDark, colorThemeLight} from "../lib/utils/frontend-env-variables.js";
 import {Container, Row} from "react-bootstrap";
 import HomepageCard from "../components/homepage/HomepageCard";
 import {doBackendAuth} from "../components/utils/hooks/doBackendAuth";

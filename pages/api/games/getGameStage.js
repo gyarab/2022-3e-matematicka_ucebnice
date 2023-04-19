@@ -1,5 +1,5 @@
-import { isValidRequest} from "../../../lib/requestValidation";
-import { gameList } from "../../../lib/dbOperations";
+import { isValidRequest} from "../../../lib/utils/requestValidation.js";
+import { gameList } from "../../../lib/database/dbOperations.js";
 
 export default async function handler(req, res) {
     const validation = await isValidRequest(req, 'POST');

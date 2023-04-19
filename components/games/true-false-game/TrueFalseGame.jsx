@@ -1,4 +1,4 @@
-import {generateEqualPairs, getRandomBoolean} from "../../../lib/equationGeneration";
+import {generateEqualPairs, getRandomBoolean} from "../../../lib/generation/equationGeneration.js";
 import {useEffect, useMemo, useState} from "react";
 import gameStyles from "../../../styles/games/Game.module.css";
 import gameUtilsStyles from '../../../styles/games/GameUtils.module.css'

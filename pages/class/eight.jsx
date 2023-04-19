@@ -1,6 +1,6 @@
 import NavBar from "../../components/nav-bar/NavBar";
 import CustomHead from "../../components/utils/CustomHead";
-import {colorThemeDark, colorThemeLight, heroImageAltText, heroImagePath} from "../../lib/frontend-env-variables";
+import {colorThemeDark, colorThemeLight, heroImageAltText, heroImagePath} from "../../lib/utils/frontend-env-variables.js";
 import CustomFooter from "../../components/utils/CustomFooter";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import dynamic from 'next/dynamic'

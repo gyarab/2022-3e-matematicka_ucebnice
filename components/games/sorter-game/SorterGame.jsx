@@ -8,7 +8,7 @@ import sorterGameStyles from '../../../styles/games/SorterGame.module.css'
 import trueFalseGameStyles from '../../../styles/games/TrueFalseGame.module.css'
 import gameUtilsStyles from "../../../styles/games/GameUtils.module.css";
 import GameNav from "../GameNav";
-import {generateSorterGameObject} from "../../../lib/equationGeneration";
+import {generateSorterGameObject} from "../../../lib/generation/equationGeneration.js";
 import {BsFillCheckCircleFill} from "react-icons/bs";
 import {Button} from "react-bootstrap";
 

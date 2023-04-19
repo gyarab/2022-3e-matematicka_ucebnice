@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {useEffect, useState} from "react";
 import Image from "next/image";
-import {navBarImageAltText, navBarImagePath} from "../../lib/frontend-env-variables";
+import {navBarImageAltText, navBarImagePath} from "../../lib/utils/frontend-env-variables.js";
 import navBarStyles from '../../styles/NavBar.module.css'
 
 /**

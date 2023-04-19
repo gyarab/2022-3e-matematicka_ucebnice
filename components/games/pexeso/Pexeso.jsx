@@ -1,5 +1,5 @@
 import {useMemo, useState} from "react";
-import {generateEqualPairs} from "../../../lib/equationGeneration";
+import {generateEqualPairs} from "../../../lib/generation/equationGeneration.js";
 import {Row} from "react-bootstrap";
 import gameStyles from "../../../styles/games/Game.module.css";
 import dynamic from "next/dynamic";

@@ -1,5 +1,5 @@
 import CustomHead from "../components/utils/CustomHead";
-import {colorThemeDark, colorThemeLight} from "../lib/frontend-env-variables";
+import {colorThemeDark, colorThemeLight} from "../lib/utils/frontend-env-variables.js";
 import CustomFooter from "../components/utils/CustomFooter";
 import indexStyles from '../styles/IndexPage.module.css';
 import {getSession, useSession} from "next-auth/react";

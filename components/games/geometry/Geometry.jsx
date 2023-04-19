@@ -2,7 +2,7 @@ import {useState} from "react"
 import Button from 'react-bootstrap/Button';
 import {Graphics, Stage} from "@inlet/react-pixi";
 import {Color} from 'pixi.js';
-import {generateGeometricQuestions} from "../../../lib/geometryGeneration";
+import {generateGeometricQuestions} from "../../../lib/generation/geometryGeneration.js";
 import GameNav from "../GameNav";
 import gameStyles from "../../../styles/games/Game.module.css"
 
@@ -87,15 +87,15 @@ const Geometry = (size = 1, difficulty = 1) => {
     }
     const checkGeometry = () => {
         const correct = true
-        if (game[stage].tSettings != -1){
+        if (game[stage].tSettings !== -1){
             //kontrola trojuhelnika planimetrie
         }
-        if(game[stage].value != -1){
+        if(game[stage].value !== -1){
             //kontrola obsahu
-            if(game[stage].shape == 3){
+            if(game[stage].shape === 3){
                 //trojuhelnik
             }
-            if(game[stage].shape == 3){
+            if(game[stage].shape === 3){
                 //ctverec
             }
             
@@ -131,7 +131,6 @@ const Geometry = (size = 1, difficulty = 1) => {
     }
 
     const drawGeometry = (g) => {
-        console.log(dotList, 'here')
         g.clear()
 
         // render loop

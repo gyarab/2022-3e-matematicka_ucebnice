@@ -1,5 +1,5 @@
 import {useMemo, useState} from "react";
-import {generateEqualPairs} from "../../../lib/equationGeneration";
+import {generateEqualPairs} from "../../../lib/generation/equationGeneration.js";
 import CardFlipperCard from "./CardFlipperCard";
 import GameNav from "../GameNav";
 import gameStyles from '../../../styles/games/Game.module.css'
