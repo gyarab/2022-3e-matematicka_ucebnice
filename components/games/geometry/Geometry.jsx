@@ -58,7 +58,6 @@ const Geometry = (size = 1, difficulty = 1) => {
         value - optional
         triange setting - optional
         one angle - optional
-
     */
 
     const [game, setGame] = useState(generateGeometricQuestions(size, difficulty))
@@ -85,6 +84,30 @@ const Geometry = (size = 1, difficulty = 1) => {
 
     const deleteLastDot = () => {
         setDotList((prevState) => prevState.slice(0, -1))
+    }
+    const checkGeometry = () => {
+        const correct = true
+        if (game[stage].tSettings != -1){
+            //kontrola trojuhelnika planimetrie
+        }
+        if(game[stage].value != -1){
+            //kontrola obsahu
+            if(game[stage].shape == 3){
+                //trojuhelnik
+            }
+            if(game[stage].shape == 3){
+                //ctverec
+            }
+            
+        }
+        return correct;
+
+    }
+    const stageChange = () =>{
+        if(checkGeometry()){
+            //TODO error with max stage
+            setStage(prevState => (prevState + 1))
+        }
     }
 
     const drawGrid = (g) => {
@@ -161,6 +184,13 @@ const Geometry = (size = 1, difficulty = 1) => {
                     onClick={() => deleteLastDot()}
                 >
                     Odstranit
+                </Button>
+                <Button
+                    variant={"outline-secondary"}
+                    className={`m-2`}
+                    onClick={() => stageChange()}
+                >
+                    Zkontrolovat
                 </Button>
 
                 <Stage
