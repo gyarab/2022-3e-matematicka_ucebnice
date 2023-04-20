@@ -26,7 +26,7 @@ const Geometry = dynamic(() => import("../games/geometry/Geometry"),{
     ssr: false
 })
 
-const Section = ({id, title, games}) => {
+const Section = ({id, title, games, email}) => {
 
     const renderGame = (game) => {
         switch (game.id) {
@@ -38,6 +38,7 @@ const Section = ({id, title, games}) => {
                         gameLength={game.gameLength}
                         size={game.size}
                         difficulty={game.difficulty}
+                        email={email}
                     />
                 )
             case 2:

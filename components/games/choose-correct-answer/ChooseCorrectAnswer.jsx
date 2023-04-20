@@ -7,6 +7,8 @@ import chooseCorrectAnswerStyles from '../../../styles/games/ChooseCorrectAnswer
 import GameNav from "../GameNav";
 import {generateEquation} from "../../../lib/generation/equationGeneration.js";
 import dynamic from 'next/dynamic'
+import axios from "axios";
+import data from "bootstrap/js/src/dom/data";
 
 const GameEndModal = dynamic(() => import('../GameEndModal'), {
     ssr: false
@@ -22,7 +24,7 @@ const GameEndModal = dynamic(() => import('../GameEndModal'), {
  * @returns {JSX.Element}
  * @constructor
  */
-const ChooseCorrectAnswer = ({gameLength, size, difficulty}) => {
+const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
     /*
         TODO -> component design
         TODO -> equation (how to format equation in html-react)
@@ -54,7 +56,14 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty}) => {
     }
 
     useEffect(() => {
-
+        axios.post('/api/games/getGameStage', {
+            ...email,
+            gameId: 1
+        }).then(res =>
+            console.log(res)
+        ).catch(async (err) => {
+            console.log(err.response.data)
+        })
 
         setGameUsingStage(0)
     }, []);
@@ -110,7 +119,9 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty}) => {
                     handleNextStage={handleNextStage}
                     handlePreviousStage={handlePreviousStage}
                 />
-                <div className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
+                <div
+                    className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}
+                >
                     <Button
                         className={'m-2'}
                         variant={"secondary"}
@@ -137,7 +148,7 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty}) => {
                                 >
                                     {answer}
                                 </Button>
-                                
+
                             )
                         })}
                     </div>
