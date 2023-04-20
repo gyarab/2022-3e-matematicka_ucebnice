@@ -5,9 +5,8 @@ import CustomFooter from "../../components/utils/CustomFooter";
 import Section from "../../components/classes/Section";
 import HeroImage from "../../components/classes/HeroImage";
 import {useClassSections} from "../../components/utils/hooks/useClassSections";
-import {useEffect} from "react";
 //import axios from "axios";
-import {useRouter} from "next/router";
+import {doBackendAuth} from "../../components/utils/hooks/doBackendAuth";
 
 /**
  * GAME IDs
@@ -16,8 +15,7 @@ import {useRouter} from "next/router";
  * - 2 -> ??
  */
 
-const SixthClass = () => {
-    const router = useRouter()
+const SixthClass = (email) => {
     const classSections = useClassSections('url')
     /*
     useEffect(() => {
@@ -56,6 +54,7 @@ const SixthClass = () => {
                                     id={index}
                                     title={section.title}
                                     games={section.games}
+                                    email={email}
                                 />
                             )
                         })}
@@ -69,10 +68,8 @@ const SixthClass = () => {
 
 export default SixthClass;
 
-/*
 export async function getServerSideProps(context) {
-    return useBackendAuth(context, (session) => {
-        return { props: {session} }
+    return doBackendAuth(context, (session) => {
+        return { props: {email: session.user.email} }
     })
 }
-*/
