@@ -10,6 +10,7 @@ class Dot {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.z = 0;
     }
 }
 
@@ -89,14 +90,39 @@ const Geometry = (size = 1, difficulty = 1) => {
         const correct = true
         if (game[stage].tSettings !== -1){
             //kontrola trojuhelnika planimetrie
+            let u = Dot(dotList[0].x - dotList[1].x) + (dotList[0].y - dotList[1].y)
+            let v = Dot(dotList[1].x - dotList[2].x) + (dotList[1].y - dotList[2].y)
+            let w = Dot(dotList[0].x - dotList[2].x) + (dotList[0].y - dotList[2].y)
+            
+
+            if(game[stage].tSettings === 1){ //pravouhly
+                if ((u.x * v.x +u.y * v.y )===0 || (u.x * w.x +u.y * w.y )===0 || (v.x * w.x +v.y * w.y )===0){
+                    
+                }else{
+                    return false
+                }
+                
+            }
+            else if(game[stage].tSettings === 2){ //rovnorameny
+                if(v.x*v.x +v.y*v.y === u.x*u.x +u.y*u.y ||v.x*v.x +v.y*v.y === w.x*w.x +w.y*w.y || u.x*u.x +u.y*u.y === w.x*w.x +w.y*w.y){
+                    
+                }else{
+                    return false
+                }
+
+            }
+            
         }
         if(game[stage].value !== -1){
             //kontrola obsahu
-            if(game[stage].shape === 3){
+            if(game[stage].shape === 3 ||game[stage].shape === 4){
+                //a × b = (a2b3-a3b2; a3b1-a1b3; a1b2-a2b1)
+                if(u.x*v.y-u.y*v.x === value){
+                    
+                }else{
+                    return false
+                }
                 //trojuhelnik
-            }
-            if(game[stage].shape === 3){
-                //ctverec
             }
             
         }
