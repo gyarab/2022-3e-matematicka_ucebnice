@@ -5,10 +5,8 @@ import gameUtilsStyles from '../../../styles/games/GameUtils.module.css'
 import trueFalseGameStyles from '../../../styles/games/TrueFalseGame.module.css'
 import chooseCorrectAnswerStyles from '../../../styles/games/ChooseCorrectAnswer.module.css'
 import GameNav from "../GameNav";
-import {generateEquation} from "../../../lib/generation/equationGeneration.js";
 import dynamic from 'next/dynamic'
 import axios from "axios";
-import data from "bootstrap/js/src/dom/data";
 
 const GameEndModal = dynamic(() => import('../GameEndModal'), {
     ssr: false
@@ -37,35 +35,38 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
     const [attempts, setAttempts] = useState(0)
     const [modalShow, setModalShow] = useState(false)
 
-    const setGameUsingStage = (stage, isNew = true, evaluation = undefined) => {
+    const setGameUsingStage = (stage, evaluation = undefined) => {
         setGame(prevState => {
-            if (isNew) {
-                prevState[stage] = {
-                    ...generateEquation(size, difficulty),
-                    evaluation: evaluation
-                }
-            } else {
-                prevState[stage] = {
-                    ...prevState[stage],
-                    evaluation: evaluation
-                }
+            prevState[stage] = {
+                ...prevState[stage],
+                evaluation: evaluation
             }
 
             return [...prevState]
         })
     }
 
-    useEffect(() => {
+    const setNewStage = () => {
         axios.post('/api/games/getGameStage', {
             ...email,
-            gameId: 1
-        }).then(res =>
+            gameId: 1,
+            difficulty: 1,
+            length: 3
+        }).then(res => {
             console.log(res)
-        ).catch(async (err) => {
+            const gameObj = res.data
+            if (gameObj.ok) {
+                gameObj.evaluation = undefined
+                setGame(prevState => [...prevState, gameObj.stage])
+            }
+        }).catch(async (err) => {
             console.log(err.response.data)
         })
+    }
 
-        setGameUsingStage(0)
+    useEffect(() => {
+        //axios.post('/api/games/test').then(r => console.log(r)).catch(err => console.log(err.response.data))
+        setNewStage()
     }, []);
 
     const handleAnswerSubmit = (answer) => {
@@ -76,7 +77,7 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
         setAttempts(prevState => prevState + 1)
 
         if (answer === game[stage].correctAnswer) {
-            setGameUsingStage(stage, false, {
+            setGameUsingStage(stage, {
                 answer: answer,
                 isCorrect: true
             })
@@ -84,7 +85,7 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
             if (stage !== gameLength - 1)
                 setTimeout(handleNextStage, 1000)
         } else {
-            setGameUsingStage(stage, false, {
+            setGameUsingStage(stage, {
                 answer: answer,
                 isCorrect: false
             })
@@ -103,7 +104,7 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
         setStage(prevState => {
             const nextStage = (prevState + 1) % gameLength
             if (typeof game[nextStage] === 'undefined')
-                setGameUsingStage(nextStage)
+                setNewStage()
 
             return nextStage
         })
