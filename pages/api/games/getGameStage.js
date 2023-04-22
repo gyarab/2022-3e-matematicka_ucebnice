@@ -1,22 +1,21 @@
-import { isValidRequest} from "../../../lib/utils/requestValidation.js";
-import { gameList } from "../../../lib/database/dbOperations.js";
-import {z} from "zod";
+import {isValidRequest} from "../../../lib/utils/requestValidation.js";
+import {gameList} from "../../../lib/database/dbOperations.js";
+import {difficultySchema, emailSchema, gameIdSchema, lengthSchema} from "../../../lib/utils/utils";
 
 export default async function handler(req, res) {
-    console.log(req.body)
-
-    const gameIdSchema = z.number().max(1000)
-    const emailSchema = z.string().email().min(5)
+    //console.log(req.body)
 
     const gameId = gameIdSchema.safeParse(req?.body?.gameId)
     const email = emailSchema.safeParse(req?.body?.email)
+    const difficulty = difficultySchema.safeParse(req?.body?.difficulty)
+    const length = lengthSchema.safeParse(req?.body?.length)
 
-    if (!gameId.success || ! email.success) {
+    if (!gameId.success || !email.success || !difficulty.success || !length.success) {
         return res.status(400).json({
             err: 'Required body parameters are not valid.'
         })
     }
-    console.log(gameId.data, email.data)
+    // console.log(gameId.data, email.data, difficulty.data, length.data)
 
     const validation = await isValidRequest(req, email.data, 'POST');
     if (!validation.ok) {
@@ -25,17 +24,18 @@ export default async function handler(req, res) {
         })
     }
 
-    const stage = gameList.get(gameId.data)(email.data)
+    let stage = await gameList.get(gameId.data)(difficulty.data, length.data, email.data, gameId.data)
+    //console.log(stage)
 
-    //const content = await gameList.get(1)(1, 3, validation.session)
+    let response = {
+        ok: false,
+    }
+    if (!(stage === null || typeof stage !== 'object')) {
+        response.ok = true
+        response.stage = stage
+    }
 
+    console.log(response)
 
-    // closed API endpoint
-    // get game content based on game id ==> generate JSON specimen object of the request for the stage
-    //
-
-
-    return res.status(200).json({
-
-    })
+    return res.status(200).json(response)
 }
