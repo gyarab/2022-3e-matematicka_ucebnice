@@ -90,9 +90,9 @@ const Geometry = (size = 1, difficulty = 1) => {
         const correct = true
         if (game[stage].tSettings !== -1){
             //kontrola trojuhelnika planimetrie
-            let u = Dot(dotList[0].x - dotList[1].x) + (dotList[0].y - dotList[1].y)
-            let v = Dot(dotList[1].x - dotList[2].x) + (dotList[1].y - dotList[2].y)
-            let w = Dot(dotList[0].x - dotList[2].x) + (dotList[0].y - dotList[2].y)
+            let u = new Dot(dotList[0].x - dotList[1].x) + (dotList[0].y - dotList[1].y)
+            let v = new Dot(dotList[1].x - dotList[2].x) + (dotList[1].y - dotList[2].y)
+            let w = new Dot(dotList[0].x - dotList[2].x) + (dotList[0].y - dotList[2].y)
             
 
             if(game[stage].tSettings === 1){ //pravouhly
