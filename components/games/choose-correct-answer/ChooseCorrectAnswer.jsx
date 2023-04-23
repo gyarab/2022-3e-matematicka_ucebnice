@@ -113,7 +113,10 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
     const readyToRender = typeof game[stage] !== "undefined"
     return (
         <>
-            <div className={`${gameStyles.frame} m-2`}>
+            <div
+                className={`${gameStyles.frame} m-2`}
+                style={{minHeight: '195px'}}
+            >
                 <GameNav
                     showPreviousButton={stage !== 0}
                     showNextButton={stage !== gameLength - 1}
