@@ -20,7 +20,7 @@ export const useClassSections = (url) => {
                             id: 2,
                             title: 'Pexeso.jsx',
                             size: 4, // should not be even
-                            difficulty: 4
+                            difficulty: 1
                         },
                         {
                             id: 3,
