@@ -1,15 +1,16 @@
 import {isValidRequest} from "../../../lib/utils/requestValidation.js";
-import {getPexesoGame} from "../../../lib/database/dbOperations.js";
-import {difficultySchema, emailSchema, lengthSchema, replacer} from "../../../lib/utils/utils";
+import {getEqualPairs} from "../../../lib/database/dbOperations.js";
+import {difficultySchema, emailSchema, gameIdSchema, lengthSchema, replacer} from "../../../lib/utils/utils";
 
 export default async function handler(req, res) {
     //console.log(req.body)
 
+    const gameId = gameIdSchema.safeParse(req?.body?.gameId);
     const email = emailSchema.safeParse(req?.body?.email)
     const difficulty = difficultySchema.safeParse(req?.body?.difficulty)
     const size = lengthSchema.safeParse(req?.body?.size)
 
-    if (!email.success || !difficulty.success || !size.success) {
+    if (!email.success || !difficulty.success || !size.success || !gameId.success) {
         return res.status(400).json({
             err: 'Required body parameters are not valid.'
         })
@@ -23,7 +24,7 @@ export default async function handler(req, res) {
         })
     }
 
-    let pairs = await getPexesoGame(difficulty.data, size.data, email.data)
+    let pairs = await getEqualPairs(difficulty.data, size.data, email.data, gameId.data)
     //console.log(stage)
 
     let response = {

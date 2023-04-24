@@ -148,7 +148,8 @@ $$;
 create function get_equal_pairs(
     _difficulty integer,
     _size integer,
-    _email varchar
+    _email varchar,
+    _game_id integer
 )
     returns varchar[][]
     language plpgsql
@@ -156,7 +157,6 @@ as
 $$
 declare
     _last_game_id     integer;
-    _game_id          integer := 2;
     _number_of_pairs integer;
     _user_id          uuid    := (select id
                                   from users

@@ -6,6 +6,8 @@ import trueFalseGameStyles from '../../../styles/games/TrueFalseGame.module.css'
 import GameNav from "../GameNav";
 import {Button, OverlayTrigger, Popover} from "react-bootstrap";
 import {BsFillCheckCircleFill, BsXCircleFill} from 'react-icons/bs'
+import axios from "axios";
+import {reviver} from "../../../lib/utils/utils";
 
 const popover = (
     <Popover id="popover-basic">
@@ -16,13 +18,20 @@ const popover = (
     </Popover>
 )
 
-const TrueFalseGame = ({size, difficulty}) => {
+const TrueFalseGame = ({size, difficulty, email}) => {
     /*
     TODO -> opravit border u tlačítek na zvolení správně/špatně
     TODO -> promyslet lepší označení správně/špatně tlačítek
      */
 
-    const pairs = useMemo(() => generatePairArray(generateEqualPairs(size, difficulty)), [size, difficulty]);
+    //const pairs = useMemo(() => generatePairArray(generateEqualPairs(size, difficulty)), [size, difficulty]);
+    const [pairs, setPairs] = useState([{
+        keyValue: '',
+        value: '',
+        displayedValue: '',
+        isCorrectButton: undefined,
+        isCorrect: undefined
+    }]);
     const [stage, setStage] = useState(0);
     const [windowWidth, setWindowWidth] = useState(0);
     const [evaluation, setEvaluation] = useState(undefined);
@@ -31,7 +40,24 @@ const TrueFalseGame = ({size, difficulty}) => {
     useEffect(() => {
         if (typeof window !== 'undefined')
             setWindowWidth(window.innerWidth)
+
+        getNewTrueFalsePairs()
     }, [])
+
+    function getNewTrueFalsePairs() {
+        axios.post('/api/games/getEqualPairs', {
+            ...email,
+            difficulty: 1,
+            size: 5,
+            gameId: 3
+        }).then(response => {
+            console.log(response)
+            response.data.pairs = JSON.parse(response.data.pairs, reviver)
+            setPairs(generatePairArray(response.data.pairs))
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
     function generatePairArray(pairMap) {
         let pairArr = []
