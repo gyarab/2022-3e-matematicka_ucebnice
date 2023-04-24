@@ -127,3 +127,86 @@ begin
     end if;
 end;
 $$;
+
+-- This function sets equal pair into equal_pairs table
+create function set_equal_pair(
+    _difficulty integer,
+    _key varchar,
+    _value varchar
+)
+    returns record
+    language plpgsql
+as
+$$
+declare
+begin
+    insert into equal_pairs values (DEFAULT, _difficulty, _key, _value);
+end;
+$$;
+
+-- This function inserts new equal pair into the 'equal_pairs' table
+create function get_equal_pairs(
+    _difficulty integer,
+    _size integer,
+    _email varchar
+)
+    returns varchar[][]
+    language plpgsql
+as
+$$
+declare
+    _last_game_id     integer;
+    _game_id          integer := 2;
+    _number_of_pairs integer;
+    _user_id          uuid    := (select id
+                                  from users
+                                  where email = _email);
+    _game_stage       varchar[][];
+begin
+    -- get last game number
+    select last_game_id
+    into _last_game_id
+    from user_game_info as ugi,
+         users as u
+    where ugi.user_id = u.id
+      and u.email = _email
+      and ugi.difficulty = _difficulty
+      and ugi.game_id = _game_id;
+
+    -- get number of stage records for particular type of the game
+    select count(key)
+    into _number_of_pairs
+    from (select distinct on (key) key from (select key from equal_pairs where difficulty = _difficulty offset _last_game_id) as t1 order by key) as t2;
+
+    -- if user wants this game at first or user had already requested all stages then reset last_game_id
+    if (_last_game_id is null) then
+        insert into user_game_info
+        values (DEFAULT, _difficulty, null, 0, _user_id, _game_id);
+        _last_game_id := 0;
+    elseif (_last_game_id + _size >= _number_of_pairs) then
+        update user_game_info as ugi
+        set last_game_id = 0
+        where difficulty = _difficulty
+          and game_id = _game_id
+          and user_id = _user_id;
+        _last_game_id := 0;
+    end if;
+
+    -- get game stage based on difficulty, length and last_game_id
+    _game_stage := (ARRAY(select (key::varchar, value)
+                          from (select distinct on (key) key, value, id
+                                from (select key, value, id from equal_pairs where difficulty = _difficulty offset _last_game_id) as t1
+                                order by key) t2
+                          order by t2.id
+                          limit _size));
+
+    -- update last_game_id for current type of the game
+    update user_game_info as ugi
+    set last_game_id = (_last_game_id + _size)
+    where difficulty = _difficulty
+      and game_id = _game_id
+      and user_id = _user_id;
+
+    return _game_stage;
+end;
+$$;
