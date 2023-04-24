@@ -141,7 +141,6 @@ const TrueFalseGame = ({size, difficulty}) => {
                     >
                         <Button
                             className={'m-2'}
-                            style={{color: 'white'}}
                             variant={"secondary"}
                         >
                             {`${pairs[stage].value} = ${pairs[stage].displayedValue}`}
