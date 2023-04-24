@@ -47,9 +47,8 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
     }
 
     const setNewStage = () => {
-        axios.post('/api/games/getGameStage', {
+        axios.post('/api/games/getChooseCorrectStage', {
             ...email,
-            gameId: 1,
             difficulty: 1,
             length: 3
         }).then(res => {
