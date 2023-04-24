@@ -21,7 +21,7 @@ const SorterGame = dynamic(() => import("../games/sorter-game/SorterGame"), {
     loading: () => <LoadingSpinner/>,
     ssr: false
 })
-const Geometry = dynamic(() => import("../games/geometry/Geometry"),{
+const Geometry = dynamic(() => import("../games/geometry/Geometry"), {
     loading: () => <LoadingSpinner/>,
     ssr: false
 })
@@ -46,6 +46,7 @@ const Section = ({id, title, games, email}) => {
                     <Pexeso
                         size={game.size}
                         difficulty={game.difficulty}
+                        email={email}
                     />
                 )
             case 3:
@@ -53,6 +54,7 @@ const Section = ({id, title, games, email}) => {
                     <CardFlipper
                         size={game.size}
                         difficulty={game.difficulty}
+                        email={email}
                     />
                 )
             case 4:
@@ -60,6 +62,7 @@ const Section = ({id, title, games, email}) => {
                     <TrueFalseGame
                         size={game.size}
                         difficulty={game.difficulty}
+                        email={email}
                     />
                 )
             case 5:
@@ -68,13 +71,15 @@ const Section = ({id, title, games, email}) => {
                         gameLength={game.gameLength}
                         size={game.size}
                         difficulty={game.difficulty}
+                        email={email}
                     />
                 )
             case 6:
                 return (
                     <Geometry
-                    size={game.size}
-                    difficulty={game.difficulty}
+                        size={game.size}
+                        difficulty={game.difficulty}
+                        email={email}
                     />
                 )
             default:
