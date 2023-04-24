@@ -8,7 +8,7 @@ create table games
     name varchar not null unique
 );
 
--- Choose correct answer game tables
+-- ChooseCorrectAnswer game tables
 create table choose_correct_game
 (
     id             bigserial primary key,
@@ -17,7 +17,6 @@ create table choose_correct_game
     difficulty     integer not null check ( difficulty > 0 ),
     length         integer not null check ( length >= 2 )
 );
-
 create table choose_correct_game_answers
 (
     id                     bigserial primary key,
@@ -29,9 +28,20 @@ create table choose_correct_game_answers
 create table user_game_info
 (
     id bigserial primary key,
-    difficulty integer not null check ( difficulty > 0 ),
-    length integer not null check ( length >= 2 ),
+    difficulty integer not null check ( difficulty >= 1 and difficulty <= 5 ),
+    length integer,
     last_game_id integer not null check ( last_game_id >= 0 ),
     user_id uuid references users,
     game_id integer references games
+);
+
+-- Pexeso, TrueFalse game table
+create table equal_pairs
+(
+    id bigserial primary key,
+    difficulty integer not null check ( difficulty >= 1 and difficulty <= 4 ),
+    key varchar not null,
+    value varchar not null,
+
+    constraint unique_equal_pair unique ( key, value )
 );
