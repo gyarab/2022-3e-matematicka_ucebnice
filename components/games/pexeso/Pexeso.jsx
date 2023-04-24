@@ -83,7 +83,6 @@ const Pexeso = ({size, difficulty, email}) => {
             return acc;
         }, [[]])
 
-        console.log(entriesArray)
         return entriesArray
     }
 

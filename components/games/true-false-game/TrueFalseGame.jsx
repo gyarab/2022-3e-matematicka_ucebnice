@@ -1,5 +1,5 @@
-import {generateEqualPairs, getRandomBoolean} from "../../../lib/generation/equationGeneration.js";
-import {useEffect, useMemo, useState} from "react";
+import {getRandomBoolean} from "../../../lib/generation/equationGeneration.js";
+import React, {useEffect, useState} from "react";
 import gameStyles from "../../../styles/games/Game.module.css";
 import gameUtilsStyles from '../../../styles/games/GameUtils.module.css'
 import trueFalseGameStyles from '../../../styles/games/TrueFalseGame.module.css'
@@ -9,11 +9,14 @@ import {BsFillCheckCircleFill, BsXCircleFill} from 'react-icons/bs'
 import axios from "axios";
 import {reviver} from "../../../lib/utils/utils";
 
+const title = 'Tip'
+const text = 'Zjistěte, zda je výsledek tohoto příkladu spávný, a klikněte na odpovídající tlačítko!'
+
 const popover = (
     <Popover id="popover-basic">
-        <Popover.Header as="h3">Tip</Popover.Header>
+        <Popover.Header as="h3">{title}</Popover.Header>
         <Popover.Body>
-            {"Zjistěte, zda je výsledek tohoto příkladu spávný, a klikněte na odpovídající tlačítko"}
+            {text}
         </Popover.Body>
     </Popover>
 )
@@ -158,7 +161,8 @@ const TrueFalseGame = ({size, difficulty, email}) => {
                     handleNextStage={handleNextStage}
                     handlePreviousStage={handlePreviousStage}
                 />
-                <div className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
+                <div
+                    className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
                     <OverlayTrigger
                         trigger={(windowWidth > 500) ? ['hover', 'focus'] : ['click']}
                         placement={'bottom'}

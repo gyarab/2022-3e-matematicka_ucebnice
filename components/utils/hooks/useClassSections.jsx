@@ -26,13 +26,13 @@ export const useClassSections = (url) => {
                             id: 3,
                             title: 'CardFlipper.jsx',
                             size: 4,
-                            difficulty: 4
+                            difficulty: 1
                         },
                         {
                             id: 4,
                             title: 'TrueFalseGame.jsx',
                             size: 4,
-                            difficulty: 4
+                            difficulty: 1
                         },
                         {
                             id: 5,
