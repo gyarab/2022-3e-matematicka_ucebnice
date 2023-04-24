@@ -1,8 +1,10 @@
-import {useMemo, useState} from "react";
-import {generateEqualPairs} from "../../../lib/generation/equationGeneration.js";
+import {useEffect, useMemo, useState} from "react";
 import {Row} from "react-bootstrap";
 import gameStyles from "../../../styles/games/Game.module.css";
 import dynamic from "next/dynamic";
+import {generateEqualPairs, shuffleArray} from "../../../lib/generation/equationGeneration";
+import axios from "axios";
+import {reviver} from "../../../lib/utils/utils";
 
 const PexesoCard = dynamic(() => import("./PexesoCard"), {
     ssr: false
@@ -11,13 +13,14 @@ const GameEndModal = dynamic(() => import("../GameEndModal"), {
     ssr: false
 })
 
-const Pexeso = ({size, difficulty}) => {
+const Pexeso = ({size, difficulty, email}) => {
     /*
         TODO -> vygenerování nového hracího pole
         TODO -> mobile design
      */
-    const pexeso = useMemo(() => generateEqualPairs(size, difficulty), [size, difficulty]);
-    const pexArray = useMemo(() => generatePexArray(), []);
+
+    const [pexeso, setPexeso] = useState([]);
+    const [pexArray, setPexArray] = useState([]);
     const [flipped, setFlipped] = useState({
         value: undefined,
         isKey: undefined
@@ -31,7 +34,26 @@ const Pexeso = ({size, difficulty}) => {
     const [showModal, setShowModal] = useState(false);
     const [mistakes, setMistakes] = useState(0);
 
-    function generatePexArray() {
+    useEffect(() => {
+        getNewPexesoGame()
+    }, []);
+
+    function getNewPexesoGame() {
+        axios.post('/api/games/getPexesoGame', {
+            ...email,
+            difficulty: difficulty,
+            size: (size ** 2) / 2
+        }).then(response => {
+            console.log(response)
+            response.data.pairs = JSON.parse(response.data.pairs, reviver)
+            setPexeso(response.data.pairs)
+            setPexArray(generatePexArray(response.data.pairs))
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    function generatePexArray(pexeso) {
         let entriesArray = []
         for (const [key, value] of pexeso) {
             entriesArray.push({
@@ -45,7 +67,7 @@ const Pexeso = ({size, difficulty}) => {
         }
 
         // shuffle cards
-        entriesArray = entriesArray.sort((a, b) => Math.random() - 0.5)
+        entriesArray = shuffleArray(entriesArray)
 
         const chunkSize = size;
 
@@ -60,6 +82,7 @@ const Pexeso = ({size, difficulty}) => {
             return acc;
         }, [[]])
 
+        console.log(entriesArray)
         return entriesArray
     }
 
@@ -74,8 +97,17 @@ const Pexeso = ({size, difficulty}) => {
     const setNewMarkedMap = (key, value) => {
         setMarked(prevState => [...prevState, key, value])
 
-        if (marked.length + 2 === size ** 2)
+        if (marked.length + 2 === size ** 2) {
             setShowModal(true)
+            setNewEvaluation()
+            setFlipped({
+                value: undefined,
+                isKey: undefined
+            })
+            setMarked([])
+            setMistakes(0)
+            getNewPexesoGame()
+        }
     }
 
     const cardChosen = (value, isKey) => {
