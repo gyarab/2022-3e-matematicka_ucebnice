@@ -10,7 +10,8 @@ import gameUtilsStyles from "../../../styles/games/GameUtils.module.css";
 import GameNav from "../GameNav";
 import {generateSorterGameObject} from "../../../lib/generation/equationGeneration.js";
 import {BsFillCheckCircleFill} from "react-icons/bs";
-import {Button} from "react-bootstrap";
+import {Button, OverlayTrigger, Popover} from "react-bootstrap";
+import CustomPopover from "../../utils/CustomPopover";
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -21,11 +22,27 @@ const reorder = (list, startIndex, endIndex) => {
     return result;
 };
 
+const title = 'Tip'
+const text = 'Seřaťe kartičky tak, aby vždy provedení operace odpovídalo jednomu z výsledků (oranžová barva). Jednotlivé bloky na sebe navazují. To znamená, že kdyby byly čísla +1, +2, pak je jejich výsledek 3 a další trojici vypočítáme jako +3, +4, -5 s výsledkem +2.5'
+
+const popover = (
+    <Popover id="popover-basic">
+        <Popover.Header as="h3">{title}</Popover.Header>
+        <Popover.Body>
+            {text}
+        </Popover.Body>
+    </Popover>
+)
+
 const SorterGame = ({gameLength, size, difficulty}) => {
     const [stage, setStage] = useState(0);
     const [game, setGame] = useState([]);
+    const [windowWidth, setWindowWidth] = useState(0);
 
     useEffect(() => {
+        if (typeof window !== 'undefined')
+            setWindowWidth(window.innerWidth)
+
         setGame(prevState => {
             prevState[0] = generateSorterGameObject(size, difficulty)
             return [...prevState]
@@ -40,7 +57,6 @@ const SorterGame = ({gameLength, size, difficulty}) => {
         setGame(prevState => {
             prevState[stage] = {
                 items: reorder(prevState[stage].items, result.source.index, result.destination.index),
-                result: prevState[stage].result,
                 evaluation: prevState[stage].evaluation
             }
 
@@ -55,6 +71,7 @@ const SorterGame = ({gameLength, size, difficulty}) => {
             if (typeof game[nextStage] === 'undefined') {
                 setGame(prevState => {
                     prevState[nextStage] = generateSorterGameObject(size, difficulty)
+                    prevState[nextStage].evaluation = undefined
                     return [...prevState]
                 })
             }
@@ -68,25 +85,38 @@ const SorterGame = ({gameLength, size, difficulty}) => {
     }
 
     const handleAnswerSubmit = () => {
+
         const setEvaluation = (result) => {
             setGame(prevState => {
                 prevState[stage] = {
                     items: prevState[stage].items,
-                    result: prevState[stage].result,
                     evaluation: result
                 }
                 return [...prevState]
             })
         }
 
-        let equationStr = game[stage].items.join('')
+        let result = true
+        let lastResult = '0'
+        const items = game[stage].items
+        for (let i = 0; i < items.length; i+=3) {
+            const first = items[i].replace('÷', '/')
+            const second = items[i+1].replace('÷', '/')
+            const correctAnswer = items[i+2].substring(1, items[i+2].length);
+            console.log(first+', ', second+', ', correctAnswer)
+            if (first.startsWith('=') || second.startsWith('=') || !items[i+2].startsWith('=')) {
+                result = false
+                break;
+            }
 
-        let result = false
-        try {
-            result = eval(equationStr) === Number.parseInt(game[stage].result)
-        } catch (e) {
-            console.log("incorrect")
-            setEvaluation(false)
+            console.log('(' + lastResult + ' ' + first + ') ' + second)
+            const evall = eval('(' + lastResult + ' ' + first + ') ' + second)
+            lastResult = correctAnswer
+            console.log(evall, correctAnswer)
+            if (evall.toString() !== correctAnswer) {
+                result = false
+                break;
+            }
         }
 
         if (result) {
@@ -111,6 +141,19 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                     handleNextStage={handleNextStage}
                     handlePreviousStage={handlePreviousStage}
                 />
+                <OverlayTrigger
+                    trigger={(windowWidth > 500) ? ['hover', 'focus'] : ['click']}
+                    placement={'bottom'}
+                    overlay={popover}
+                    defaultShow={false}
+                >
+                    <Button
+                        className={'mt-2'}
+                        variant={"secondary"}
+                    >
+                        {'Jak si zahrát tuto hru?'}
+                    </Button>
+                </OverlayTrigger>
                 <div
                     className={`
                         w-100
@@ -146,91 +189,39 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                                         pb-1 pt-1`
                                         }
                                     >
-                                        {game[stage].items.map((item, index) => (
-                                            <Draggable
-                                                key={index.toString()}
-                                                draggableId={index.toString()}
-                                                index={index}
-                                            >
-                                                {(provided, snapshot) => (
-                                                    <div
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-                                                        className={`
-                                                        hoverDarkShadow 
-                                                        m-1 p-2 w-75
-                                                        rounded-2 
-                                                        d-flex 
-                                                        align-items-center 
-                                                        justify-content-center
-                                                        ${snapshot.isDragging ? `darkShadow ${sorterGameStyles.isDragging}` : sorterGameStyles.notDragging}
-                                                        ${sorterGameStyles.maxWidth}`
-                                                        }
-                                                    >
-                                                        {item}
-                                                    </div>
-                                                )}
-                                            </Draggable>
-                                        ))}
+                                        {game[stage].items.map((item, index) => {
+                                            const isResult = item.startsWith('=')
+                                            return (
+                                                <Draggable key={index.toString()} draggableId={index.toString()}
+                                                           index={index}>
+                                                    {(provided, snapshot) => (
+                                                        <div
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            className={`
+                                                                hoverDarkShadow 
+                                                                m-1 p-2 w-75
+                                                                rounded-2 
+                                                                d-flex 
+                                                                align-items-center 
+                                                                justify-content-center
+                                                                ${snapshot.isDragging ? `darkShadow ${sorterGameStyles.isDragging}` : sorterGameStyles.notDragging}
+                                                                ${isResult ? sorterGameStyles.result : ''}
+                                                                ${sorterGameStyles.maxWidth}`
+                                                            }
+                                                        >
+                                                            {isResult ? item.substring(1, item.length) : item}
+                                                        </div>
+                                                    )}
+                                                </Draggable>
+                                            )
+                                        })}
                                         {provided.placeholder}
                                     </div>
                                 )}
                             </StrictModeDroppable>
                         </DragDropContext>
-                        <DragDropContext onDragEnd={onDragEnd}>
-                            <StrictModeDroppable droppableId={"droppable"}>
-                                {(provided, snapshot) => (
-                                    <div
-                                        {...provided.droppableProps}
-                                        ref={provided.innerRef}
-                                        className={`
-                                        d-flex w-100 
-                                        flex-column 
-                                        align-items-center 
-                                        justify-content-center 
-                                        rounded-2 
-                                        pb-1 pt-1`
-                                        }
-                                    >
-                                        {game[stage].items.map((item, index) => (
-                                            <Draggable key={index.toString()} draggableId={index.toString()}
-                                                       index={index}>
-                                                {(provided, snapshot) => (
-                                                    <div
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-                                                        className={`
-                                                        hoverDarkShadow 
-                                                        m-1 p-2 w-75
-                                                        rounded-2 
-                                                        d-flex 
-                                                        align-items-center 
-                                                        justify-content-center
-                                                        ${snapshot.isDragging ? `darkShadow ${sorterGameStyles.isDragging}` : sorterGameStyles.notDragging}
-                                                        ${sorterGameStyles.maxWidth}`
-                                                        }
-                                                    >
-                                                        {item}
-                                                    </div>
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </StrictModeDroppable>
-                        </DragDropContext>
-                    </div>
-                    <div
-                        className={`d-flex flex-column align-items-center justify-content-center w-75 ${sorterGameStyles.doubleBorderTop} ${sorterGameStyles.maxWidth}`}>
-                        <div
-                            className={`d-flex align-items-center justify-content-center m-1 p-2 w-100 rounded-2 ${sorterGameStyles.result} ${sorterGameStyles.maxWidth}`}>
-                            {
-                                typeof game[stage] !== "undefined" ? game[stage].result : ''
-                            }
-                        </div>
                     </div>
                     <div
                         className={`w-75 d-flex flex-row align-items-center justify-content-end ${sorterGameStyles.maxWidth}`}>
