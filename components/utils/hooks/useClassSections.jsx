@@ -13,8 +13,8 @@ export const useClassSections = (url) => {
                             id: 1,
                             title: 'ChooseCorrectAnswer.jsx',
                             gameLength: 2,
-                            size: 5,
-                            difficulty: 3
+                            size: 3,
+                            difficulty: 1
                         },
                         {
                             id: 2,
