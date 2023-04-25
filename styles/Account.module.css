@@ -1,0 +1,7 @@
+.correct {
+    color: var(--bs-success);
+}
+
+.incorrect {
+    color: var(--bs-danger);
+}
