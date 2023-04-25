@@ -1,6 +1,6 @@
 import {emailSchema} from "../../../../lib/utils/utils";
 import {isValidRequest} from "../../../../lib/utils/requestValidation";
-import {addScore, getScore} from "../../../../lib/database/dbOperations";
+import {getUserInfo} from "../../../../lib/database/dbOperations";
 
 export default async function handler(req, res) {
     const email = emailSchema.safeParse(req?.body?.email)
@@ -18,10 +18,10 @@ export default async function handler(req, res) {
         })
     }
 
-    const score = await getScore(email.data)
+    const userInfo = await getUserInfo(email.data)
 
     return res.status(200).json({
         ok: true,
-        score: score
+        userInfo: userInfo
     })
 }

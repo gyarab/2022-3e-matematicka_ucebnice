@@ -343,3 +343,25 @@ begin
       and game_id = _game_id;
 end;
 $$;
+
+--This function gets all user score from database and returns array with name of the game and percentage of correct answers, etc.
+create function get_user_score(
+    _email varchar
+)
+    returns varchar[]
+    language plpgsql
+as
+$$
+declare
+    _user_id uuid := (select id
+                      from users
+                      where email = _email);
+begin
+    return array(select (name, incorrect, correct)
+                 from user_score,
+                      games as g
+                 where user_id = _user_id
+                   and game_id = g.id
+                 order by g.id);
+end;
+$$;
