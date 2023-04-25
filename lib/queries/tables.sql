@@ -35,7 +35,7 @@ create table user_game_info
     game_id integer references games
 );
 
--- Pexeso, TrueFalse game table
+-- Pexeso, TrueFalse, CardFlipper game table
 create table equal_pairs
 (
     id bigserial primary key,
@@ -44,4 +44,19 @@ create table equal_pairs
     value varchar not null,
 
     constraint unique_equal_pair unique ( key, value )
+);
+
+-- Sorter game tables
+create table sorter_games
+(
+    id bigserial primary key,
+    difficulty integer not null check ( difficulty >= 1 and difficulty <= 4 ),
+    size integer not null check ( size >= 3 and size <= 100)
+);
+
+create table sorter_game_items
+(
+    id bigserial primary key,
+    item varchar not null,
+    sorter_game_id bigint not null references sorter_games
 );
