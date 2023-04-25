@@ -74,9 +74,15 @@ const Account = (email) => {
                             <Card.Title className={`fw-bold`}>Vítejte na svém profilu!</Card.Title>
                             <Card.Subtitle className={"mb-2 text-muted"}>{userInfo}</Card.Subtitle>
                             <Card.Text>
-                                V sekci níže můžete naleznout vaše dosavadní skóre ve hrách, které jste si již vyzkoušel/a.
+                                V sekci níže můžete naleznout vaše dosavadní skóre ve hrách, které jste si již
+                                vyzkoušel/a.
                             </Card.Text>
-                            <Button variant={'outline-secondary'} onClick={() => handleResetStatistics()}>Resetovat statistiky</Button>
+                            <Button
+                                variant={'outline-secondary'}
+                                onClick={() => handleResetStatistics()}
+                            >
+                                Resetovat statistiky
+                            </Button>
                         </Card.Body>
                     </Card>
                     <ListGroup as={"ol"} className={`w-100 m-4`} style={{maxWidth: '686.6px'}}>
