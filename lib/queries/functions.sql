@@ -250,7 +250,7 @@ create function get_sorter_game(
 as
 $$
 declare
-    _game_id         integer := 6;
+    _game_id         integer := 5;
     _last_game_id    integer;
     _number_of_pairs integer;
     _user_id         uuid    := (select id
@@ -294,7 +294,8 @@ begin
                           from sorter_game_items,
                                (select id
                                 from sorter_games
-                                where difficulty = _difficulty and size = _size
+                                where difficulty = _difficulty
+                                  and size = _size
                                 limit 1 offset _last_game_id) as sg
                           where sorter_game_id = sg.id));
 
@@ -306,5 +307,39 @@ begin
       and user_id = _user_id;
 
     return _game_stage;
+end;
+$$;
+
+-- This function provides insertion of users' scores into the database
+create function set_user_score(
+    _incorrect integer,
+    _correct integer,
+    _email varchar,
+    _game_id integer
+)
+    returns void
+    language plpgsql
+as
+$$
+declare
+    _user_id  uuid   := (select id
+                         from users
+                         where email = _email);
+    _score_id bigint := (select id
+                         from user_score
+                         where user_id = _user_id
+                           and game_id = _game_id);
+begin
+    if _score_id is null then
+        insert into user_score
+        values (DEFAULT, _incorrect, _correct, _game_id, _user_id);
+        return;
+    end if;
+
+    update user_score
+    set correct   = correct + _correct,
+        incorrect = incorrect + _incorrect
+    where user_id = _user_id
+      and game_id = _game_id;
 end;
 $$;
