@@ -43,13 +43,14 @@ export default async function handler(req, res) {
             }
             break
         case 6:
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 2; i++) {
                 try {
                     await client.query('BEGIN')
 
-                    const sorterGame = generateSorterGameObject(3, 1)
+                    const items = generateSorterGameObject(3, 1)
+                    console.log(items)
 
-                    await client.query('select set_equal_pair($1, $2, $3);', [1, `${a * b}`, `${a} * ${b}`])
+                    await client.query('select set_sorter_game($1, $2, $3)', [1, 3, items])
 
                     await client.query('COMMIT')
                 } catch (e) {
