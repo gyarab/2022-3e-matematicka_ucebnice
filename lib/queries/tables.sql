@@ -65,8 +65,8 @@ create table sorter_game_items
 create table user_score
 (
   id bigserial primary key,
-  incorrect integer not null default 0,
-  correct integer not null default 0,
+  incorrect integer not null,
+  correct integer not null,
   game_id bigint not null references games,
   user_id uuid not null references users
 );
