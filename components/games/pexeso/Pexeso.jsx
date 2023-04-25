@@ -38,6 +38,19 @@ const Pexeso = ({size, difficulty, email}) => {
         getNewPexesoGame()
     }, []);
 
+    const setNewScore = (incorrect, correct) => {
+        axios.post('/api/user/score/addScore', {
+            ...email,
+            incorrect: incorrect,
+            correct: correct,
+            gameId: 2
+        }).then(r => {
+            console.log('added score')
+        }).catch(err => {
+            console.log(err.response.data)
+        })
+    }
+
     function getNewPexesoGame() {
         axios.post('/api/games/getEqualPairs', {
             ...email,
@@ -123,31 +136,36 @@ const Pexeso = ({size, difficulty, email}) => {
         } else {
             const bothAreKeys = flipped.isKey && isKey
             if (bothAreKeys) {
+                // incorrect
+                setNewScore(1, 0)
                 setNewEvaluation(false, flipped.value, value)
                 setMistakes(prevState => prevState + 1)
-                console.log('incorrect')
             } else if (flipped.isKey) {
                 // first is key
 
                 if (pexeso.get(flipped.value) === value) {
+                    // correct
+                    setNewScore(0, 1)
                     setNewEvaluation(true, flipped.value, value)
                     setNewMarkedMap(flipped.value, value.toString())
-                    console.log('correct')
                 } else {
+                    // incorrect
+                    setNewScore(1, 0)
                     setNewEvaluation(false, flipped.value, value)
                     setMistakes(prevState => prevState + 1)
-                    console.log('incorrect')
                 }
             } else {
                 // second is key
                 if (pexeso.get(value) === flipped.value) {
+                    // correct
+                    setNewScore(0, 1)
                     setNewEvaluation(true, flipped.value, value)
                     setNewMarkedMap(value, flipped.value)
-                    console.log('correct')
                 } else {
+                    // incorrect
+                    setNewScore(1, 0)
                     setNewEvaluation(false, flipped.value, value)
                     setMistakes(prevState => prevState + 1)
-                    console.log('incorrect')
                 }
             }
 

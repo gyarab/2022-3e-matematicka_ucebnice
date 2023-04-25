@@ -47,6 +47,19 @@ const TrueFalseGame = ({size, difficulty, email}) => {
         getNewTrueFalsePairs()
     }, [])
 
+    const setNewScore = (incorrect, correct) => {
+        axios.post('/api/user/score/addScore', {
+            ...email,
+            incorrect: incorrect,
+            correct: correct,
+            gameId: 4
+        }).then(r => {
+            console.log('added score')
+        }).catch(err => {
+            console.log(err.response.data)
+        })
+    }
+
     function getNewTrueFalsePairs() {
         axios.post('/api/games/getEqualPairs', {
             ...email,
@@ -99,7 +112,8 @@ const TrueFalseGame = ({size, difficulty, email}) => {
 
         if (isCorrectButton) {
             if (isDisplayedKey) {
-                console.log('correct')
+                // correct
+                setNewScore(0, 1)
                 setEvaluation({
                     isCorrect: true,
                     isCorrectButton: true
@@ -110,7 +124,8 @@ const TrueFalseGame = ({size, difficulty, email}) => {
                 if (stage !== pairs.length - 1)
                     setTimeout(handleNextStage, 1300)
             } else {
-                console.log('incorrect')
+                // incorrect
+                setNewScore(1, 0)
                 setMistakes(prevState => prevState + 1)
                 setEvaluation({
                     isCorrect: false,
@@ -121,7 +136,8 @@ const TrueFalseGame = ({size, difficulty, email}) => {
             }
         } else {
             if (isDisplayedKey) {
-                console.log('incorrect')
+                // incorrect
+                setNewScore(1, 0)
                 setMistakes(prevState => prevState + 1)
                 setEvaluation({
                     isCorrect: false,
@@ -130,7 +146,8 @@ const TrueFalseGame = ({size, difficulty, email}) => {
                 pairs[stage].isCorrect = false
                 pairs[stage].isCorrectButton = false
             } else {
-                console.log('correct')
+                // correct
+                setNewScore(0, 1)
                 setEvaluation({
                     isCorrect: true,
                     isCorrectButton: false

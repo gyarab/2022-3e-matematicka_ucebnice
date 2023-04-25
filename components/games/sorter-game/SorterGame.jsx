@@ -23,7 +23,7 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 const title = 'Tip'
-const text = 'Seřaťe kartičky tak, aby vždy provedení operace odpovídalo jednomu z výsledků (oranžová barva). Jednotlivé bloky na sebe navazují. To znamená, že kdyby byly čísla +1, +2, pak je jejich výsledek 3 a další trojici vypočítáme jako +3, +4, -5 s výsledkem +2.5'
+const text = 'Seřaďte kartičky tak, aby vždy provedení operace odpovídalo jednomu z výsledků (oranžová barva). Jednotlivé bloky na sebe navazují. To znamená, že kdyby byly čísla +1, +2, pak je jejich výsledek 3 a další trojici vypočítáme jako +3, +4, -5 s výsledkem +2.5'
 
 const popover = (
     <Popover id="popover-basic">
@@ -45,6 +45,19 @@ const SorterGame = ({gameLength, size, difficulty, email}) => {
 
         getNewSorterGame(true)
     }, []);
+
+    const setNewScore = (incorrect, correct) => {
+        axios.post('/api/user/score/addScore', {
+            ...email,
+            incorrect: incorrect,
+            correct: correct,
+            gameId: 5
+        }).then(r => {
+            console.log('added score')
+        }).catch(err => {
+            console.log(err.response.data)
+        })
+    }
 
     function getNewSorterGame(isInitial=false) {
         axios.post('/api/games/getSorterGame', {
@@ -121,13 +134,15 @@ const SorterGame = ({gameLength, size, difficulty, email}) => {
         }
 
         if (result) {
-            console.log('correct')
+            // correct
+            setNewScore(0, 1)
             setEvaluation(true)
 
             if (stage !== gameLength - 1)
                 setTimeout(handleNextStage, 1000)
         } else {
-            console.log('incorrect')
+            // incorrect
+            setNewScore(1, 0)
             setEvaluation(false)
         }
     }

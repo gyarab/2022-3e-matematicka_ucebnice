@@ -1,9 +1,29 @@
+import {emailSchema, gameIdSchema, scoreSchema} from "../../../../lib/utils/utils";
+import {isValidRequest} from "../../../../lib/utils/requestValidation";
+import {addScore} from "../../../../lib/database/dbOperations";
 
-export default function handler(req, res) {
-    // auth user? usage of middleware? ==> auth redirect?
-    // need to check whether score already exists or not
-    //
+export default async function handler(req, res) {
+    const gameId = gameIdSchema.safeParse(req?.body?.gameId)
+    const email = emailSchema.safeParse(req?.body?.email)
+    const incorrect = scoreSchema.safeParse(req?.body?.incorrect)
+    const correct = scoreSchema.safeParse(req?.body?.correct)
 
+    if (!email.success || !gameId.success || !incorrect.success || !correct.success) {
+        return res.status(400).json({
+            err: 'Required body parameters are not valid.'
+        })
+    }
 
-    res.status(200).json({ name: 'John Doe' })
+    const validation = await isValidRequest(req, email.data, 'POST');
+    if (!validation.ok) {
+        return res.status(validation.status).json({
+            err: validation.message
+        })
+    }
+
+    await addScore(email.data, gameId.data, incorrect.data, correct.data)
+
+    return res.status(200).json({
+        ok: true
+    })
 }

@@ -32,7 +32,6 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
     const [game, setGame] = useState([]);
     const [stage, setStage] = useState(0)
     const [evaluation, setEvaluation] = useState(undefined);
-    const [attempts, setAttempts] = useState(0)
     const [modalShow, setModalShow] = useState(false)
 
     const setGameUsingStage = (stage, evaluation = undefined) => {
@@ -49,8 +48,8 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
     const setNewStage = () => {
         axios.post('/api/games/getChooseCorrectStage', {
             ...email,
-            difficulty: 1,
-            length: 3
+            difficulty: difficulty,
+            length: size
         }).then(res => {
             //console.log(res)
             const gameObj = res.data
@@ -64,32 +63,44 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
     }
 
     useEffect(() => {
-        //axios.post('/api/games/test').then(r => console.log(r)).catch(err => console.log(err.response.data))
         setNewStage()
     }, []);
+
+    const setNewScore = (incorrect, correct) => {
+        axios.post('/api/user/score/addScore', {
+            ...email,
+            incorrect: incorrect,
+            correct: correct,
+            gameId: 1
+        }).then(r => {
+            console.log('added score')
+        }).catch(err => {
+            console.log(err.response.data)
+        })
+    }
 
     const handleAnswerSubmit = (answer) => {
         // if button clicked more than once ->  return because nothing changed
         if (evaluation !== undefined && answer === evaluation.answer)
             return
 
-        setAttempts(prevState => prevState + 1)
-
         if (answer === game[stage].correctAnswer) {
+            // correct
+            setNewScore(0, 1)
             setGameUsingStage(stage, {
                 answer: answer,
                 isCorrect: true
             })
-            console.log('correct')
+
             if (stage !== gameLength - 1)
                 setTimeout(handleNextStage, 1000)
         } else {
+            // incorrect
+            setNewScore(1, 0)
             setGameUsingStage(stage, {
                 answer: answer,
                 isCorrect: false
             })
-            setAttempts(prevState => prevState + 1)
-            console.log('incorrect')
         }
     }
 
