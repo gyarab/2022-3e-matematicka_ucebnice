@@ -39,7 +39,7 @@ const Pexeso = ({size, difficulty, email}) => {
     }, []);
 
     const setNewScore = (incorrect, correct) => {
-        axios.post('/api/user/score/addScore', {
+        axios.post('/api/user/score/add', {
             ...email,
             incorrect: incorrect,
             correct: correct,
