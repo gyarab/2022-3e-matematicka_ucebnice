@@ -52,7 +52,7 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
             difficulty: 1,
             length: 3
         }).then(res => {
-            console.log(res)
+            //console.log(res)
             const gameObj = res.data
             if (gameObj.ok) {
                 gameObj.evaluation = undefined

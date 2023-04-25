@@ -54,7 +54,7 @@ const TrueFalseGame = ({size, difficulty, email}) => {
             size: 5,
             gameId: 3
         }).then(response => {
-            console.log(response)
+            //console.log(response)
             response.data.pairs = JSON.parse(response.data.pairs, reviver)
             setPairs(generatePairArray(response.data.pairs))
         }).catch(err => {

@@ -45,7 +45,7 @@ const Pexeso = ({size, difficulty, email}) => {
             size: (size ** 2) / 2,
             gameId: 2
         }).then(response => {
-            console.log(response)
+            //console.log(response)
             response.data.pairs = JSON.parse(response.data.pairs, reviver)
             setPexeso(response.data.pairs)
             setPexArray(generatePexArray(response.data.pairs))
