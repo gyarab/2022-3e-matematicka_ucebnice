@@ -52,7 +52,7 @@ const SorterGame = ({gameLength, size, difficulty, email}) => {
             difficulty: difficulty,
             size: size
         }).then(res => {
-            console.log(res)
+            //console.log(res)
             const newObject = {
                 items: shuffleArray(res.data.items),
                 evaluation: undefined
@@ -132,7 +132,6 @@ const SorterGame = ({gameLength, size, difficulty, email}) => {
         }
     }
 
-    console.log(game)
     const resultCheckable = typeof game[stage] !== 'undefined' && game[stage].evaluation !== undefined
     return (
         <>
