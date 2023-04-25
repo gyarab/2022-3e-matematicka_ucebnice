@@ -60,3 +60,13 @@ create table sorter_game_items
     item varchar not null,
     sorter_game_id bigint not null references sorter_games
 );
+
+-- Score tables
+create table user_score
+(
+  id bigserial primary key,
+  incorrect integer not null default 0,
+  correct integer not null default 0,
+  game_id bigint not null references games,
+  user_id uuid not null references users
+);
