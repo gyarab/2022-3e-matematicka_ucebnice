@@ -1,16 +1,15 @@
-import {isValidRequest} from "../../../lib/utils/requestValidation.js";
-import {getEqualPairs} from "../../../lib/database/dbOperations.js";
 import {difficultySchema, emailSchema, gameIdSchema, lengthSchema, replacer} from "../../../lib/utils/utils";
+import {isValidRequest} from "../../../lib/utils/requestValidation";
+import {getEqualPairs, getSorterGame} from "../../../lib/database/dbOperations";
 
 export default async function handler(req, res) {
     //console.log(req.body)
 
-    const gameId = gameIdSchema.safeParse(req?.body?.gameId);
     const email = emailSchema.safeParse(req?.body?.email)
     const difficulty = difficultySchema.safeParse(req?.body?.difficulty)
     const size = lengthSchema.safeParse(req?.body?.size)
 
-    if (!email.success || !difficulty.success || !size.success || !gameId.success) {
+    if (!email.success || !difficulty.success || !size.success) {
         return res.status(400).json({
             err: 'Required body parameters are not valid.'
         })
@@ -24,18 +23,18 @@ export default async function handler(req, res) {
         })
     }
 
-    let pairs = await getEqualPairs(difficulty.data, size.data, email.data, gameId.data)
+    let items = await getSorterGame(difficulty.data, size.data, email.data)
     //console.log(stage)
 
     let response = {
         ok: false,
     }
-    if (!(pairs === null || typeof pairs !== 'object')) {
+    if (!(items === null || typeof items !== 'object')) {
         response.ok = true
-        response.pairs = JSON.stringify(pairs, replacer)
+        response.items = items
     }
 
-    //console.log(response.pairs)
+    //console.log(response.items)
 
     return res.status(200).json(response)
 }

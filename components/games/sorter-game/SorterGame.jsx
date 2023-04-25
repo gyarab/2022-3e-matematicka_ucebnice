@@ -8,10 +8,10 @@ import sorterGameStyles from '../../../styles/games/SorterGame.module.css'
 import trueFalseGameStyles from '../../../styles/games/TrueFalseGame.module.css'
 import gameUtilsStyles from "../../../styles/games/GameUtils.module.css";
 import GameNav from "../GameNav";
-import {generateSorterGameObject} from "../../../lib/generation/equationGeneration.js";
+import {generateSorterGameObject, shuffleArray} from "../../../lib/generation/equationGeneration.js";
 import {BsFillCheckCircleFill} from "react-icons/bs";
 import {Button, OverlayTrigger, Popover} from "react-bootstrap";
-import CustomPopover from "../../utils/CustomPopover";
+import axios from "axios";
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -34,7 +34,7 @@ const popover = (
     </Popover>
 )
 
-const SorterGame = ({gameLength, size, difficulty}) => {
+const SorterGame = ({gameLength, size, difficulty, email}) => {
     const [stage, setStage] = useState(0);
     const [game, setGame] = useState([]);
     const [windowWidth, setWindowWidth] = useState(0);
@@ -43,11 +43,23 @@ const SorterGame = ({gameLength, size, difficulty}) => {
         if (typeof window !== 'undefined')
             setWindowWidth(window.innerWidth)
 
-        setGame(prevState => {
-            prevState[0] = generateSorterGameObject(size, difficulty)
-            return [...prevState]
-        })
+        getNewSorterGame(true)
     }, []);
+
+    function getNewSorterGame(isInitial=false) {
+        axios.post('/api/games/getSorterGame', {
+            ...email,
+            difficulty: difficulty,
+            size: size
+        }).then(res => {
+            console.log(res)
+            const newObject = {
+                items: shuffleArray(res.data.items),
+                evaluation: undefined
+            }
+            setGame(prevState => isInitial ? [newObject] : [...prevState, newObject])
+        }).catch(err => console.log(err))
+    }
 
     const onDragEnd = (result) => {
         // dropped outside the list
@@ -67,15 +79,7 @@ const SorterGame = ({gameLength, size, difficulty}) => {
     const handleNextStage = () => {
         setStage(prevState => {
             const nextStage = (prevState + 1) % gameLength
-
-            if (typeof game[nextStage] === 'undefined') {
-                setGame(prevState => {
-                    prevState[nextStage] = generateSorterGameObject(size, difficulty)
-                    prevState[nextStage].evaluation = undefined
-                    return [...prevState]
-                })
-            }
-
+            typeof game[nextStage] === 'undefined' && getNewSorterGame()
             return nextStage
         })
     }
@@ -99,20 +103,17 @@ const SorterGame = ({gameLength, size, difficulty}) => {
         let result = true
         let lastResult = '0'
         const items = game[stage].items
-        for (let i = 0; i < items.length; i+=3) {
+        for (let i = 0; i < items.length; i += 3) {
             const first = items[i].replace('÷', '/')
-            const second = items[i+1].replace('÷', '/')
-            const correctAnswer = items[i+2].substring(1, items[i+2].length);
-            console.log(first+', ', second+', ', correctAnswer)
-            if (first.startsWith('=') || second.startsWith('=') || !items[i+2].startsWith('=')) {
+            const second = items[i + 1].replace('÷', '/')
+            const correctAnswer = items[i + 2].substring(1, items[i + 2].length);
+            if (first.startsWith('=') || second.startsWith('=') || !items[i + 2].startsWith('=')) {
                 result = false
                 break;
             }
 
-            console.log('(' + lastResult + ' ' + first + ') ' + second)
             const evall = eval('(' + lastResult + ' ' + first + ') ' + second)
             lastResult = correctAnswer
-            console.log(evall, correctAnswer)
             if (evall.toString() !== correctAnswer) {
                 result = false
                 break;
@@ -131,10 +132,11 @@ const SorterGame = ({gameLength, size, difficulty}) => {
         }
     }
 
+    console.log(game)
     const resultCheckable = typeof game[stage] !== 'undefined' && game[stage].evaluation !== undefined
     return (
         <>
-            <div className={gameStyles.frame}>
+            <div className={gameStyles.frame} style={{minHeight: '502px'}}>
                 <GameNav
                     showPreviousButton={stage !== 0}
                     showNextButton={stage !== gameLength - 1}
@@ -189,7 +191,7 @@ const SorterGame = ({gameLength, size, difficulty}) => {
                                         pb-1 pt-1`
                                         }
                                     >
-                                        {game[stage].items.map((item, index) => {
+                                        {typeof game[stage] !== "undefined" && game[stage].items.map((item, index) => {
                                             const isResult = item.startsWith('=')
                                             return (
                                                 <Draggable key={index.toString()} draggableId={index.toString()}
