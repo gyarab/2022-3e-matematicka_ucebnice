@@ -13,7 +13,6 @@
     align-items: center;
     border-radius: 10px;
     padding: 10px;
-    width: 50%;
     max-width: 800px;
     box-shadow: 0 2px 20px darkgrey;
     -moz-box-shadow: 0 2px 20px darkgrey;
@@ -29,34 +28,4 @@
 
 .mainContentContainer {
     padding: 10px 5px 5px;
-}
-
-@media only screen and (max-width: 1200px) {
-    .frame {
-        width: 60%;
-    }
-}
-
-@media only screen and (max-width: 990px) {
-    .frame {
-        width: 70%;
-    }
-}
-
-@media only screen and (max-width: 766px) {
-    .frame {
-        width: 80%;
-    }
-}
-
-@media only screen and (max-width: 576px) {
-    .frame {
-        width: 90%;
-    }
-}
-
-@media only screen and (max-width: 330px) {
-    .frame {
-        width: 95%;
-    }
 }

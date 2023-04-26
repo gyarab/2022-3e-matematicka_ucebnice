@@ -22,6 +22,7 @@ const Account = (email) => {
     useEffect(() => {
         getUserScore()
         getUserInfo()
+        //axios.post('/api/games/generation', {gameId: 4}).then(response => console.log(response)).catch(error => console.log(error))
     }, []);
 
     const getUserInfo = () => {

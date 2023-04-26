@@ -150,7 +150,7 @@ const SorterGame = ({gameLength, size, difficulty, email}) => {
     const resultCheckable = typeof game[stage] !== 'undefined' && game[stage].evaluation !== undefined
     return (
         <>
-            <div className={gameStyles.frame} style={{minHeight: '502px'}}>
+            <div className={`mt-2 ${gameStyles.frame}`} style={{minHeight: '502px'}}>
                 <GameNav
                     showPreviousButton={stage !== 0}
                     showNextButton={stage !== gameLength - 1}

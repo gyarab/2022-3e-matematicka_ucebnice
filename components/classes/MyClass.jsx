@@ -1,5 +1,8 @@
 import dynamic from "next/dynamic";
 import LoadingSpinner from "../utils/LoadingSpinner";
+import {useState} from "react";
+import {Col, Nav, Row} from "react-bootstrap";
+import Tab from 'react-bootstrap/Tab';
 
 const ChooseCorrectAnswer = dynamic(() => import('../games/choose-correct-answer/ChooseCorrectAnswer'), {
     loading: () => <LoadingSpinner/>,
@@ -26,7 +29,7 @@ const Geometry = dynamic(() => import("../games/geometry/Geometry"), {
     ssr: false
 })
 
-const Section = ({id, title, games, email}) => {
+const MyClass = ({games, email}) => {
 
     const renderGame = (game) => {
         switch (game.id) {
@@ -87,32 +90,36 @@ const Section = ({id, title, games, email}) => {
         }
     }
 
-    return (
-        <li id={id}>
-            <h2>{title}</h2>
-            <ul
-                className={`p-2`}
-            >
-                {games.map((game, index) => {
-                    return (
-                        <li
-                            key={index}
-                        >
-                            <div>
-                                {game.title}
-                                <div className={'d-flex flex-row justify-content-center align-items-center'}>
-                                    {
-                                        renderGame(game)
-                                    }
-                                </div>
-                            </div>
+    console.log(games)
 
-                        </li>
-                    )
-                })}
-            </ul>
-        </li>
+    return (
+        <Tab.Container id={"left-tabs-example"} defaultActiveKey={games[0]?.title}>
+            <Row className={`mt-4 m-1`}>
+                <Col md={'auto'}>
+                    <Nav variant={"pills"} className={"flex-column p-2"}>
+                        {games.map((game, index) => {
+                            return (
+                                <Nav.Item key={index} className={`p-1`}>
+                                    <Nav.Link eventKey={game.title}>{game.title}</Nav.Link>
+                                </Nav.Item>
+                            )
+                        })}
+                    </Nav>
+                </Col>
+                <Col className={`d-flex align-items-center`}>
+                    <Tab.Content className={`w-100 d-flex align-items-center justify-content-center`}>
+                        {games.map((game, index) => {
+                            return (
+                                <Tab.Pane className={'w-100'} key={index} eventKey={game.title}>
+                                    {renderGame(game)}
+                                </Tab.Pane>
+                            )
+                        })}
+                    </Tab.Content>
+                </Col>
+            </Row>
+        </Tab.Container>
     )
 }
 
-export default Section
+export default MyClass

@@ -2,7 +2,7 @@ import NavBar from "../../components/nav-bar/NavBar";
 import CustomHead from "../../components/utils/CustomHead";
 import {colorThemeDark, colorThemeLight, heroImageAltText, heroImagePath} from "../../lib/utils/frontend-env-variables.js";
 import CustomFooter from "../../components/utils/CustomFooter";
-import Section from "../../components/classes/Section";
+import MyClass from "../../components/classes/MyClass";
 import HeroImage from "../../components/classes/HeroImage";
 import {useClassSections} from "../../components/utils/hooks/useClassSections";
 //import axios from "axios";
@@ -16,7 +16,7 @@ import {doBackendAuth} from "../../components/utils/hooks/doBackendAuth";
  */
 
 const SixthClass = (email) => {
-    const classSections = useClassSections('url')
+    const myClass = useClassSections('url')
     /*
     useEffect(() => {
         axios.post('/api/games/getGameStage')
@@ -43,22 +43,11 @@ const SixthClass = (email) => {
                     altText={heroImageAltText}
                     description={'Šestá třída'}
                 />
-                <div className={`container-fluid w-100`}>
-                    <ul
-                        className={`p-2`}
-                    >
-                        {classSections.map((section, index) => {
-                            return (
-                                <Section
-                                    key={index}
-                                    id={index}
-                                    title={section.title}
-                                    games={section.games}
-                                    email={email}
-                                />
-                            )
-                        })}
-                    </ul>
+                <div className={`container-fluid w-100 mb-4`}>
+                    <MyClass
+                        games={myClass}
+                        email={email}
+                    />
                 </div>
             </main>
             <CustomFooter/>

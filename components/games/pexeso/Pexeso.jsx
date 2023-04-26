@@ -181,7 +181,7 @@ const Pexeso = ({size, difficulty, email}) => {
     }
 
     return (
-        <>
+        <div className={`w-100 d-flex align-items-center justify-content-center mb-4 mt-2`}>
             <div className={`${gameStyles.frame}`} style={{width: 'fit-content'}}>
                 {
                     pexArray.map((row, index) => {
@@ -225,7 +225,7 @@ const Pexeso = ({size, difficulty, email}) => {
                 text={`Congratulations, during the game you have made ${mistakes} mistakes only!`}
                 onHide={hideEndModalHandler}
             />
-        </>
+        </div>
     )
 }
 
