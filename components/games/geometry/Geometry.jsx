@@ -1,7 +1,6 @@
 import {useState} from "react"
 import Button from 'react-bootstrap/Button';
 import {Graphics, Stage} from "@inlet/react-pixi";
-import {Color} from 'pixi.js';
 import {generateGeometricQuestions} from "../../../lib/generation/geometryGeneration.js";
 import GameNav from "../GameNav";
 import gameStyles from "../../../styles/games/Game.module.css"
@@ -15,10 +14,10 @@ class Dot {
 }
 
 // 0xDE780B
-const bgColor = new Color(0xF6B200)
-const gridColor = new Color(0xFFFFFF)
-const dotColor = new Color(0xDE780B)
-const lineColor = new Color(0, 0, 0)
+const bgColor = '0xF6B200'
+const gridColor = '0xFFFFFF'
+const dotColor = '0xDE780B'
+const lineColor = '0x000000'
 
 const calcMove = (deflection, coefficient, layer) => {
     return (deflection + coefficient * layer)
@@ -225,7 +224,7 @@ const Geometry = (size = 1, difficulty = 1) => {
                     renderOnComponentChange={true}
                     className={`rounded-2 m-2 darkShadow`} // TODO -> update rounded design
                     options={{
-                        backgroundColor: bgColor.value,
+                        backgroundColor: bgColor,
                         antialias: true,
                     }}
                 >
