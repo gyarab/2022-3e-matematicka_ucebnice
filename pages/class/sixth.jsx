@@ -54,11 +54,12 @@ const SixthClass = (email) => {
         </>
     )
 }
-
 export default SixthClass;
+/*
 
 export async function getServerSideProps(context) {
     return doBackendAuth(context, (session) => {
         return { props: {email: session.user.email} }
     })
 }
+*/
