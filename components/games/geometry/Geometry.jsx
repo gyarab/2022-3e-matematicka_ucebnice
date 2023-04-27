@@ -89,11 +89,12 @@ const Geometry = (size = 1, difficulty = 1) => {
         console.log(game[stage])
         console.log()
         const correct = true
+        let u = new Dot((dotList[0].x - dotList[1].x) , (dotList[0].y - dotList[1].y))
+        let v = new Dot((dotList[1].x - dotList[2].x) , (dotList[1].y - dotList[2].y))
+        let w = new Dot((dotList[0].x - dotList[2].x) , (dotList[0].y - dotList[2].y))
         if (game[stage].tSettings !== -1){
             //kontrola trojuhelnika planimetrie
-            let u = new Dot((dotList[0].x - dotList[1].x) , (dotList[0].y - dotList[1].y))
-            let v = new Dot((dotList[1].x - dotList[2].x) , (dotList[1].y - dotList[2].y))
-            let w = new Dot((dotList[0].x - dotList[2].x) , (dotList[0].y - dotList[2].y))
+            
             console.log(u)
             console.log(v)
             console.log(w)
@@ -109,7 +110,6 @@ const Geometry = (size = 1, difficulty = 1) => {
                 if ((u.x * v.x +u.y * v.y )=== 0 || (u.x * w.x +u.y * w.y )=== 0 || (v.x * w.x +v.y * w.y )=== 0){
                     
                 }else{
-                    console.log("setting 1 false")
                     return false
                 }
                 
@@ -118,23 +118,40 @@ const Geometry = (size = 1, difficulty = 1) => {
                 if(v.x*v.x +v.y*v.y === u.x*u.x +u.y*u.y ||v.x*v.x +v.y*v.y === w.x*w.x +w.y*w.y || u.x*u.x +u.y*u.y === w.x*w.x +w.y*w.y){
                     
                 }else{
-                    console.log("setting 2 false")
                     return false
                 }
 
+            }
+            else if(game[stage].tSettings === 3){//kontrola stran
+                if(u.x * u.x +u.y * u.y === game[stage].value*game[stage].value * (v.x * v.x + v.y * v.y)||u.x * u.x +u.y * u.y ===(v.x * v.x + v.y * v.y)/(game[stage].value*game[stage].value)){
+                    
+                }else{
+                    return false
+                }
+                
             }
             return true
         }
         if(game[stage].value !== -1){
             //kontrola obsahu
-            if(game[stage].shape === 3 ||game[stage].shape === 4){
+            if(game[stage].shape === 4){
                 //a × b = (a2b3-a3b2; a3b1-a1b3; a1b2-a2b1)
-                if(u.x*v.y-u.y*v.x === value){
+                if(Math.abs(u.x*v.y-u.y*v.x) === game[stage].value){
                     
                 }else{
                     return false
                 }
                 //trojuhelnik
+            }
+            if (game[stage].shape === 3){
+                if(Math.abs((u.x*v.y-u.y*v.x)/2) === game[stage].value){
+                    
+                }else{
+                    console.log((u.x*v.y-u.y*v.x)/2)
+                    console.log(game[stage].value)
+                    
+                    return false
+                }
             }
             
         }
@@ -142,10 +159,9 @@ const Geometry = (size = 1, difficulty = 1) => {
 
     }
     const stageChange = () =>{
-        console.log(game[stage])
-        console.log(checkGeometry())
         if(checkGeometry()){
             //TODO error with max stage
+            resetDotList()
             setStage(prevState => (prevState + 1))
         }
     }
@@ -154,14 +170,14 @@ const Geometry = (size = 1, difficulty = 1) => {
         g.clear()
 
         const hitBox = {
-            width: 40,
-            height: 40
+            width: 100,
+            height: 100
         }
 
         // draws hit boxes
         for (let i = 0; i < 9; i++)
             for (let j = 0; j < 9; j++)
-                g.beginFill(bgColor).lineStyle(bgColor).drawRect(calcMove(25, i, 40), calcMove(25, j, 40), hitBox.width, hitBox.height)
+                g.beginFill(bgColor).lineStyle(bgColor).drawRect(calcMove(-25, i*2, 40), calcMove(-25, j*2, 40), hitBox.width, hitBox.height)
 
         g.beginFill(gridColor).lineStyle(4, gridColor, 1)
 
@@ -239,7 +255,7 @@ const Geometry = (size = 1, difficulty = 1) => {
                     renderOnComponentChange={true}
                     className={`rounded-2 m-2 darkShadow`} // TODO -> update rounded design
                     options={{
-                        backgroundColor: bgColor,
+                        backgroundColor: 0,
                         antialias: true,
                     }}
                 >
