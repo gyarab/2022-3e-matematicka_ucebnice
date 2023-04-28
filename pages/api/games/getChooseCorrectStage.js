@@ -9,6 +9,8 @@ export default async function handler(req, res) {
     const difficulty = difficultySchema.safeParse(req?.body?.difficulty)
     const length = lengthSchema.safeParse(req?.body?.length)
 
+    //console.log(email, difficulty, length)
+
     if (!email.success || !difficulty.success || !length.success) {
         return res.status(400).json({
             err: 'Required body parameters are not valid.'
