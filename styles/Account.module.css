@@ -5,3 +5,22 @@
 .incorrect {
     color: var(--bs-danger);
 }
+
+.buttonGroup{
+    flex-direction: row;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+}
+
+.button {
+    width: inherit;
+}
+
+@media only screen and (max-width: 330px) {
+    .buttonGroup {
+        width: 100%;
+        flex-direction: column;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+    }
+}
