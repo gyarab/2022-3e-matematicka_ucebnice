@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import LoadingSpinner from "../utils/LoadingSpinner";
-import {useState} from "react";
 import {Col, Nav, Row} from "react-bootstrap";
 import Tab from 'react-bootstrap/Tab';
 
@@ -93,25 +92,30 @@ const MyClass = ({games, email}) => {
     console.log(games)
 
     return (
-        <Tab.Container id={"left-tabs-example"} defaultActiveKey={games[0]?.title}>
-            <Row className={`mt-4 m-1`}>
+        <Tab.Container
+            id={"left-tabs"}
+        >
+            <Row className={`mt-4`}>
                 <Col md={'auto'}>
                     <Nav variant={"pills"} className={"flex-column p-2"}>
                         {games.map((game, index) => {
                             return (
-                                <Nav.Item key={index} className={`p-1`}>
-                                    <Nav.Link eventKey={game.title}>{game.title}</Nav.Link>
+                                <Nav.Item key={index} className={`m-2`}>
+                                    <Nav.Link eventKey={game.title}
+                                              className={`darkShadow text-center`}>{game.title}</Nav.Link>
                                 </Nav.Item>
                             )
                         })}
                     </Nav>
                 </Col>
-                <Col className={`d-flex align-items-center`}>
-                    <Tab.Content className={`w-100 d-flex align-items-center justify-content-center`}>
+                <Col className={`d-flex align-items-start`}>
+                    <Tab.Content className={`w-100 d-flex align-items-start justify-content-center p-2`}>
                         {games.map((game, index) => {
                             return (
-                                <Tab.Pane className={'w-100'} key={index} eventKey={game.title}>
-                                    {renderGame(game)}
+                                <Tab.Pane className={'w-100 m-1'} key={index} eventKey={game.title}>
+                                    <div className={`w-100 d-flex align-items-center justify-content-center mb-4 mt-1`}>
+                                        {renderGame(game)}
+                                    </div>
                                 </Tab.Pane>
                             )
                         })}

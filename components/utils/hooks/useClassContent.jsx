@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 
-export const useClassSections = (url) => {
-    const [classSections, setClassSections] = useState([]);
+export const useClassContent = (url) => {
+    const [classContent, setClassContent] = useState([]);
 
     useEffect(() => {
-        setClassSections(
+        setClassContent(
             [
                 {
                     id: 1,
@@ -47,5 +47,5 @@ export const useClassSections = (url) => {
         )
     }, [url]);
 
-    return classSections
+    return classContent
 }
