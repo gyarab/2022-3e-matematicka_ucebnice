@@ -23,7 +23,7 @@ const HeroImage = ({imagePath, altText, description}) => {
     return (
         <div className={heroImageStyles.container}>
             <div className={`${heroImageStyles.descriptionContainer} d-flex justify-content-center align-items-center`}>
-                <h1 className={`${heroImageStyles.description} rounded p-3`}>
+                <h1 className={`${heroImageStyles.description} rounded p-3 darkShadow`}>
                     {description}
                 </h1>
             </div>
