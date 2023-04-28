@@ -13,6 +13,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Badge, Button, Card, ListGroup} from "react-bootstrap";
 import accountStyles from "../../styles/Account.module.css"
+import {signOut} from "next-auth/react";
 
 
 const Account = (email) => {
@@ -70,7 +71,7 @@ const Account = (email) => {
                     description={'Můj účet'}
                 />
                 <div className={`container-fluid w-100 d-flex flex-column justify-content-center align-items-center`}>
-                    <Card className={`mt-4`}>
+                    <Card className={`mt-4 darkShadow`}>
                         <Card.Body>
                             <Card.Title className={`fw-bold`}>Vítejte na svém profilu!</Card.Title>
                             <Card.Subtitle className={"mb-2 text-muted"}>{userInfo}</Card.Subtitle>
@@ -78,15 +79,26 @@ const Account = (email) => {
                                 V sekci níže můžete naleznout vaše dosavadní skóre ve hrách, které jste si již
                                 vyzkoušel/a.
                             </Card.Text>
-                            <Button
-                                variant={'outline-secondary'}
-                                onClick={() => handleResetStatistics()}
-                            >
-                                Resetovat statistiky
-                            </Button>
+                            <div className={`d-flex align-items-start justify-content-start ${accountStyles.buttonGroup}`}>
+                                <Button
+                                    variant={'outline-primary'}
+                                    className={`hoverDarkShadow m-1 ${accountStyles.button}`}
+                                    onClick={async () => await signOut()}
+                                >
+                                    Odhlásit
+                                </Button>
+                                <Button
+                                    variant={'outline-secondary'}
+                                    className={`hoverDarkShadow m-1 ${accountStyles.button}`}
+                                    onClick={() => handleResetStatistics()}
+                                >
+                                    Resetovat statistiky
+                                </Button>
+                            </div>
+
                         </Card.Body>
                     </Card>
-                    <ListGroup as={"ol"} className={`w-100 m-4`} style={{maxWidth: '686.6px'}}>
+                    <ListGroup as={"ol"} className={`w-100 m-4 darkShadow`} style={{maxWidth: '686.6px'}}>
                         {score.map((arr, index) => {
                             const name = arr[0]
                             const incorrect = arr[1]
@@ -129,12 +141,18 @@ const Account = (email) => {
                                         </ListGroup>
                                     </div>
                                     <div className={`d-flex flex-column align-items-center justify-content-center`}>
-                                        <Badge bg={"danger"} className={`w-100 m-1`}>
-                                            {incorrectPercentage + '%'}
-                                        </Badge>
-                                        <Badge bg={"success"} className={`w-100 m-1`}>
-                                            {correctPercentage + '%'}
-                                        </Badge>
+                                        {
+                                            incorrectPercentage !== 0 &&
+                                            <Badge bg={"danger"} className={`w-100 m-1`}>
+                                                {incorrectPercentage + '%'}
+                                            </Badge>
+                                        }
+                                        {
+                                            correctPercentage !== 0 &&
+                                            <Badge bg={"success"} className={`w-100 m-1`}>
+                                                {correctPercentage + '%'}
+                                            </Badge>
+                                        }
                                     </div>
                                 </ListGroup.Item>
                             )
