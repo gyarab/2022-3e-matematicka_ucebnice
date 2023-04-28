@@ -149,8 +149,8 @@ const SorterGame = ({gameLength, size, difficulty, email}) => {
 
     const resultCheckable = typeof game[stage] !== 'undefined' && game[stage].evaluation !== undefined
     return (
-        <>
-            <div className={`mt-2 ${gameStyles.frame}`} style={{minHeight: '502px'}}>
+        <div className={`w-100 d-flex flex-row align-items-center justify-content-center`}>
+            <div className={`w-100 ${gameStyles.frame}`} style={{minHeight: '502px'}}>
                 <GameNav
                     showPreviousButton={stage !== 0}
                     showNextButton={stage !== gameLength - 1}
@@ -260,7 +260,7 @@ const SorterGame = ({gameLength, size, difficulty, email}) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

@@ -4,7 +4,7 @@ import {colorThemeDark, colorThemeLight, heroImageAltText, heroImagePath} from "
 import CustomFooter from "../../components/utils/CustomFooter";
 import MyClass from "../../components/classes/MyClass";
 import HeroImage from "../../components/classes/HeroImage";
-import {useClassSections} from "../../components/utils/hooks/useClassSections";
+import {useClassContent} from "../../components/utils/hooks/useClassContent";
 //import axios from "axios";
 import {doBackendAuth} from "../../components/utils/hooks/doBackendAuth";
 
@@ -16,7 +16,8 @@ import {doBackendAuth} from "../../components/utils/hooks/doBackendAuth";
  */
 
 const SixthClass = (email) => {
-    const myClass = useClassSections('url')
+    const myClass = useClassContent('url')
+    console.log(myClass)
     /*
     useEffect(() => {
         axios.post('/api/games/getGameStage')
@@ -27,6 +28,7 @@ const SixthClass = (email) => {
             })
     }, []);
     */
+
     return (
         <>
             <CustomHead
@@ -55,11 +57,9 @@ const SixthClass = (email) => {
     )
 }
 export default SixthClass;
-/*
 
 export async function getServerSideProps(context) {
     return doBackendAuth(context, (session) => {
         return { props: {email: session.user.email} }
     })
 }
-*/

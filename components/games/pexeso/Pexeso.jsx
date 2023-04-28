@@ -1,8 +1,8 @@
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {Row} from "react-bootstrap";
 import gameStyles from "../../../styles/games/Game.module.css";
 import dynamic from "next/dynamic";
-import {generateEqualPairs, shuffleArray} from "../../../lib/generation/equationGeneration";
+import {shuffleArray} from "../../../lib/generation/equationGeneration";
 import axios from "axios";
 import {reviver} from "../../../lib/utils/utils";
 
@@ -181,7 +181,7 @@ const Pexeso = ({size, difficulty, email}) => {
     }
 
     return (
-        <div className={`w-100 d-flex align-items-center justify-content-center mb-4 mt-2`}>
+        <div className={`w-100 d-flex flex-row align-items-center justify-content-center`}>
             <div className={`${gameStyles.frame}`} style={{width: 'fit-content'}}>
                 {
                     pexArray.map((row, index) => {

@@ -170,8 +170,8 @@ const TrueFalseGame = ({size, difficulty, email}) => {
     const previousNotCorrectButton = previousCheckable && !pairs[stage].isCorrectButton
 
     return (
-        <>
-            <div className={`${gameStyles.frame} m-2`}>
+        <div className={`w-100 d-flex flex-row align-items-center justify-content-center`}>
+            <div className={`w-100 ${gameStyles.frame}`}>
                 <GameNav
                     showPreviousButton={stage !== 0}
                     showNextButton={stage !== pairs.length - 1}
@@ -235,7 +235,7 @@ const TrueFalseGame = ({size, difficulty, email}) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

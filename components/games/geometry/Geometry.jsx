@@ -89,35 +89,34 @@ const Geometry = (size = 1, difficulty = 1) => {
         console.log(game[stage])
         console.log()
         const correct = true
-        if (game[stage].tSettings !== -1){
+        if (game[stage].tSettings !== -1) {
             //kontrola trojuhelnika planimetrie
-            let u = new Dot((dotList[0].x - dotList[1].x) , (dotList[0].y - dotList[1].y))
-            let v = new Dot((dotList[1].x - dotList[2].x) , (dotList[1].y - dotList[2].y))
-            let w = new Dot((dotList[0].x - dotList[2].x) , (dotList[0].y - dotList[2].y))
+            let u = new Dot((dotList[0].x - dotList[1].x), (dotList[0].y - dotList[1].y))
+            let v = new Dot((dotList[1].x - dotList[2].x), (dotList[1].y - dotList[2].y))
+            let w = new Dot((dotList[0].x - dotList[2].x), (dotList[0].y - dotList[2].y))
             console.log(u)
             console.log(v)
             console.log(w)
-                console.log(u.x +" "+ v.x +" "+" "+u.y +" "+ v.y +"= "+(u.x * v.x +u.y * v.y ))
-                console.log((u.x +" "+ w.x +" "+u.y +" "+ w.y ) +" "+(u.x * w.x +u.y * w.y ))
-                console.log((v.x * w.x +v.y * w.y ))
+            console.log(u.x + " " + v.x + " " + " " + u.y + " " + v.y + "= " + (u.x * v.x + u.y * v.y))
+            console.log((u.x + " " + w.x + " " + u.y + " " + w.y) + " " + (u.x * w.x + u.y * w.y))
+            console.log((v.x * w.x + v.y * w.y))
 
-            if(game[stage].tSettings === 1){ //pravouhly
-                
-                console.log(u.x +" "+ v.x +" "+" "+u.y +" "+ v.y +"= "+(u.x * v.x +u.y * v.y ))
-                console.log((u.x +" "+ w.x +" "+u.y +" "+ w.y ) +" "+(u.x * w.x +u.y * w.y ))
-                console.log((v.x * w.x +v.y * w.y ))
-                if ((u.x * v.x +u.y * v.y )=== 0 || (u.x * w.x +u.y * w.y )=== 0 || (v.x * w.x +v.y * w.y )=== 0){
-                    
-                }else{
+            if (game[stage].tSettings === 1) { //pravouhly
+
+                console.log(u.x + " " + v.x + " " + " " + u.y + " " + v.y + "= " + (u.x * v.x + u.y * v.y))
+                console.log((u.x + " " + w.x + " " + u.y + " " + w.y) + " " + (u.x * w.x + u.y * w.y))
+                console.log((v.x * w.x + v.y * w.y))
+                if ((u.x * v.x + u.y * v.y) === 0 || (u.x * w.x + u.y * w.y) === 0 || (v.x * w.x + v.y * w.y) === 0) {
+
+                } else {
                     console.log("setting 1 false")
                     return false
                 }
-                
-            }
-            else if(game[stage].tSettings === 2){ //rovnorameny
-                if(v.x*v.x +v.y*v.y === u.x*u.x +u.y*u.y ||v.x*v.x +v.y*v.y === w.x*w.x +w.y*w.y || u.x*u.x +u.y*u.y === w.x*w.x +w.y*w.y){
-                    
-                }else{
+
+            } else if (game[stage].tSettings === 2) { //rovnorameny
+                if (v.x * v.x + v.y * v.y === u.x * u.x + u.y * u.y || v.x * v.x + v.y * v.y === w.x * w.x + w.y * w.y || u.x * u.x + u.y * u.y === w.x * w.x + w.y * w.y) {
+
+                } else {
                     console.log("setting 2 false")
                     return false
                 }
@@ -125,26 +124,26 @@ const Geometry = (size = 1, difficulty = 1) => {
             }
             return true
         }
-        if(game[stage].value !== -1){
+        if (game[stage].value !== -1) {
             //kontrola obsahu
-            if(game[stage].shape === 3 ||game[stage].shape === 4){
+            if (game[stage].shape === 3 || game[stage].shape === 4) {
                 //a × b = (a2b3-a3b2; a3b1-a1b3; a1b2-a2b1)
-                if(u.x*v.y-u.y*v.x === value){
-                    
-                }else{
+                if (u.x * v.y - u.y * v.x === value) {
+
+                } else {
                     return false
                 }
                 //trojuhelnik
             }
-            
+
         }
         return true
 
     }
-    const stageChange = () =>{
+    const stageChange = () => {
         console.log(game[stage])
         console.log(checkGeometry())
-        if(checkGeometry()){
+        if (checkGeometry()) {
             //TODO error with max stage
             setStage(prevState => (prevState + 1))
         }
@@ -202,65 +201,67 @@ const Geometry = (size = 1, difficulty = 1) => {
 
 
     return (
-        <div className={`${gameStyles.frame} m-2`}>
-            <GameNav
-                showPreviousButton={stage !== 0}
-                showNextButton={stage !== game.length - 1}
-                handlePreviousStage={handlePreviousStage}
-                handleNextStage={handleNextStage}
-            />
-            <div
-                className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
-                <Button
-                    className={'m-2'}
-                    variant={"secondary"}
-                >
-                    {`${game[stage].question}`}
-                </Button>
-                <Button
-                    variant={"outline-secondary"}
-                    className={`m-2`}
-                    onClick={() => deleteLastDot()}
-                >
-                    Odstranit
-                </Button>
-                <Button
-                    variant={"outline-secondary"}
-                    className={`m-2`}
-                    onClick={() => stageChange()}
-                >
-                    Zkontrolovat
-                </Button>
+        <div className={`w-100 d-flex flex-row align-items-center justify-content-center`}>
+            <div className={`w-100 ${gameStyles.frame}`}>
+                <GameNav
+                    showPreviousButton={stage !== 0}
+                    showNextButton={stage !== game.length - 1}
+                    handlePreviousStage={handlePreviousStage}
+                    handleNextStage={handleNextStage}
+                />
+                <div
+                    className={`w-100 d-flex flex-column align-items-center justify-content-center ${gameStyles.mainContentContainer}`}>
+                    <Button
+                        className={'m-2'}
+                        variant={"secondary"}
+                    >
+                        {`${game[stage].question}`}
+                    </Button>
+                    <Button
+                        variant={"outline-secondary"}
+                        className={`m-2`}
+                        onClick={() => deleteLastDot()}
+                    >
+                        Odstranit
+                    </Button>
+                    <Button
+                        variant={"outline-secondary"}
+                        className={`m-2`}
+                        onClick={() => stageChange()}
+                    >
+                        Zkontrolovat
+                    </Button>
 
-                <Stage
-                    width={400}
-                    height={400}
-                    raf={false}
-                    renderOnComponentChange={true}
-                    className={`rounded-2 m-2 darkShadow`} // TODO -> update rounded design
-                    options={{
-                        backgroundColor: bgColor,
-                        antialias: true,
-                    }}
-                >
-                    <Graphics
-                        draw={drawGrid}
-                        interactive={true}
-                        pointerdown={(e) => {
-                            const x = Math.floor((e.data.global.x - 20) / 40)
-                            const y = Math.floor((e.data.global.y - 20) / 40)
-                            const newDot = new Dot(x, y)
-
-                            if (isDotInArr(newDot, dotList))
-                                return
-                            if (dotList.length >= game[stage].shape){
-                                return
-                            }
-                            setDotList(prevState => [...prevState, newDot])
+                    <Stage
+                        width={400}
+                        height={400}
+                        raf={false}
+                        renderOnComponentChange={true}
+                        className={`rounded-2 m-2 darkShadow`} // TODO -> update rounded design
+                        options={{
+                            backgroundColor: bgColor,
+                            antialias: true,
                         }}
-                    />
-                    <Graphics name={"Geometry"} draw={drawGeometry}/>
-                </Stage>
+                    >
+                        <Graphics
+                            draw={drawGrid}
+                            interactive={true}
+                            pointerdown={(e) => {
+                                const x = Math.floor((e.data.global.x - 20) / 40)
+                                const y = Math.floor((e.data.global.y - 20) / 40)
+                                const newDot = new Dot(x, y)
+
+                                if (isDotInArr(newDot, dotList))
+                                    return
+                                if (dotList.length >= game[stage].shape) {
+                                    return
+                                }
+                                setDotList(prevState => [...prevState, newDot])
+                            }}
+                        />
+                        <Graphics name={"Geometry"} draw={drawGeometry}/>
+                    </Stage>
+                </div>
             </div>
         </div>
     );

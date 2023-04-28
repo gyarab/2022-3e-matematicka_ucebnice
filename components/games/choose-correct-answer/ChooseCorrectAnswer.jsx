@@ -122,9 +122,9 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
 
     const readyToRender = typeof game[stage] !== "undefined"
     return (
-        <>
+        <div className={`w-100 d-flex flex-row align-items-center justify-content-center`}>
             <div
-                className={`${gameStyles.frame} m-2`}
+                className={`w-100 ${gameStyles.frame}`}
                 style={{minHeight: '195px'}}
             >
                 <GameNav
@@ -174,7 +174,7 @@ const ChooseCorrectAnswer = ({gameLength, size, difficulty, email}) => {
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
-        </>
+        </div>
     )
 }
 
