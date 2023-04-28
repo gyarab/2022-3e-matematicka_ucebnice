@@ -2,9 +2,13 @@ import CustomHead from "../components/utils/CustomHead";
 import {colorThemeDark, colorThemeLight} from "../lib/utils/frontend-env-variables.js";
 import CustomFooter from "../components/utils/CustomFooter";
 import indexStyles from '../styles/IndexPage.module.css';
-import {getSession, useSession} from "next-auth/react";
-import LoginContainer from "../components/verification/LoginContainer";
-import {doBackendAuth} from "../components/utils/hooks/doBackendAuth";
+import {getSession, signIn} from "next-auth/react";
+import {Button, Card} from "react-bootstrap";
+import verificationStyles from "../styles/Verification.module.css";
+
+const text = 'Vítejte na webové aplikaci, ve které si můžete procvičovat všechny možné typy příkladů z\n' +
+    '                            matematiky rozdělených dle tříd a podle Vaší úrovně a to formou různých her.\n' +
+    '                 '
 
 /**
  * INDEX PAGE
@@ -21,7 +25,9 @@ const Home = () => {
     TODO -> page design
      */
 
-    const {data: session, status} = useSession();
+    const handleGoogleAuthLogin = async (e) => {
+        await signIn()
+    }
 
     return (
         <>
@@ -30,21 +36,24 @@ const Home = () => {
                 themeColorLight={colorThemeLight}
                 themeColorDark={colorThemeDark}
             />
-            <main className={`d-flex align-items-center`} style={{height: '100vh'}}>
+            <main className={`d-flex align-items-center justify-content-center`} style={{height: '100vh'}}>
                 <div className={indexStyles.backgroundCircle}></div>
-                <div className={`w-100 h-100 d-flex flex-row align-items-center justify-content-between m-5`}>
-                    <div className={indexStyles.contentContainer}>
-                        <h1 className={`text-center ${indexStyles.title}`}>Matematická učebnice</h1>
-                        <p className={indexStyles.text}>
-                            {
-                                JSON.stringify(session)
-                            }
-                        </p>
-                    </div>
-                    <div className={indexStyles.contentContainer}>
-                        <LoginContainer />
-                    </div>
-                </div>
+                <Card className={`w-75 darkShadow`} style={{maxWidth: '686.6px'}}>
+                    <Card.Body>
+                        <Card.Title className={'fw-bold'}>Vítejte v aplikaci</Card.Title>
+                        <Card.Text>
+                            {text}
+                        </Card.Text>
+                        <Button
+                            variant={'outline-secondary'}
+                            type={'button'}
+                            className={`hoverDarkShadow`}
+                            onClick={handleGoogleAuthLogin}
+                        >
+                            Přihlášení
+                        </Button>
+                    </Card.Body>
+                </Card>
             </main>
             <CustomFooter/>
         </>
@@ -63,7 +72,7 @@ export async function getServerSideProps(context) {
         }
     }
 
-    return { props: {}}
+    return {props: {}}
 }
 
 export default Home;

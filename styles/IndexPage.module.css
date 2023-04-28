@@ -1,5 +1,8 @@
 .contentContainer {
-    width: 45%;
+    z-index: 5;
+    width: 50%;
+    color: var(--bs-secondary);
+    background: white;
 }
 
 .backgroundCircle {
@@ -14,12 +17,10 @@
 }
 
 .title {
-    color: var(--bs-primary);
     font-size: 30px;
 }
 
 .text {
-    color: var(--bs-primary);
     padding: 10px;
     text-align: justify;
 }
