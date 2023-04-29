@@ -4,6 +4,7 @@ import FacebookProvider from "next-auth/providers/facebook";
 import GitHubProvider from "next-auth/providers/github";
 import {TypeORMLegacyAdapter} from "@next-auth/typeorm-legacy-adapter";
 import {SnakeNamingStrategy} from 'typeorm-naming-strategies'
+import {heroImagePath, logoImagePath} from "../../../lib/utils/frontend-env-variables";
 
 
 export default NextAuth({
@@ -36,5 +37,9 @@ export default NextAuth({
         async redirect({url, baseUrl}) {
             return baseUrl + '/homepage';
         },
+    },
+    theme: {
+        colorScheme: "light",
+        logo: logoImagePath
     }
 })
