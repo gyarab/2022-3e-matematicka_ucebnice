@@ -52,7 +52,7 @@ const TrueFalseGame = ({size, difficulty, email}) => {
             ...email,
             incorrect: incorrect,
             correct: correct,
-            gameId: 4
+            gameId: 3
         }).then(r => {
             console.log('added score')
         }).catch(err => {
