@@ -2,7 +2,7 @@ import NavBar from "../components/nav-bar/NavBar";
 import CustomHead from "../components/utils/CustomHead";
 import CustomFooter from "../components/utils/CustomFooter";
 import {colorThemeDark, colorThemeLight} from "../lib/utils/frontend-env-variables.js";
-import {Container, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import HomepageCard from "../components/homepage/HomepageCard";
 import {doBackendAuth} from "../components/utils/hooks/doBackendAuth";
 
@@ -31,33 +31,33 @@ const HomePage = (props) => {
             />
             <main className={'mt-5'}>
                 <NavBar/>
-                <div className={'container-fluid'}>
-                    <Container className={`w-100`}>
-                        <Row className={'align-items-center justify-content-center'}>
-                            <HomepageCard
-                                title={'Šestá třída'}
-                                description={'Description'}
-                                redirectDestination={'/class/sixth'}
-                            />
-                            <HomepageCard
-                                title={'Sedmá třída'}
-                                description={'Description'}
-                                redirectDestination={'/class/seventh'}
-                            />
+                <div className={'container-fluid w-100 d-flex flex-row justify-content-center'}>
+                        <Row style={{maxWidth: '1000px', width: '100%'}}>
+                            <Col className={`d-flex flex-column justify-content-center align-items-center`}>
+                                <HomepageCard
+                                    title={'Šestá třída'}
+                                    description={'Description'}
+                                    redirectDestination={'/class/sixth'}
+                                />
+                                <HomepageCard
+                                    title={'Sedmá třída'}
+                                    description={'Description'}
+                                    redirectDestination={'/class/seventh'}
+                                />
+                            </Col>
+                            <Col className={`d-flex flex-column justify-content-center align-items-center`}>
+                                <HomepageCard
+                                    title={'Osmá třída'}
+                                    description={'Description'}
+                                    redirectDestination={'/class/eight'}
+                                />
+                                <HomepageCard
+                                    title={'Devátá třída'}
+                                    description={'Description'}
+                                    redirectDestination={'/class/ninth'}
+                                />
+                            </Col>
                         </Row>
-                        <Row className={'align-items-center justify-content-center mb-5'}>
-                            <HomepageCard
-                                title={'Osmá třída'}
-                                description={'Description'}
-                                redirectDestination={'/class/eight'}
-                            />
-                            <HomepageCard
-                                title={'Devátá třída'}
-                                description={'Description'}
-                                redirectDestination={'/class/ninth'}
-                            />
-                        </Row>
-                    </Container>
                 </div>
             </main>
             <CustomFooter/>
